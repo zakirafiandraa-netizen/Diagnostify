@@ -86,8 +86,11 @@ export function startGame(code: string, playerId: string, category?: string): Ro
         roles.push({ role: "Civilian", word: pair.main });
     }
     
-    // Shuffle roles
-    roles.sort(() => Math.random() - 0.5);
+    // Shuffle roles using Fisher-Yates
+    for (let i = roles.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [roles[i], roles[j]] = [roles[j]!, roles[i]!];
+    }
 
     // Assign to cards
     room.cards = roles.map((r, index) => ({
