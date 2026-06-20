@@ -1,12 +1,11 @@
 import type { Screen, Player, ChatMessage } from "../types";
 
 // ── Constants ─────────────────────────────────────────────────────
+import diagnosesData from "../../../../backend/src/data/diagnoses.json";
+
 export const COLORS = ["#0D9488","#8B5CF6","#F97316","#EC4899","#3B82F6","#EAB308","#EF4444","#06B6D4"];
 export const AVATARS = ["🧑","👩","🧔","👧","🧒","👴","👵","🧑‍⚕️"];
-export const CATEGORIES = [
-  "Acak","Penyakit Jantung","Paru-paru","Saraf","Diabetes",
-  "Kulit","Tulang","Pencernaan","Darah","Infeksi","Kanker","Mata",
-];
+export const CATEGORIES = Object.keys(diagnosesData);
 
 export const MOCK_PLAYERS: Player[] = [
   { id:"1", name:"Budi",  color:"#0D9488", role:"Civilian",   score:120, breakdown:"3 correct votes + clue quality" },

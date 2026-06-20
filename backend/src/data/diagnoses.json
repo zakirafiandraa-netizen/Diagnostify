@@ -1,0 +1,672 @@
+{
+  "Musculoskeletal": [
+    {
+      "main": "Closed fracture",
+      "differential": "Open fracture"
+    },
+    {
+      "main": "Fracture",
+      "differential": "Dislocation"
+    },
+    {
+      "main": "Osteoporosis",
+      "differential": "Osteoarthritis"
+    },
+    {
+      "main": "ACL tear",
+      "differential": "Menical tear"
+    },
+    {
+      "main": "Achilles tendon ruptur",
+      "differential": "Ankle sprain"
+    },
+    {
+      "main": "Osteoarthritis",
+      "differential": "Rheumatoid arthritis"
+    },
+    {
+      "main": "Osteoarthritis",
+      "differential": "Gout"
+    },
+    {
+      "main": "Pes planus (flatfoot)",
+      "differential": "Pes cavus (high arch)"
+    },
+    {
+      "main": "Genu valgum (x foot)",
+      "differential": "Genu varum (O foot)"
+    },
+    {
+      "main": "Scoliosis idiopathic",
+      "differential": "Scoliosis congenital"
+    }
+  ],
+  "Cardiovascular": [
+    {
+      "main": "Septic shock",
+      "differential": "Hemorrhagic shock"
+    },
+    {
+      "main": "Cardiogenic shock",
+      "differential": "Septic shock"
+    },
+    {
+      "main": "Cardiogenic shock",
+      "differential": "Hemorhagic shock"
+    },
+    {
+      "main": "Stable angina",
+      "differential": "Unstable angina"
+    },
+    {
+      "main": "NSTEMI",
+      "differential": "STEMI"
+    },
+    {
+      "main": "Left heart failure",
+      "differential": "Right heart failure"
+    },
+    {
+      "main": "Essential hypertension",
+      "differential": "Secondary hypertension"
+    },
+    {
+      "main": "Pulmonary hypertension",
+      "differential": "Secondary hypertension"
+    },
+    {
+      "main": "Rheumatic heart disease",
+      "differential": "Endocarditis"
+    }
+  ],
+  "Respiratory": [
+    {
+      "main": "Influenza",
+      "differential": "Pertusis"
+    },
+    {
+      "main": "SARS",
+      "differential": "Avian influenza"
+    },
+    {
+      "main": "Influenza",
+      "differential": "Avian influenza"
+    },
+    {
+      "main": "Pertusis",
+      "differential": "SARS"
+    },
+    {
+      "main": "Faringitis",
+      "differential": "Tonsilitis"
+    },
+    {
+      "main": "Laringitis",
+      "differential": "tonsilitis"
+    },
+    {
+      "main": "Influenza",
+      "differential": "Acute respiratory distress syndrome"
+    },
+    {
+      "main": "Pertusis",
+      "differential": "Pneumonia"
+    },
+    {
+      "main": "Pertusis",
+      "differential": "Bronchiolitis"
+    },
+    {
+      "main": "Faringitis",
+      "differential": "Diphtheria"
+    },
+    {
+      "main": "Faringitis",
+      "differential": "Epiglotitis"
+    },
+    {
+      "main": "Tonsilitis",
+      "differential": "Epiglotitis"
+    },
+    {
+      "main": "Tonsilitis",
+      "differential": "Peritonsilar  abcess"
+    },
+    {
+      "main": "Diphtheria",
+      "differential": "Epiglotitis"
+    },
+    {
+      "main": "Diphtheria",
+      "differential": "Pertusis"
+    },
+    {
+      "main": "Bacterial aspiration",
+      "differential": "Mechanical aspiration"
+    },
+    {
+      "main": "Viral pneumonia",
+      "differential": "Bacterial pneumonia"
+    },
+    {
+      "main": "Asthma",
+      "differential": "COPD"
+    },
+    {
+      "main": "Asthma",
+      "differential": "Bronchiolitis"
+    },
+    {
+      "main": "COPD",
+      "differential": "Bronchiolitis"
+    },
+    {
+      "main": "COPD",
+      "differential": "Bronchiectasis"
+    },
+    {
+      "main": "Asthma",
+      "differential": "Bronchiectasis"
+    },
+    {
+      "main": "Bronchiolitis",
+      "differential": "Acute bronchitis"
+    },
+    {
+      "main": "Acute bronchitis",
+      "differential": "Asthma"
+    },
+    {
+      "main": "TBC",
+      "differential": "Lung cancer"
+    },
+    {
+      "main": "TBC",
+      "differential": "Pneumonia"
+    },
+    {
+      "main": "Pneumonia",
+      "differential": "Bronchiolitis"
+    },
+    {
+      "main": "Pneumonia",
+      "differential": "Acute bronchitis"
+    },
+    {
+      "main": "Lung cancer",
+      "differential": "Pleural effusion"
+    },
+    {
+      "main": "Secondary Pneumothorax",
+      "differential": "Tension pneumothorax"
+    },
+    {
+      "main": "Pleural effusion",
+      "differential": "Pneumonia"
+    },
+    {
+      "main": "Pleural effusion",
+      "differential": "TBC"
+    },
+    {
+      "main": "Pneumothorax ventil",
+      "differential": "Pneumothorax"
+    },
+    {
+      "main": "Chronic bronchitis",
+      "differential": "Emphysema"
+    },
+    {
+      "main": "Pulmonary edema",
+      "differential": "Lung abscess"
+    },
+    {
+      "main": "Hemothorax",
+      "differential": "Pneumothorax"
+    }
+  ],
+  "Hematoimmunology": [
+    {
+      "main": "Malaria",
+      "differential": "Typhoid"
+    },
+    {
+      "main": "Dengue fever",
+      "differential": "Measles"
+    },
+    {
+      "main": "Leptospirosis",
+      "differential": "Dengue"
+    },
+    {
+      "main": "Immune thrombocytopenia",
+      "differential": "Leukemia"
+    },
+    {
+      "main": "Hemophilia",
+      "differential": "von Willebrand disease"
+    },
+    {
+      "main": "Hemophilia",
+      "differential": "Scurvy"
+    },
+    {
+      "main": "Microcytic anemia",
+      "differential": "Macrocytic anemia"
+    },
+    {
+      "main": "Acute lymphoblastic leukemia (ALL)",
+      "differential": "Acute myelogenous leukemia (AML)"
+    },
+    {
+      "main": "Chronic lymphocytic leukemia (CLL)",
+      "differential": "Chronic myelogenous leukemia (CML)"
+    },
+    {
+      "main": "Alpha thalassemia",
+      "differential": "Beta thalassemia"
+    },
+    {
+      "main": "Hodgkin lymphoma",
+      "differential": "Non Hodgkin lymphoma"
+    },
+    {
+      "main": "Systemic lupus erythematosus (SLE)",
+      "differential": "Lymphoma"
+    },
+    {
+      "main": "Systemic lupus erythematosus (SLE)",
+      "differential": "Rheumatoid arthritis"
+    }
+  ],
+  "Neurobehavior": [
+    {
+      "main": "Meningitis",
+      "differential": "Stroke"
+    },
+    {
+      "main": "Meningitis",
+      "differential": "Encephalitis"
+    },
+    {
+      "main": "Viral encephalitis",
+      "differential": "Bacterial encephalitis"
+    },
+    {
+      "main": "Ischemic stroke",
+      "differential": "Hemorrhagic stroke"
+    },
+    {
+      "main": "Bell’s palsy",
+      "differential": "Stroke"
+    },
+    {
+      "main": "Parkinson’s disease",
+      "differential": "Parkinsonism"
+    },
+    {
+      "main": "Simple febrile seizure",
+      "differential": "Complex febrile seizure"
+    },
+    {
+      "main": "Seizure",
+      "differential": "Febrile seizure"
+    },
+    {
+      "main": "Epilepsy",
+      "differential": "Transient Ischemic Attack (TIA)"
+    },
+    {
+      "main": "Epilepsy",
+      "differential": "Status epilepticus"
+    },
+    {
+      "main": "Status epilepticus",
+      "differential": "Ischemic stroke"
+    },
+    {
+      "main": "Alzheimer dementia",
+      "differential": "Vascular dementia"
+    },
+    {
+      "main": "Wernicke's aphasia",
+      "differential": "Broca's aphasia"
+    },
+    {
+      "main": "Panic disorder",
+      "differential": "Anxiety disorder"
+    },
+    {
+      "main": "Schizophrenia",
+      "differential": "Schizophreniform"
+    },
+    {
+      "main": "Posttraumatic stress disorder (PTSD)",
+      "differential": "Acute stress disorder"
+    },
+    {
+      "main": "Posttraumatic stress disorder (PTSD)",
+      "differential": "Adjustment disorder"
+    },
+    {
+      "main": "Bipolar disorder",
+      "differential": "Major depressive disorder"
+    },
+    {
+      "main": "Bipolar disorder",
+      "differential": "Anxiety disorder"
+    }
+  ],
+  "Special Senses": [
+    {
+      "main": "Congenital Rubella",
+      "differential": "Toxoplasmosis"
+    },
+    {
+      "main": "Congenital Rubella",
+      "differential": "Measles"
+    },
+    {
+      "main": "Otitis media",
+      "differential": "Cholesteatoma"
+    },
+    {
+      "main": "Otitis media",
+      "differential": "Otitis externa"
+    },
+    {
+      "main": "Acute otitis media",
+      "differential": "Chronic suppurative otitis media"
+    },
+    {
+      "main": "Acute otitis media",
+      "differential": "Otitis media with effusion"
+    },
+    {
+      "main": "Allergic rhinitis",
+      "differential": "Vasomotor rhinitis"
+    },
+    {
+      "main": "Allergic rhinitis",
+      "differential": "Infectious rhinitis"
+    },
+    {
+      "main": "Acute viral rhinosinusitis",
+      "differential": "Bacterial rhinosinusitis"
+    },
+    {
+      "main": "Rhinitis",
+      "differential": "Rhinosinusitis"
+    },
+    {
+      "main": "Perichondritis",
+      "differential": "Auricular hematoma"
+    },
+    {
+      "main": "Mastoiditis",
+      "differential": "Otitis externa"
+    },
+    {
+      "main": "Benign paroxysmal positional vertigo (BPPV)",
+      "differential": "Menier’s disease"
+    },
+    {
+      "main": "Benign paroxysmal positional vertigo (BPPV)",
+      "differential": "Labyrinthitis"
+    },
+    {
+      "main": "Labyrinthitis",
+      "differential": "Vestibular neuritis"
+    },
+    {
+      "main": "Labyrinthitis",
+      "differential": "Menier’s disease"
+    },
+    {
+      "main": "Anterior epistaxis",
+      "differential": "Posterior epistaxis"
+    },
+    {
+      "main": "Entropion",
+      "differential": "Trichiasis"
+    },
+    {
+      "main": "Conjunctivitis",
+      "differential": "Keratitis"
+    },
+    {
+      "main": "Scleritis",
+      "differential": "Episcleritis"
+    },
+    {
+      "main": "Hordeolum",
+      "differential": "Chalazion"
+    },
+    {
+      "main": "Open angle glaucoma",
+      "differential": "Close angle glaucoma"
+    },
+    {
+      "main": "Cataract",
+      "differential": "Glaucoma"
+    },
+    {
+      "main": "Astigmatism",
+      "differential": "Myopia"
+    },
+    {
+      "main": "Astigmatism",
+      "differential": "Hyperopia"
+    },
+    {
+      "main": "Astigmatism",
+      "differential": "Presbyopia"
+    },
+    {
+      "main": "Lagophtalmos",
+      "differential": "Blepharitis"
+    },
+    {
+      "main": "Esotropia",
+      "differential": "Exotropia"
+    },
+    {
+      "main": "Dacryocystitis",
+      "differential": "Dacryoadenitis"
+    }
+  ],
+  "Dermatovenereology": [
+    {
+      "main": "Varicella (chickenpox)",
+      "differential": "Smallpox"
+    },
+    {
+      "main": "Varicella (chickenpox)",
+      "differential": "Monkeypox"
+    },
+    {
+      "main": "Varicella (chickenpox)",
+      "differential": "Impetigo"
+    },
+    {
+      "main": "Nonbullous impetigo",
+      "differential": "Bullous impetigo"
+    },
+    {
+      "main": "Impetigo",
+      "differential": "Cellulitis"
+    },
+    {
+      "main": "Acne vulgaris",
+      "differential": "Folliculitis"
+    },
+    {
+      "main": "Acne vulgaris",
+      "differential": "Rosacea"
+    },
+    {
+      "main": "Carbuncle",
+      "differential": "Furuncle"
+    },
+    {
+      "main": "Irritant contact dermatitis",
+      "differential": "Allergic contact dermatitis"
+    },
+    {
+      "main": "Stevens-Johnson syndrome (SJS)",
+      "differential": "Toxic epidermal necrolysis (TEN)"
+    },
+    {
+      "main": "Pityriasis alba",
+      "differential": "Tinea versicolor"
+    },
+    {
+      "main": "Pityriasis alba",
+      "differential": "Vitiligo"
+    },
+    {
+      "main": "Pityriasis alba",
+      "differential": "Morbus Hansen (leprosy)"
+    },
+    {
+      "main": "Tuberculoid leprosy",
+      "differential": "Lepromatous leprosy"
+    },
+    {
+      "main": "Scabies",
+      "differential": "Eczema"
+    },
+    {
+      "main": "Alopecia areata",
+      "differential": "Androgenetic alopecia"
+    },
+    {
+      "main": "Miliaria",
+      "differential": "Varicella"
+    },
+    {
+      "main": "Urticaria",
+      "differential": "Angioedema"
+    },
+    {
+      "main": "Angioedema",
+      "differential": "Anaphylaxis"
+    },
+    {
+      "main": "Callus",
+      "differential": "Clavus"
+    },
+    {
+      "main": "Seborrheic dermatitis",
+      "differential": "Psoriasis"
+    },
+    {
+      "main": "Paronychia",
+      "differential": "Psoriasis"
+    },
+    {
+      "main": "Paronychia",
+      "differential": "Onychomycosis"
+    },
+    {
+      "main": "Gonorrhea Urethritis",
+      "differential": "Non-Gonorrhea Urethritis"
+    },
+    {
+      "main": "Herpes Simplex",
+      "differential": "Herpes Zoster"
+    },
+    {
+      "main": "Chancroid",
+      "differential": "Herpes Simplex"
+    },
+    {
+      "main": "Syphilis",
+      "differential": "Chancroid"
+    }
+  ],
+  "Endocrinology": [
+    {
+      "main": "Hyperthyroidism",
+      "differential": "Hypothyroidism"
+    },
+    {
+      "main": "Graves disease",
+      "differential": "Hashimoto thyroiditis"
+    },
+    {
+      "main": "Graves disease",
+      "differential": "Toxic multinodular goiter"
+    },
+    {
+      "main": "Type 2 DM",
+      "differential": "Type 1 DM"
+    },
+    {
+      "main": "Cushing syndrome",
+      "differential": "Obesity"
+    },
+    {
+      "main": "Cushing syndrome",
+      "differential": "Addison disease"
+    },
+    {
+      "main": "Polycystic ovarian syndrome (PCOS)",
+      "differential": "Hypothyroid"
+    },
+    {
+      "main": "Constitutional delay of growth and puberty (CDGP)",
+      "differential": "Hypogonadotropic hypogonadism (HH)"
+    },
+    {
+      "main": "Acromegaly",
+      "differential": "Gigantism"
+    },
+    {
+      "main": "Primary polidypsia",
+      "differential": "Nephrogenic diabetes insipidus"
+    },
+    {
+      "main": "Primary polidypsia",
+      "differential": "Central diabetes insipidus"
+    },
+    {
+      "main": "Hyperosmolar hyperglycemic state (HHS)",
+      "differential": "Diabetic ketoacidosis (DKA)"
+    }
+  ],
+  "Metabolic and Nutrition": [
+    {
+      "main": "Marasmus",
+      "differential": "Kwashiorkor"
+    },
+    {
+      "main": "Wasting",
+      "differential": "Stunting"
+    },
+    {
+      "main": "Metabolic Syndrome",
+      "differential": "Hypothyroidism"
+    },
+    {
+      "main": "Hyperuricemia",
+      "differential": "Gout"
+    },
+    {
+      "main": "Beriberi",
+      "differential": "Wernicke-Korsakoff syndrome"
+    },
+    {
+      "main": "Wet beriberi",
+      "differential": "Dry beriberi"
+    },
+    {
+      "main": "Rickets",
+      "differential": "Osteomalacia"
+    },
+    {
+      "main": "B12 deficiency anemia",
+      "differential": "Folate deficiency anemia"
+    }
+  ]
+}

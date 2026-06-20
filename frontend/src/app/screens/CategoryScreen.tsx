@@ -25,7 +25,7 @@ export default function CategoryScreen() {
                 selectedCategory === cat
                   ? "bg-primary text-white border-primary shadow-md shadow-primary/20"
                   : "bg-card text-foreground border-border hover:border-primary/40 hover:bg-primary/5 hover:-translate-y-0.5 hover:shadow-sm"}`}>
-              {cat === "Acak" ? "🎲 " : "🩺 "}{cat}
+              🩺 {cat}
             </motion.button>
           ))}
         </motion.div>

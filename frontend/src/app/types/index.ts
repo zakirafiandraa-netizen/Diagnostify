@@ -10,6 +10,7 @@ export interface Player {
   name: string;
   color: string;
   avatar?: string;
+  isHost?: boolean;
   role?: "Civilian" | "Undercover" | "Mr. White";
   score?: number;
   breakdown?: string;
@@ -20,4 +21,9 @@ export interface ChatMessage {
   color: string;
   msg: string;
   time: string;
+}
+
+export interface CardState {
+  id: number;
+  pickedBy?: string;
 }

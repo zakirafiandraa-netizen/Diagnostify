@@ -1,0 +1,181 @@
+﻿Main diagnose,Differential diagnose
+Musculoskeletal,
+Closed fracture,Open fracture
+Fracture,Dislocation
+Osteoporosis,Osteoarthritis
+ACL tear,Menical tear
+Achilles tendon ruptur,Ankle sprain
+Osteoarthritis ,Rheumatoid arthritis
+Osteoarthritis,Gout
+Pes planus (flatfoot)’ ,Pes cavus (high arch)
+Genu valgum (x foot)’,Genu varum (O foot)
+Scoliosis idiopathic ,Scoliosis congenital
+,
+Cardiovascular,
+Septic shock,Hemorrhagic shock
+Cardiogenic shock,Septic shock
+Cardiogenic shock ,Hemorhagic shock
+Stable angina,Unstable angina
+NSTEMI,STEMI
+Left heart failure’,Right heart failure
+Essential hypertension,Secondary hypertension
+Pulmonary hypertension,Secondary hypertension
+Rheumatic heart disease,Endocarditis
+,
+Respiratory,
+Influenza,Pertusis
+SARS,Avian influenza
+Influenza,Avian influenza
+Pertusis,SARS
+Faringitis,Tonsilitis
+Laringitis,tonsilitis
+Influenza,Acute respiratory distress syndrome
+Pertusis,Pneumonia
+Pertusis,Bronchiolitis
+Faringitis,Diphtheria
+Faringitis ,Epiglotitis
+Tonsilitis,Epiglotitis
+Tonsilitis,Peritonsilar  abcess
+Diphtheria,Epiglotitis
+Diphtheria’,Pertusis
+Bacterial aspiration’,Mechanical aspiration
+Viral pneumonia,Bacterial pneumonia
+Asthma,COPD 
+Asthma,Bronchiolitis
+COPD,Bronchiolitis
+COPD,Bronchiectasis
+Asthma,Bronchiectasis
+Bronchiolitis,Acute bronchitis
+Acute bronchitis,Asthma
+TBC,Lung cancer
+TBC,Pneumonia
+Pneumonia,Bronchiolitis
+Pneumonia ,Acute bronchitis
+Lung cancer,Pleural effusion
+Secondary Pneumothorax ‘,Tension pneumothorax
+Pleural effusion,Pneumonia
+Pleural effusion ,TBC
+Pneumothorax ventil’,Pneumothorax
+Chronic bronchitis,Emphysema
+Pulmonary edema’,Lung abscess
+Hemothorax,Pneumothorax
+,
+Hematoimmunology,
+Malaria,Typhoid
+Dengue fever,Measles
+Leptospirosis,Dengue
+Immune thrombocytopenia,Leukemia 
+Hemophilia,von Willebrand disease
+Hemophilia,Scurvy
+Microcytic anemia’,Macrocytic anemia
+Acute lymphoblastic leukemia (ALL)’,Acute myelogenous leukemia (AML)
+Chronic lymphocytic leukemia (CLL)’ ,Chronic myelogenous leukemia (CML)
+Alpha thalassemia’,Beta thalassemia
+Hodgkin lymphoma’ ,Non Hodgkin lymphoma
+Systemic lupus erythematosus (SLE),Lymphoma
+Systemic lupus erythematosus (SLE),Rheumatoid arthritis
+,
+Neurobehavior,
+Meningitis,Stroke
+Meningitis’,Encephalitis
+Viral encephalitis’ ,Bacterial encephalitis
+Ischemic stroke’,Hemorrhagic stroke
+Bell’s palsy,Stroke
+Parkinson’s disease’,Parkinsonism
+Simple febrile seizure’,Complex febrile seizure
+Seizure’,Febrile seizure
+Epilepsy,Transient Ischemic Attack (TIA)
+Epilepsy’,Status epilepticus
+Status epilepticus,Ischemic stroke
+Alzheimer dementia,Vascular dementia
+Wernicke's aphasia’,Broca's aphasia
+Panic disorder’,Anxiety disorder
+Schizophrenia,Schizophreniform
+Posttraumatic stress disorder (PTSD),Acute stress disorder
+Posttraumatic stress disorder (PTSD),Adjustment disorder
+Bipolar disorder,Major depressive disorder 
+Bipolar disorder,Anxiety disorder
+,
+Special Senses,
+Congenital Rubella,Toxoplasmosis
+Congenital Rubella,Measles
+Otitis media,Cholesteatoma
+Otitis media,Otitis externa
+Acute otitis media’,Chronic suppurative otitis media
+Acute otitis media’,Otitis media with effusion
+Allergic rhinitis,Vasomotor rhinitis
+Allergic rhinitis,Infectious rhinitis
+Acute viral rhinosinusitis,Bacterial rhinosinusitis
+Rhinitis,Rhinosinusitis
+Perichondritis,Auricular hematoma
+Mastoiditis,Otitis externa
+Benign paroxysmal positional vertigo (BPPV),Menier’s disease
+Benign paroxysmal positional vertigo (BPPV),Labyrinthitis
+Labyrinthitis,Vestibular neuritis
+Labyrinthitis,Menier’s disease
+Anterior epistaxis’,Posterior epistaxis
+Entropion,Trichiasis
+Conjunctivitis,Keratitis
+Scleritis,Episcleritis 
+Hordeolum,Chalazion
+Open angle glaucoma’,Close angle glaucoma
+Cataract,Glaucoma
+Astigmatism,Myopia
+Astigmatism,Hyperopia
+Astigmatism,Presbyopia
+Lagophtalmos,Blepharitis
+Esotropia’,Exotropia
+Dacryocystitis’,Dacryoadenitis
+,
+Dermatovenereology,
+Varicella (chickenpox),Smallpox
+Varicella (chickenpox),Monkeypox
+Varicella (chickenpox),Impetigo
+Nonbullous impetigo’,Bullous impetigo
+Impetigo’,Cellulitis
+Acne vulgaris ,Folliculitis
+Acne vulgaris ,Rosacea
+Carbuncle’,Furuncle
+Irritant contact dermatitis’,Allergic contact dermatitis
+Stevens-Johnson syndrome (SJS)’,Toxic epidermal necrolysis (TEN)
+Pityriasis alba,Tinea versicolor
+Pityriasis alba,Vitiligo
+Pityriasis alba,Morbus Hansen (leprosy)
+Tuberculoid leprosy’,Lepromatous leprosy
+Scabies,Eczema
+Alopecia areata,Androgenetic alopecia
+Miliaria,Varicella
+Urticaria,Angioedema
+Angioedema,Anaphylaxis
+Callus’,Clavus
+Seborrheic dermatitis,Psoriasis
+Paronychia,Psoriasis
+Paronychia,Onychomycosis
+Gonorrhea Urethritis,Non-Gonorrhea Urethritis
+Herpes Simplex’,Herpes Zoster
+Chancroid,Herpes Simplex
+Syphilis,Chancroid
+,
+Endocrinology,
+Hyperthyroidism’,Hypothyroidism
+Graves disease,Hashimoto thyroiditis
+Graves disease,Toxic multinodular goiter
+Type 2 DM’,Type 1 DM
+Cushing syndrome,Obesity
+Cushing syndrome’,Addison disease
+Polycystic ovarian syndrome (PCOS),Hypothyroid
+Constitutional delay of growth and puberty (CDGP)’,Hypogonadotropic hypogonadism (HH)
+Acromegaly,Gigantism
+Primary polidypsia,Nephrogenic diabetes insipidus
+Primary polidypsia,Central diabetes insipidus
+Hyperosmolar hyperglycemic state (HHS),Diabetic ketoacidosis (DKA)
+,
+Metabolic and Nutrition,
+Marasmus,Kwashiorkor
+Wasting’,Stunting
+Metabolic Syndrome,Hypothyroidism
+Hyperuricemia’,Gout
+Beriberi’,Wernicke-Korsakoff syndrome
+Wet beriberi’,Dry beriberi
+Rickets’,Osteomalacia
+B12 deficiency anemia’,Folate deficiency anemia

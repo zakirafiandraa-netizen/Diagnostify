@@ -4,14 +4,28 @@ import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
 import { Avatar } from "../components/shared/Avatar";
 import { fadeUp, staggerList } from "../animations/presets";
+import { socket } from "../services/socket";
 
 export default function LobbyPlayersScreen() {
-  const { go, players } = useGame();
+  const { go, players, roomCode, selectedCategory, playerId } = useGame();
+
+  const handleStart = () => {
+    socket.emit("game:start", { code: roomCode, category: selectedCategory === "Acak" ? undefined : selectedCategory });
+    go("choose-role");
+  };
 
   return (
     <div className="flex flex-col min-h-screen lg:min-h-0">
       <NavBar title="Waiting Room" onBack={() => go("lobby-main")}
-        action={<button onClick={() => go("choose-role")} className="bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:opacity-90">Start</button>} />
+        action={
+          <button
+            onClick={handleStart}
+            disabled={players.length < 3 || players[0]?.id !== playerId}
+            className="bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            Start
+          </button>
+        } />
       <div className="flex-1 overflow-y-auto px-4 lg:px-8 py-4 space-y-4">
         <div className="lg:max-w-3xl lg:mx-auto space-y-4">
           <div className="bg-card rounded-2xl p-4 lg:p-6 border border-border shadow-sm">

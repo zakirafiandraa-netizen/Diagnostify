@@ -5,12 +5,19 @@ import { CATEGORIES } from "../constants";
 import { socket } from "../services/socket";
 
 export default function LobbyMainScreen() {
-  const { go, roomCode, players, selectedCategory, setSelectedCategory } = useGame();
+  const { go, roomCode, players, selectedCategory, setSelectedCategory, playerId } = useGame();
   const [copied, setCopied] = useState(false);
 
-  const copy = () => { 
-    setCopied(true); 
-    setTimeout(() => setCopied(false), 2000); 
+  const isHost = players.find((p) => p.id === playerId)?.isHost ?? false;
+
+  const copy = () => {
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleStart = () => {
+    if (!roomCode || !isHost) return;
+    socket.emit("game:start", { code: roomCode, category: selectedCategory });
   };
 
   const handleLeave = () => {
@@ -23,7 +30,11 @@ export default function LobbyMainScreen() {
       <div className="flex items-center justify-between px-4 lg:px-8 py-3 border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-10">
         <button onClick={handleLeave} className="text-sm text-muted-foreground hover:text-destructive transition-colors">← Leave</button>
         <span className="font-semibold text-sm text-foreground">Game Lobby</span>
-        <button onClick={() => go("lobby-players")} className="bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:opacity-90 transition-opacity">Start →</button>
+        {/* Only host sees Next, others see nothing */}
+        {isHost
+          ? <button onClick={() => go("lobby-players")} className="bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:opacity-90 transition-opacity">Next →</button>
+          : <div className="w-16" /> 
+        }
       </div>
       <div className="flex-1 overflow-y-auto px-4 lg:px-8 py-6 space-y-5">
         <div className="lg:max-w-xl lg:mx-auto space-y-5">
@@ -46,8 +57,8 @@ export default function LobbyMainScreen() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label:"Players Joined", value:`${players.length} / 8` },
-                { label:"Current Phase", value:"Lobby" }
+                { label: "Players Joined", value: `${players.length} / 8` },
+                { label: "Current Phase", value: "Lobby" }
               ].map((s) => (
                 <div key={s.label} className="bg-muted rounded-xl p-3">
                   <p className="text-xs text-muted-foreground">{s.label}</p>
@@ -58,11 +69,35 @@ export default function LobbyMainScreen() {
           </div>
           <div className="bg-card rounded-2xl p-5 border border-border shadow-sm">
             <h4 className="font-semibold text-sm mb-3">Game Theme</h4>
-            <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full bg-muted rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30 text-foreground">
-              {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
-            </select>
+            {isHost ? (
+              <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full bg-muted rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30 text-foreground">
+                {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
+              </select>
+            ) : (
+              <div className="bg-muted rounded-xl px-3 py-2.5 text-sm text-foreground">
+                {selectedCategory || "Waiting for host to pick…"}
+              </div>
+            )}
           </div>
+
+          {/* Start button — host only */}
+          {isHost && (
+            <button
+              onClick={handleStart}
+              disabled={players.length < 3}
+              className="w-full bg-primary text-white font-bold py-3.5 rounded-2xl hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {players.length < 3 ? `Need ${3 - players.length} more player(s)` : "Start Game"}
+            </button>
+          )}
+
+          {/* Non-host waiting message */}
+          {!isHost && (
+            <div className="text-center text-sm text-muted-foreground py-2">
+              Waiting for the host to start the game…
+            </div>
+          )}
         </div>
       </div>
     </div>
