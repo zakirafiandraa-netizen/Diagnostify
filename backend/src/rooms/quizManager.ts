@@ -1,29 +1,35 @@
 import quizData from "../data/quiz.json" with { type: "json" };
 
-// Define the shape of a quiz item. Adjust fields to match actual JSON structure.
-export interface Quiz {
-    id: number;
+type QuizQuestion = {
     question: string;
     options: string[];
-    answer: string;
+    answer: number;
+};
+
+type QuizData = {
+    [category: string]: QuizQuestion[];
+};
+
+const quiz = quizData as QuizData;
+
+// Build a lowercase-keyed lookup for case-insensitive matching
+const quizLower: QuizData = {};
+for (const key of Object.keys(quiz)) {
+    quizLower[key.toLowerCase()] = quiz[key]!;
 }
 
-// Cast the imported data to an array of Quiz objects
-const quizzes: Quiz[] = quizData as unknown as Quiz[];
-
-/**
- * Get all quizzes.
- * @returns An array of Quiz objects.
- */
-export function getAllQuizzes(): Quiz[] {
-    return quizzes;
-}
-
-/**
- * Get a quiz by its ID.
- * @param id - The ID of the quiz to retrieve.
- * @returns The matching Quiz object, or undefined if not found.
- */
-export function getQuizById(id: number): Quiz | undefined {
-    return quizzes.find((q) => q.id === id);
+export function getRandomQuestion(category: string): QuizQuestion | null {
+    let questions = quizLower[category.toLowerCase()];
+    
+    // Fallback: If the category is completely missing from quiz.json, pick a random category
+    if (!questions || questions.length === 0) {
+        const availableCategories = Object.keys(quizLower);
+        if (availableCategories.length === 0) return null;
+        
+        const randomFallbackCategory = availableCategories[Math.floor(Math.random() * availableCategories.length)]!;
+        questions = quizLower[randomFallbackCategory];
+    }
+    
+    if (!questions || questions.length === 0) return null;
+    return questions[Math.floor(Math.random() * questions.length)]!;
 }

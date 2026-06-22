@@ -1,17 +1,12 @@
 import { Server, Socket } from "socket.io";
-import { createRoom, joinRoom, leaveRoom, startGame, pickCard, getRoom } from "../rooms/roomManager.js";
+import { createRoom, joinRoom, leaveRoom, startGame, pickCard, castVote, resolveVotes, checkWinCondition, applyQuizPoints, applyPrivilege, getAlivePlayers, getRoom } from "../rooms/roomManager.js";
 import type { Player } from "../types/game.js";
 import { getCategories } from "../rooms/wordManager.js";
+import { getRandomQuestion } from "../rooms/quizManager.js";
 
 export function registerGameHandlers(io: Server, socket: Socket) {
     socket.on("room:create", (playerName: string) => {
-        const player: Player = {
-            id: socket.id,
-            name: playerName,
-            isHost: true,
-            score: 0
-        };
-        const room = createRoom(player);
+        const room = createRoom({ id: socket.id, name: playerName });
         socket.join(room.code);
         socket.emit("room:created", room);
     });
@@ -140,5 +135,155 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         if (!room) return;
 
         socket.to(roomCode).emit("chat:stop_typing", socket.id);
+    });
+
+    socket.on("vote:cast", (data: { roomCode: string; targetId: string }) => {
+        const success = castVote(data.roomCode, socket.id, data.targetId);
+        if (!success) {
+            socket.emit("room:error", "Vote could not be casted.");
+            return;
+        }
+
+        const room = getRoom(data.roomCode);
+        if (!room) return;
+
+        const alivePlayers = getAlivePlayers(data.roomCode);
+        const votesCast = Object.keys(room.votes).length;
+
+        io.to(data.roomCode).emit("vote:updated", { votesCast, total: alivePlayers.length });
+
+        if (votesCast >= alivePlayers.length) {
+            const { eliminated, tied } = resolveVotes(data.roomCode);
+
+            if (tied) {
+                io.to(data.roomCode).emit("vote:tied");
+            } else if (eliminated) {
+                io.to(data.roomCode).emit("vote:eliminated", {
+                    playerId: eliminated.id,
+                    playerName: eliminated.name,
+                    role: eliminated.role,
+                });
+            }
+
+            // Win condition will be checked at the end of the quiz phase
+
+            const updatedRoom = getRoom(data.roomCode);
+            if (updatedRoom?.category) {
+                const question = getRandomQuestion(updatedRoom.category);
+                if (question) {
+                    io.to(data.roomCode).emit("quiz:start", {
+                        question: question.question,
+                        options: question.options,
+                        round: updatedRoom.round,
+                    });
+
+                    (updatedRoom as any)._currentAnswer = question.answer;
+                    (updatedRoom as any)._quizAnswered = [];
+                    (updatedRoom as any)._answerTimer = Date.now();
+                }
+            }
+        }
+    });
+
+    socket.on("vote:start", (roomCode: string) => {
+        const room = getRoom(roomCode);
+        if (!room) return;
+        const player = room.players.find((p) => p.id === socket.id);
+        if (!player?.isHost) return;
+        room.phase = "voting";
+        room.votes = {};
+        io.to(roomCode).emit("vote:phase_started");
+    });
+
+    socket.on("quiz:answer", (data: { roomCode: string; answerIndex: number }) => {
+        const room = getRoom(data.roomCode) as any;
+        if (!room || room.phase !== "quiz") return;
+
+        const correctAnswer = room._currentAnswer;
+        const alreadyAnswered: string[] = room._quizAnswered ?? [];
+
+        if (alreadyAnswered.includes(socket.id)) return;
+        alreadyAnswered.push(socket.id);
+        room._quizAnswered = alreadyAnswered;
+
+        const isCorrect = data.answerIndex === correctAnswer;
+        const isFirst = alreadyAnswered.length === 1;
+
+        if (isFirst) {
+            applyQuizPoints(data.roomCode, socket.id, 15);
+            io.to(data.roomCode).emit("room:updated", getRoom(data.roomCode));
+            socket.emit("quiz:result", { correct: true, points: 15, hasPrivilege: true });
+            io.to(data.roomCode).emit("quiz:fastest", { playerId: socket.id });
+
+            const player = room.players.find((p: any) => p.id === socket.id);
+            const isSpectator = player?.status === "spectator";
+            if (isSpectator) {
+                socket.emit("quiz:privilege_options", { options: [] });
+            } else {
+                io.to(data.roomCode).emit("room:updated", getRoom(data.roomCode));
+                socket.emit("quiz:privilege_options", {
+                    options: ["points", "immunity", "clue_request"],
+                });
+            }
+        } else if (isCorrect) {
+            applyQuizPoints(data.roomCode, socket.id, 10);
+            io.to(data.roomCode).emit("room:updated", getRoom(data.roomCode));
+            socket.emit("quiz:result", { correct: true, points: 10, hasPrivilege: false });
+        } else {
+            socket.emit("quiz:result", { correct: false, points: 0, hasPrivilege: false });
+        }
+    })
+
+    socket.on("quiz:choose_privilege", (data: {
+        roomCode: string;
+        privilege: "points" | "immunity" | "clue_request";
+        targetId?: string;
+    }) => {
+        const room = getRoom(data.roomCode);
+        if (!room) return;
+
+        applyPrivilege(data.roomCode, socket.id, data.privilege, data.targetId);
+
+        if (data.privilege === "clue_request" && data.targetId) {
+            // Notify the targeted player they must submit a clue
+            io.to(data.targetId).emit("clue:requested", { requestedBy: socket.id });
+            io.to(data.roomCode).emit("clue:request_announced", {
+                requesterId: socket.id,
+                targetId: data.targetId,
+            });
+        }
+
+        io.to(data.roomCode).emit("room:updated", getRoom(data.roomCode));
+        socket.emit("quiz:privilege_applied", { privilege: data.privilege });
+    });
+
+    socket.on("quiz:end", (roomCode: string) => {
+        const room = getRoom(roomCode);
+        if (!room) return;
+        
+        const player = room.players.find(p => p.id === socket.id);
+        if (!player || !player.isHost) return;
+
+        // Check if game is won before transitioning to next round
+        const { won, winners } = checkWinCondition(roomCode);
+        if (won) {
+            io.to(roomCode).emit("room:updated", getRoom(roomCode));
+            io.to(roomCode).emit("game:won", {
+                winners: winners.map((w: Player) => ({ id: w.id, name: w.name, score: w.score })),
+            });
+            return;
+        }
+
+        // +20 points for all alive players advancing to the next round
+        room.players.forEach(p => {
+            if (p.status === "Alive") {
+                p.score += 20;
+            }
+        });
+
+        // Transition back to discussion phase for the next round
+        room.phase = "discussion";
+        io.to(roomCode).emit("room:updated", room);
+        io.to(roomCode).emit("round:started", { round: room.round });
     });
 }

@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { Clock, Send } from "lucide-react";
 import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
-import { InfoBanner, PrimaryButtonBar } from "../components/shared/InfoBanner";
+import { InfoBanner } from "../components/shared/InfoBanner";
 import { ChatSection, ChatSidebar } from "../components/shared/ChatComponents";
 import { RoundTableScene } from "../components/shared/RoundTableScene";
 import { socket } from "../services/socket"
 
 export default function DiscussionScreen() {
-  const { go, players, chatMessages, playerId, roomCode } = useGame();
+  const { players, chatMessages, playerId, roomCode, clueRequested } = useGame();
   const [clue, setClue] = useState("");
   const [typingPlayerIds, setTypingPlayerIds] = useState<string[]>([]);
   const [speakingPlayerIds, setSpeakingPlayerIds] = useState<string[]>([]);
@@ -82,8 +82,13 @@ export default function DiscussionScreen() {
             description="Each player gives one clue about their disease. Don't reveal it directly!"
           />
 
+          {clueRequested && (
           <div className="bg-card rounded-2xl p-4 lg:p-5 border border-border shadow-sm">
-            <label className="text-sm font-semibold text-foreground block mb-2" htmlFor="clue-input">Submit Your Diagnosis Clue</label>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-sm">🔍</span>
+              <label className="text-sm font-semibold text-foreground" htmlFor="clue-input">You've Been Requested to Submit a Clue</label>
+            </div>
+            <p className="text-xs text-muted-foreground mb-3">Another player used their quiz privilege to request a clue from you.</p>
             <textarea id="clue-input" value={clue} onChange={(e) => {
               setClue(e.target.value);
               handleTyping();
@@ -94,6 +99,7 @@ export default function DiscussionScreen() {
               <Send className="w-4 h-4" /> Submit Clue
             </button>
           </div>
+          )}
           <div className="lg:hidden"><ChatSection messages={chatMessages} /></div>
         </div>
 
@@ -112,7 +118,17 @@ export default function DiscussionScreen() {
         />
       </div>
 
-      <PrimaryButtonBar onClick={() => go("voting")} label="Go to Voting Phase →" />
+      <div className="p-4 lg:px-8 border-t border-border bg-card">
+        {players.find(p => p.id === playerId)?.isHost ? (
+          <button
+            onClick={() => socket.emit("vote:start", roomCode)}
+            className="w-full bg-destructive text-white py-3 rounded-xl font-bold hover:opacity-90 active:scale-[0.98] transition-all">
+            Start Voting Phase →
+          </button>
+        ) : (
+          <p className="text-center text-sm text-muted-foreground py-2">Waiting for host to start voting…</p>
+        )}
+      </div>
     </div>
   );
 }

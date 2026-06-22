@@ -21,6 +21,7 @@ const VotingScreen = React.lazy(() => import("./screens/VotingScreen"));
 const FinalistScreen = React.lazy(() => import("./screens/FinalistScreen"));
 const FinalSubmissionsScreen = React.lazy(() => import("./screens/FinalSubmissionsScreen"));
 const GameOverScreen = React.lazy(() => import("./screens/GameOverScreen"));
+const QuizScreen = React.lazy(() => import("./screens/QuizScreen"));
 
 function AppRouter() {
   const { screen } = useGame();
@@ -42,6 +43,7 @@ function AppRouter() {
       case "finalist":           return <FinalistScreen />;
       case "final-submissions":  return <FinalSubmissionsScreen />;
       case "game-over":          return <GameOverScreen />;
+      case "quiz":               return <QuizScreen />;
       default:                   return <HomeScreen />;
     }
   };

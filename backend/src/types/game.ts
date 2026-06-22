@@ -4,8 +4,12 @@ export type Player = {
     isHost: boolean,
     score: number,
     role?: "Civilian" | "Undercover" | "Mr White",
-    word?: string
+    word?: string,
+    status: PlayerStatus,
+    immuneThisRound: boolean,
 };
+
+export type PlayerStatus = "Alive" | "Eliminated";
 
 export type Card = {
     id: number;
@@ -21,5 +25,11 @@ export type Room = {
     category?: string,
     civilianWord?: string,
     undercoverWord?: string,
-    cards?: Card[]
+    cards?: Card[],
+    round: number,
+    phase: "discussion" | "voting" | "quiz" | "finished"
+    votes: Record<string, string>,
+    immunePlayers: string[],
+    clueRequests: string[],
+    quizWinnerId?: string
 };

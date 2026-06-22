@@ -1,0 +1,184 @@
+{
+    "musculoskeletal": [
+        {
+            "question": "Which bone is most commonly fractured in osteoporosis?",
+            "options": [
+                "Tibia",
+                "Femoral neck",
+                "Radius",
+                "Humerus"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "What does ACL stand for?",
+            "options": [
+                "Anterior Cruciate Ligament",
+                "Anterior Calcaneal Ligament",
+                "Anterior Carpal Ligament",
+                "Anterior Costal Ligament"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "Which condition is characterized by lateral curvature of the spine?",
+            "options": [
+                "Lordosis",
+                "Kyphosis",
+                "Scoliosis",
+                "Spondylosis"
+            ],
+            "answer": 2
+        }
+    ],
+    "cardiovascular": [
+        {
+            "question": "What is the most common cause of myocardial infarction?",
+            "options": [
+                "Coronary artery spasm",
+                "Atherosclerosis",
+                "Embolism",
+                "Vasculitis"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Which type of shock is caused by severe heart failure?",
+            "options": [
+                "Septic shock",
+                "Hypovolemic shock",
+                "Cardiogenic shock",
+                "Neurogenic shock"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "STEMI stands for?",
+            "options": [
+                "ST-Elevation Myocardial Infarction",
+                "Subendocardial Tachycardia Myocardial Ischemia",
+                "Systolic Tension Elevation Myocardial Index",
+                "ST-Elevation Mitral Insufficiency"
+            ],
+            "answer": 0
+        }
+    ],
+    "respiratory": [
+        {
+            "question": "What is the hallmark finding of asthma on spirometry?",
+            "options": [
+                "Reduced FVC",
+                "Reversible airflow obstruction",
+                "Increased RV",
+                "Reduced DLCO"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Which organism most commonly causes community-acquired pneumonia?",
+            "options": [
+                "Klebsiella pneumoniae",
+                "Haemophilus influenzae",
+                "Streptococcus pneumoniae",
+                "Staphylococcus aureus"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Tension pneumothorax is best treated with?",
+            "options": [
+                "Observation",
+                "Needle decompression",
+                "Antibiotics",
+                "Bronchodilators"
+            ],
+            "answer": 1
+        }
+    ],
+    "hematoimmunology": [
+        {
+            "question": "Which clotting factors are deficient in Hemophilia A?",
+            "options": [
+                "Factor IX",
+                "Factor VIII",
+                "Factor X",
+                "Factor VII"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "What is the hallmark of SLE on lab findings?",
+            "options": [
+                "Anti-CCP antibodies",
+                "Anti-dsDNA antibodies",
+                "Anti-Ro antibodies",
+                "Rheumatoid factor"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Hodgkin lymphoma is characterized by which cell type?",
+            "options": [
+                "Reed-Sternberg cells",
+                "Plasma cells",
+                "Auer rods",
+                "Smudge cells"
+            ],
+            "answer": 0
+        }
+    ],
+    "neurobehavior": [
+        {
+            "question": "Which artery is most commonly involved in an ischemic stroke?",
+            "options": [
+                "Posterior cerebral artery",
+                "Basilar artery",
+                "Middle cerebral artery",
+                "Anterior communicating artery"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "What is the first-line treatment for generalized tonic-clonic seizures?",
+            "options": [
+                "Carbamazepine",
+                "Valproate",
+                "Phenytoin",
+                "Lamotrigine"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Bell's palsy affects which cranial nerve?",
+            "options": [
+                "CN V",
+                "CN VI",
+                "CN VII",
+                "CN VIII"
+            ],
+            "answer": 2
+        }
+    ],
+    "special senses": [
+        {
+            "question": "Which condition is characterized by increased intraocular pressure?",
+            "options": [
+                "Cataract",
+                "Glaucoma",
+                "Macular degeneration",
+                "Retinitis pigmentosa"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "BPPV is caused by what ?",
+            "options": [
+                "",
+                "",
+                "",
+                ""
+            ],
+            "answer": 1
+        }
+    ]
+}
