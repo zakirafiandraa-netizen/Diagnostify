@@ -7,6 +7,7 @@ interface RoundTableSceneProps {
     playerId?: string;
     typingPlayerIds?: string[];
     speakingPlayerIds?: string[];
+    playerClues?: Record<string, string>;
 }
 
 interface StickmanPosition {
@@ -63,7 +64,7 @@ function getStickmanImage(state: StickmanState): string {
     }
 }
 
-export function RoundTableScene({ players, playerId = "", typingPlayerIds = [], speakingPlayerIds = [] }: RoundTableSceneProps) {
+export function RoundTableScene({ players, playerId = "", typingPlayerIds = [], speakingPlayerIds = [], playerClues = {} }: RoundTableSceneProps) {
     const W = 600;
     const H = 280; // Changed H from 520 to 280 to focus on the top half
     const cx = W / 2;
@@ -165,6 +166,21 @@ export function RoundTableScene({ players, playerId = "", typingPlayerIds = [], 
                                 >
                                     {pos.isMe ? `${pos.player.name} (You)` : pos.player.name}
                                 </text>
+                                
+                                {/* Player submitted clue */}
+                                {playerClues[pos.player.name] && (
+                                    <text
+                                        x={pos.x}
+                                        y={imgY - 2}
+                                        textAnchor="middle"
+                                        fontSize={8}
+                                        fontWeight={500}
+                                        fill="#64748b"
+                                        opacity={0.9}
+                                    >
+                                        "{playerClues[pos.player.name]}"
+                                    </text>
+                                )}
                             </g>
                         );
                     })}

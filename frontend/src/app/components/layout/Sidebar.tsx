@@ -9,7 +9,7 @@ const SETUP_STEP: Record<string, number> = {
 const GAME_SCREENS = new Set(["lobby-main","lobby-players","choose-role","role-revealed","discussion","voting"]);
 
 export function Sidebar() {
-  const { screen, go, roomCode, players, selectedCategory, playerId } = useGame();
+  const { screen, go, roomCode, players, selectedCategory, gameCategory, playerId } = useGame();
   const meta = SCREEN_META[screen];
   const isSetup = screen in SETUP_STEP;
   const step = SETUP_STEP[screen] ?? -1;
@@ -107,7 +107,7 @@ export function Sidebar() {
               {[
                 { k: "Room Code", v: roomCode, mono: true },
                 { k: "Players", v: `${players.length} / 8` },
-                { k: "Category", v: selectedCategory },
+                { k: "Category", v: (gameCategory || selectedCategory) || "—" },
                 { k: "Your Role", v: activeRole, accent: true },
               ].map((r) => (
                 <div key={r.k} className="flex justify-between text-xs">

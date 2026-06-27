@@ -2,7 +2,7 @@ import { Server, Socket } from "socket.io";
 import { createRoom, joinRoom, leaveRoom, startGame, pickCard, castVote, resolveVotes, checkWinCondition, applyQuizPoints, applyPrivilege, getAlivePlayers, getRoom, rejoinRoom } from "../rooms/roomManager.js";
 import type { Player } from "../types/game.js";
 import { getCategories } from "../rooms/wordManager.js";
-import { getRandomQuestion } from "../rooms/quizManager.js";
+import { getRandomQuestion, getQuizCategories } from "../rooms/quizManager.js";
 
 const disconnectTimers: Record<string, NodeJS.Timeout> = {};
 const inactivityTimers: Record<string, NodeJS.Timeout> = {};
@@ -98,6 +98,7 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                 ...strippedRoom,
                 myRole: player?.role,
                 myWord: player?.word,
+                pendingCategory: (room as any)._pendingCategory ?? null,
             });
 
             socket.to(code).emit("room:updated", strippedRoom);
@@ -186,6 +187,25 @@ export function registerGameHandlers(io: Server, socket: Socket) {
     socket.on("game:getCategories", () => {
         socket.emit("game:categories", getCategories());
     });
+
+    // ── Lobby: quiz-theme categories from quiz.json ─────────────────
+    socket.on("lobby:get_categories", () => {
+        socket.emit("lobby:categories", getQuizCategories());
+    });
+
+    // ── Lobby: host picks a quiz theme → broadcast to whole room ───
+    socket.on("lobby:category_change", (data: { roomCode: string; category: string }) => {
+        const room = getRoom(data.roomCode);
+        if (!room) return;
+        // Only the host can change the category
+        const player = room.players.find(p => p.id === socket.id);
+        if (!player || !player.isHost) return;
+        // Store it on the room so rejoiners can get it
+        (room as any)._pendingCategory = data.category;
+        // Broadcast to everyone in the room (including the host)
+        io.to(data.roomCode).emit("lobby:category_changed", { category: data.category });
+    });
+
 
     // ── Chat: alive players only ───────────────────────────────────────
     socket.on("chat:message", (data: { roomCode: string, message: string, playerName: string, color: string }) => {

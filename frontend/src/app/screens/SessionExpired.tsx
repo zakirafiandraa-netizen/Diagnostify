@@ -1,5 +1,5 @@
 import { useGame } from "../context/GameContext";
-import { clearSession } from "../services/socket";
+import { clearSession } from "../services/session";
 
 export default function SessionExpiredScreen() {
     const { go } = useGame();

@@ -8,7 +8,7 @@ import { RoundTableScene } from "../components/shared/RoundTableScene";
 import { socket } from "../services/socket"
 
 export default function DiscussionScreen() {
-  const { players, chatMessages, playerId, roomCode, clueRequested } = useGame();
+  const { players, chatMessages, playerId, roomCode, clueRequested, setClueRequested } = useGame();
   const [clue, setClue] = useState("");
   const [typingPlayerIds, setTypingPlayerIds] = useState<string[]>([]);
   const [speakingPlayerIds, setSpeakingPlayerIds] = useState<string[]>([]);
@@ -50,6 +50,7 @@ export default function DiscussionScreen() {
         color: currentPlayer?.color || "#3B82F6",
         message: `🩺 Clue: "${clue.trim()}"`,
       });
+      if (clueRequested) setClueRequested(false);
       setClue("");
     }
   };
@@ -60,8 +61,15 @@ export default function DiscussionScreen() {
     socket.emit("chat:typing", roomCode || "");
   };
 
+  const playerClues: Record<string, string> = {};
+  chatMessages.forEach(m => {
+    if (m.msg.startsWith('🩺 Clue: "') && m.msg.endsWith('"')) {
+      playerClues[m.player] = m.msg.substring('🩺 Clue: "'.length, m.msg.length - 1);
+    }
+  });
+
   return (
-    <div className="flex flex-col min-h-screen lg:min-h-0">
+    <div className="flex flex-col min-h-screen lg:min-h-0 relative">
       <NavBar title="Discussion Phase" />
       <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         <div className="flex-1 overflow-y-auto px-4 lg:px-8 py-4 space-y-4">
@@ -71,9 +79,8 @@ export default function DiscussionScreen() {
                 players={players.filter(p => p.status !== "Eliminated")}
                 playerId={playerId}
                 typingPlayerIds={typingPlayerIds}
-
-
                 speakingPlayerIds={speakingPlayerIds}
+                playerClues={playerClues}
               />
             ) : (
               <div className="h-48 flex items-center justify-center text-sm text-muted-foreground">
@@ -90,22 +97,24 @@ export default function DiscussionScreen() {
           />
 
           {clueRequested && (
-          <div className="bg-card rounded-2xl p-4 lg:p-5 border border-border shadow-sm">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-sm">🔍</span>
-              <label className="text-sm font-semibold text-foreground" htmlFor="clue-input">You've Been Requested to Submit a Clue</label>
+            <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+              <div className="bg-card rounded-2xl p-6 w-full max-w-sm border border-border shadow-xl">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xl">🔍</span>
+                  <label className="text-lg font-bold text-foreground" htmlFor="clue-input">Submit a Clue</label>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">You have been requested to submit a clue by another player using their privilege.</p>
+                <textarea id="clue-input" value={clue} onChange={(e) => {
+                  setClue(e.target.value);
+                  handleTyping();
+                }}
+                  placeholder="Describe your disease without naming it…"
+                  className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/30 resize-none h-28 text-foreground placeholder:text-muted-foreground leading-relaxed" />
+                <button onClick={handleSendClue} disabled={!clue.trim()} className="w-full mt-4 bg-primary text-white py-3 rounded-xl text-sm font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 active:scale-[0.98] transition-all">
+                  <Send className="w-4 h-4" /> Submit Clue
+                </button>
+              </div>
             </div>
-            <p className="text-xs text-muted-foreground mb-3">Another player used their quiz privilege to request a clue from you.</p>
-            <textarea id="clue-input" value={clue} onChange={(e) => {
-              setClue(e.target.value);
-              handleTyping();
-            }}
-              placeholder="Describe your disease without naming it…"
-              className="w-full bg-muted rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30 resize-none h-24 text-foreground placeholder:text-muted-foreground leading-relaxed" />
-            <button onClick={handleSendClue} className="w-full mt-3 bg-primary text-white py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 flex items-center justify-center gap-2 active:scale-[0.98] transition-all">
-              <Send className="w-4 h-4" /> Submit Clue
-            </button>
-          </div>
           )}
           <div className="lg:hidden"><ChatSection messages={chatMessages} /></div>
         </div>

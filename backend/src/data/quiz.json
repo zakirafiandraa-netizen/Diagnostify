@@ -1,184 +1,1118 @@
+﻿[
 {
-    "musculoskeletal": [
+    "Hemato-immunology": [
         {
-            "question": "Which bone is most commonly fractured in osteoporosis?",
+            "question": "Tn. Betts usia 46 tahun dibawa ke RS dengan keluhan lemas sejak 2 minggu yang lalu. Pasien juga mengeluh batuk-batuk sejak 1 bulan lamanya, sering keringat dingin pada malam hari sejak 3 minggu yang lalu disertai berat badannya menurun 4 kilogram dalam sebulan terakhir. Pasien memiliki riwayat hipertensi sejak 5 tahun dan tidak terkontrol. Pada pemeriksaan fisik di dapatkan TD 170/100 mmHg, nadi 90 x/menit, pernapasan 24 x/menit, suhu 36. Pada pemeriksaan lab Hb 7 gr/dl, leukosit 7000 g/dl, trombosit 200.000, MCV 78, MCH 80, MCHC 27. Apa kemungkinan diagnosis pada pasien ini?",
             "options": [
-                "Tibia",
-                "Femoral neck",
-                "Radius",
-                "Humerus"
+                "Anemia hemolitik",
+                "Anemia defisiensi besi",
+                "Anemia sideroblastik",
+                "Anemia megaloblastik",
+                "Anemia penyakit kronis"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Andi, usia 49 mengeluh badan lemas dan lesu. Pasien mengaku sejak 6 bulan yang lalu setiap hari kencing hanya sedikit, yaitu sekitar setengah gelas per hari. Keluhan tersebut sudah dibawa ke dokter dan dianjurkan cuci darah. Pemeriksaan fisik TD 160/100 mmHg, Nadi 102x/menit, RR 20x/menit, dan Suhu 36,3C, pasien tampak pucat, konjungtiva anemis, hepatosplenomegali (-). Dari hasil pemeriksaan darah lengkap didapatkan Hb 8,3 g/dl, leukosit 6000/Âµl, trombosit 260.000/Âµl. Hasil pemeriksaan penunjang yang tepat adalah...",
+            "options": [
+                "Bilirubin indirek meningkat, retikulosit meningkat",
+                "Bilirubin indirek meningkat, serum iron normal, ferittin normal",
+                "Retikulosit normal, gambaran sumsum tulang hipoplastik",
+                "Serum iron turun, TIBC turun, feritin meningkat",
+                "SI turun, TIBC meningkat, saturasi transferin menurun"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Ny. Edela, usia 50 datang ke poli penyakit dalam untuk kontrol penyakit rheumatoid arthritisnya yang telah dia derita sejak lama. Saat ini pasien mengeluh badan lemas dan sering pusing. Saat diperiksa pasien tampak konjungtiva anemis, hepatosplenomegali (-). Dari hasil pemeriksaan darah lengkap didapatkan Hb 9,2 g/dl, leukosit 8000/Âµl, trombosit 270.000/Âµl. Hapusan darah tepi didapatkan anemia normokromik normositer. Serum iron turun, TIBC turun, feritin normal. Terapi paling tepat untuk pasien tersebut adalah...",
+            "options": [
+                "Transfusi PRC",
+                "Pemberian zat besi",
+                "Mengatasi penyakit dasar",
+                "Pemberian kortikosteroid",
+                "Pemberian asam folat"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Seorang perempuan berusia 20 tahun, G1P0A0 datang ke puskesmas dengan keluhan sering merasa lemah. Pasien diketahui rutin mengkonsumsi teh setiap hari. Pemeriksaan tanda vital diperoleh tekanan darah 100/70 mmHg, denyut nadi 72x/menit, frekuensi napas 18x/menit dan tidak demam. Pemeriksaan fisik wajah tampak pucat, konjungtiva pucat. Pemeriksaan Laboratorium Hb 10 g/dL. Apakah diagnosis paling memungkinkan pada kasus di atas?",
+            "options": [
+                "Anemia megaloblastik",
+                "Anemia aplastik",
+                "Anemia defisiensi zat besi",
+                "Anemia hemolitik",
+                "Anemia defisiensi asam folat"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Ny. Aryad 30 tahun, datang ke Puskesmas dengan keluhan pandangan sering berkunang-kunang dan disertai mudah lelah dan lesu sejak 6 bulan. Sehari-hari pasien bekerja diladang dan jarang menggunakan alas kaki. Pada pemeriksaan didapatkan TD 110/70mmHg, HR 88x/mnt, RR 24x/mnt dan suhu 37 C. Pada pemeriksaan fisik didapatkan konjungtiva anemis, sclera tidak ikterik. Pada pemeriksaan laboratorium didapatkan Hb 9, leukosit 9700, trombosit 255.000. Pada pemeriksaan darah tepi didapatkan gambaran eritrosit mikrositik hipokrom. Apakah kemungkinan diagnosis pasien tersebut?",
+            "options": [
+                "Anemia ec perdarahan akut",
+                "Anemia ec defisiensi besi",
+                "Anemia ec thalassemia mayor",
+                "Anemia akibat penyakit kronis",
+                "Anemia ec def. asam folat"
             ],
             "answer": 1
         },
         {
-            "question": "What does ACL stand for?",
+            "question": "An. Quin usia 17 tahun mengeluh lemas, mudah lelah, dan pucat sejak 1 minggu yang lalu. Pasien sering pingsan saat upacara di sekolah, tidak bersemangat, dan sering mengantuk. Pasien jarang makan daging dan lebih sering makan sayur-sayuran karena ingin menjaga berat badan. Tanda vital: TD 100/70 mmHg, nadi 110 kali/menit, RR 21 kali/menit, suhu 36,7Â°C. Pemeriksaan fisik menunjukkan konjungtiva anemis, sklera tidak ikterik, atrofi papil lidah (+), pembesaran lien atau hepar (-). Hasil lab menunjukkan Hb 9,5 g/dL, MCV 55 fL, MCHC 30 g/dL. Apakah diagnosis pasien tersebut?",
             "options": [
-                "Anterior Cruciate Ligament",
-                "Anterior Calcaneal Ligament",
-                "Anterior Carpal Ligament",
-                "Anterior Costal Ligament"
+                "Anemia defisiensi besi",
+                "Anemia defisiensi folat",
+                "Anemia hemolitik",
+                "Anemia aplastik",
+                "Anemia penyakit kronik"
             ],
             "answer": 0
         },
         {
-            "question": "Which condition is characterized by lateral curvature of the spine?",
+            "question": "Tn. Yovie usia 39 tahun datang ke Rumah Sakit dengan keluhan mudah lelah sejak 3 minggu yang lalu. Keluhan juga disertai sulit konsentrasi dan cepat mengantuk. Pasien seorang petani yang setiap harinya sering minum teh dan kopi hingga 5 gelas perhari. Pada pemeriksaan fisik didapatkan TD 100/70 mmHg, nadi 82 x/menit, RR 20 x/menit, Suhu 37 C, konjungtiva anemis (+/+), lidah bengkak, kuku seperti sendok. Pemeriksaan penunjang didapatkan kadar Hb 9 g/dL. Apakah pemeriksaan penunjang yang tepat pada pasien tersebut?",
             "options": [
-                "Lordosis",
-                "Kyphosis",
-                "Scoliosis",
-                "Spondylosis"
-            ],
-            "answer": 2
-        }
-    ],
-    "cardiovascular": [
-        {
-            "question": "What is the most common cause of myocardial infarction?",
-            "options": [
-                "Coronary artery spasm",
-                "Atherosclerosis",
-                "Embolism",
-                "Vasculitis"
-            ],
-            "answer": 1
-        },
-        {
-            "question": "Which type of shock is caused by severe heart failure?",
-            "options": [
-                "Septic shock",
-                "Hypovolemic shock",
-                "Cardiogenic shock",
-                "Neurogenic shock"
+                "Hematokrit",
+                "Tes Schilling",
+                "Serum iron, TIBC, ferritin",
+                "Tes Coombs",
+                "Hb elektroforesa"
             ],
             "answer": 2
         },
         {
-            "question": "STEMI stands for?",
+            "question": "Tn. Ringo, usia 29 tahun, datang dengan keluhan BAK merah gelap sejak 3 hari yang lalu. Pasien juga merasa mata dan kulitnya menjadi lebih kuning, nyeri seluruh lapang perut disertai dengan muntah. Pasien merupakan penderita epilepsi, sedang dalam pengobatan Fenitoin. Pada Pemeriksaan fisik didapatkan TD 110/70, HR 70x/menit, RR 20x/menit, Suhu 36,7Â° C, konjungtiva anemis, sklera ikterik, dan hepatosplenomegali. Pada pemeriksaan darah didapatkan Hb 8,6 g/dl, peningkatan bilirubin indirek, peningkatan LDH, hitung retikulosit 12%, coombs test negative. Kemungkinan penyebab keluhan pada pasien adalah?",
             "options": [
-                "ST-Elevation Myocardial Infarction",
-                "Subendocardial Tachycardia Myocardial Ischemia",
-                "Systolic Tension Elevation Myocardial Index",
-                "ST-Elevation Mitral Insufficiency"
+                "Anemia penyakit kronis",
+                "Anemia megaloblastik",
+                "Idiopathic autoimmune hemolytic anemia",
+                "Anemia defisiensi Glukosa-6-Fosfat Dehidrogenase",
+                "Anemia Defisiensi Glucose 6-Phospate Deacetylase"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Ny. Jissa usia 29 tahun datang ke RS dengan keluhan BAK berwarna merah 3 hari terakhir. Pasien juga merasa mata dan kulitnya lebih kuning. Keluhan disertai nyeri seluruh lapangan perut disertai muntah. Pasien merupakan penderita hipertensi dan saat ini sedang dalam pengobatan fenitoin. Dari hasil pemeriksaan didapatkan TD 100/70, HR 80x/menit, RR 20x/menit, Tax 36,6C, konjungtiva anemis (+), sklera ikterik (+), Hb 8,3gr/dl, peningkatan bilirubin indirek, peningkatan LDH, hitung retikulosit 8%, ditemukan bite cells. Kemungkinan penyebab keluhan pada pasien adalah?",
+            "options": [
+                "Anemia pernisiosa",
+                "AIHA",
+                "Anemia penyakit kronik",
+                "Anemia aplastik",
+                "Anemia defisiensi G6PD"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Tn. Angga, usia 32 tahun, datang ke UGD dengan keluhan nyeri seluruh perutnya sejak 4 hari yang lalu. Pasien juga mengalami muntah beberapa kali, dan merasa kencingnya menjadi berwarna merah kehitaman. 1 minggu yang lalu, pasien sempat mengalami diare akut disertai demam, dan diberikan pengobatan oleh mantra setempat Cotrimoxazole 3x960 mg, serta Paracetamol 4x500 mg. Pada Pemeriksaan didapatkan konjungtiva anemis, sklera ikterik, hepatosplenomegali. Pemeriksaan laboratorium menunjukkan hasil Hb 7,8 g/dl, peningkatan unconjugated bilirubin, laktat dehidrogenase, hitung retikulosit 10%, serta ditemukan morfologi darah tepi dijumpai blister cells. Kemungkinan penyebab keluhan pada pasien adalah?",
+            "options": [
+                "Anemia pernisiosa",
+                "Anemia megaloblastik",
+                "Anemia defisiensi Fe",
+                "AIHA",
+                "Anemia defisiensi G6PD"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Tn. Abayomi, usia 30 dibawa ke RS dengan keluhan mata tampak kuning sejak tadi malam. Pasien juga mengeluhkan lemas. Tadi pagi pasien mengaku kencing berwarna merah gelap. Pasien mengatakan saat ini sedang mengkonsumsi antibiotik dari dokter bernama nitrofurantoin untuk mengobati sejak kemarin pagi. Saat dilakukan pemeriksaan didapatkan konjungtiva anemis, sklera ikterik. Saat dilakukan pemeriksaan penunjang didapatkan Hb 9 g/dl, retikulositosis, bilirubin indirek meningkat. Pada hapusan darah tepi pasien didapatkan heinz bodies dan sferosit. Tatalaksana yang tepat adalah...",
+            "options": [
+                "Infus RL secepat mungkin",
+                "Pemberian transfusi PRC hingga Hb normal",
+                "Memberikan injeksi kortikosteroid intravena",
+                "Menghentikan antibiotik",
+                "Memberikan terapi suportif"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Tn. Mario, usia 55 tahun, datang ke RS dengan keluhan mudah lelah sejak 1 tahun terakhir. Pasien sebelumnya mempunyai riwayat hipertensi dan kencing manis sudah 10 tahun ini dan tidak pernah berobat. Pasien mengeluhkan BAK yang semakin sedikit sejak 6 bulan yang lalu. Hasil pemeriksaan fisik dijumpai TD 180/100 mmHg, 88x/menit, RR 20x/menit, suhu 36,9Â° C, konjungtiva anemis (+), sklera ikterik (-), tidak teraba pembesaran hepar dan lien pemeriksaan lab dijumpai GDS 211 mg/dL, Hb 8mg/dL, ureum 245, kreatinin 8.9. Kemungkinan penyebab penyakit pasien adalah...",
+            "options": [
+                "Defisiensi Eritropoeitin",
+                "Defisiensi aldosterone",
+                "Defisiensi besi",
+                "Defisiensi aldoste",
+                "Defisiensi kortisol"
             ],
             "answer": 0
-        }
-    ],
-    "respiratory": [
-        {
-            "question": "What is the hallmark finding of asthma on spirometry?",
-            "options": [
-                "Reduced FVC",
-                "Reversible airflow obstruction",
-                "Increased RV",
-                "Reduced DLCO"
-            ],
-            "answer": 1
         },
         {
-            "question": "Which organism most commonly causes community-acquired pneumonia?",
+            "question": "Ny. Laura, usia 60 tahun, datang ke IGD diantar keluarganya karena lemas dan pucat. Pasien akhir-akhir ini terlihat semakin pucat dan mudah lelah. Selama ini diketahui memiliki riwayat darah tinggi dan kencing manis, hanya minum obat bila ada keluhan. Pada Pemeriksaan fisik, didapatkan TD 160/100 mmHg, HR 88x/menit, RR 20x/menit, suhu 36,9Â°C, konjungtiva anemis (+), sklera ikterik (-), tidak teraba pembesaran hepar dan lien. Pemeriksaan penunjang didapatkan Hb 7,6, MCV 88, MCH 30, saturasi iron menurun, TIBC menurun. Dokter melakukan pemeriksaan lanjutan GFR 20. Kemungkinan penyebab penyakit pasien adalah...",
             "options": [
-                "Klebsiella pneumoniae",
-                "Haemophilus influenzae",
-                "Streptococcus pneumoniae",
-                "Staphylococcus aureus"
-            ],
-            "answer": 2
-        },
-        {
-            "question": "Tension pneumothorax is best treated with?",
-            "options": [
-                "Observation",
-                "Needle decompression",
-                "Antibiotics",
-                "Bronchodilators"
-            ],
-            "answer": 1
-        }
-    ],
-    "hematoimmunology": [
-        {
-            "question": "Which clotting factors are deficient in Hemophilia A?",
-            "options": [
-                "Factor IX",
-                "Factor VIII",
-                "Factor X",
-                "Factor VII"
-            ],
-            "answer": 1
-        },
-        {
-            "question": "What is the hallmark of SLE on lab findings?",
-            "options": [
-                "Anti-CCP antibodies",
-                "Anti-dsDNA antibodies",
-                "Anti-Ro antibodies",
-                "Rheumatoid factor"
-            ],
-            "answer": 1
-        },
-        {
-            "question": "Hodgkin lymphoma is characterized by which cell type?",
-            "options": [
-                "Reed-Sternberg cells",
-                "Plasma cells",
-                "Auer rods",
-                "Smudge cells"
+                "Defisiensi Eritropoeitin",
+                "Perdarahan akut",
+                "Defisiensi besi",
+                "Defisiensi vitamin B9",
+                "Defisiensi asam askorbat"
             ],
             "answer": 0
-        }
-    ],
-    "neurobehavior": [
+        },
         {
-            "question": "Which artery is most commonly involved in an ischemic stroke?",
+            "question": "An. Bala, usia 10 tahun dibawa ke puskesmas dengan keluhan lemas sejak dua minggu yang lalu. Pasien mengalami penurunan prestasi belajar. Pada pemeriksaan didapatkan Tanda vital HR 67 kali/mnt, RR 20 kali/mnt, T 36,7C, purpura dan hematom di kedua ekstremitas bawah. Pada pemeriksaan darah didapatkan Hb 8,2gr/dL, WBC 3.000/mm3, PLT 60.000/mm3, Retikulosit 0,2%. Apakah kemungkinan diagnosa pada pasien?",
             "options": [
-                "Posterior cerebral artery",
-                "Basilar artery",
-                "Middle cerebral artery",
-                "Anterior communicating artery"
+                "Hemofilia",
+                "Henoch schonlein purpura",
+                "ITP",
+                "anemia penyakit kronis",
+                "Anemia aplastic"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "An. Dolpin, usia 15 tahun, datang ke RS dengan keluhan sering mimisan dan gusi berdarah sejak 2 minggu ini. Keluhan sering kambuh sejak pasien kecil. Pasien tidak mengeluhkan demam. Dilakukan pemeriksaan fisik didapatkan TTV: TD 110/70 mmHg, HR 68 kali/menit, RR 20 kali/menit, suhu 36,7Â°C. Dilakukan pemeriksaan lanjutan didapatkan Hb = 11,5 g/dL, leukosit 8.500/ÂµL, trombosit 250.000/ÂµL. Terdapat penurunan faktor VIII, PT normal, dan aPTT memanjang. Ristocetin test (+). Apakah diagnosis pasien?",
+            "options": [
+                "Hemofilia A",
+                "Hemofilia B",
+                "Immune thrombocytopenic purpura",
+                "Thrombotic thrombocytopenic purpura",
+                "Von Willebrand disease"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "An. Tika, usia 13 tahun, dibawa berobat oleh orang tuanya karena sudah menstruasi selama 10 hari namun belum berhenti. Saat ini pasien merasa sangat lemas. Pasien baru menstruasi yang kedua kalinya. Saat menstruasi yang pertama, pasien menstruasi selama 11 hari. Sejak 3 tahun yang lalu, pasien sering mengalami memar-memar walaupun terhadap benturan ringan. Pada pemeriksaan laboratorium, didapatkan Hb 10 g/dL, leukosit 7.500, trombosit 250.000, VwD factor V. Bagaimanakah hasil pemeriksaan faal hemostasis pada pasien tersebut?",
+            "options": [
+                "CT memanjang, aPTT normal",
+                "CT normal, PT memanjang",
+                "aPTT memanjang, CT normal",
+                "CT normal, aPTT normal",
+                "CT dan aPTT memanjang"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "An. Sonya usia 28 tahun datang ke poli penyakit dalam dengan keluhan sering mengalami gusi berdarah dan mimisan. Selain itu badan sering memar-memar. Keluhan sering berulang sejak kecil, tetapi belum mengetahui penyebabnya. Ayah pasien juga mengalami hal serupa. Pemeriksaan fisik didapatkan TD 110/70 mmHg, nadi 89x/menit, RR 24x/menit, suhu 36,5C, tampak beberapa hematom pada kaki. Pemeriksaan penunjang didapatkan Hb 11 g/dl, leukosit 7000/Âµl, trombosit 380.000/Âµl, bleeding time memanjang, PPT normal, aPTT memanjang, tes ristosetin terganggu. Tatalaksana yang paling tepat diberikan untuk pasien tersebut adalah...",
+            "options": [
+                "Whole blood",
+                "Konsentrat Faktor VIII/IX",
+                "Kriopresipitat",
+                "PRC",
+                "Platelet concentrate"
             ],
             "answer": 2
         },
         {
-            "question": "What is the first-line treatment for generalized tonic-clonic seizures?",
+            "question": "An. Rasta, usia 2 minggu, dibawa orangtuanya ke IGD karena kejang selama 5 menit saat dirumah. Saat kejang tangan dan kaki kelonjotan serta mata mendelik ke atas. Keluhan demam disangkal. Saat melahirkan, ibu pasien dibantu dukun beranak dirumah. Tidak ada riwayat sakit saat hamil. Tanda vital kesadaran somnolen, afebris, ubun ubun besar menonjol. Pada Pemeriksaan fisik, didapatkan kesadaran somnolen, afebris, ubun-ubun besar menonjol. Hasil pemeriksaan laboratorium menunjukan nilai PT memanjang. Diagnosis yang paling tepat adalah...",
             "options": [
-                "Carbamazepine",
-                "Valproate",
-                "Phenytoin",
-                "Lamotrigine"
+                "Anemia defisiensi besi kongenital",
+                "Vitamin K Deficiency Bleeding",
+                "Thalassemia beta mayor",
+                "Hemofilia A",
+                "Hemofilia B"
             ],
             "answer": 1
         },
         {
-            "question": "Bell's palsy affects which cranial nerve?",
+            "question": "By. Lora, baru lahir, datang ke IGD dengan keluhan perdarahan yang sulit berhenti di bekas suntikan hepatitis B. Bayi lahir di bidan dengan usia aterm. Pemeriksaan fisik: KU baik, perdarahan merembes di paha kiri bekas suntikan, fontanel cembung, perdarahan di tempat lain tidak ada. Anemia (-), ikterik (-), splenomegali (-), hepatomegali (-). Pemeriksaan laboratorium: Hb 12,1 g/dL, leukosit 11.000, trombosit 172.000. Didapatkan hasil prothrombin time memanjang. Apakah diagnosis yang mungkin dialami oleh pasien tersebut?",
             "options": [
-                "CN V",
-                "CN VI",
-                "CN VII",
-                "CN VIII"
+                "Hemophilia A",
+                "Hemophillia B",
+                "Pseudo hemofilia",
+                "ITP",
+                "APCD"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Tn. Mike usia 20 tahun datang ke RS dengan keluhan sering mengalami memar pada persendian meskipun karena trauma ringan. Selain itu pasien juga mengeluh sering mimisan. Riwayat sirkumsisi: pendarahan lama sukar berhenti. Keluhan berulang sejak masih kecil tetapi mengaku belum mengetahui penyebab keluhan tersebut. Kakek pasien dari sisi ibu juga memiliki riwayat keluhan yang sama. Dari pemeriksaan fisik tampak epitaksis aktif dan hemartrosis pada persendian. Dari hasil pemeriksaan penunjang didapatkan trombosit 360.000/Âµl, bleeding time normal, clotting time memanjang, protombin time normal, PTT normal, aPTT memanjang, tes ristosetin normal. Diagnosis pada pasien ini adalah...",
+            "options": [
+                "Demam berdarah dengue",
+                "ITP",
+                "Hemofilia",
+                "DIC",
+                "Penyakit Von Willebrand"
             ],
             "answer": 2
-        }
-    ],
-    "special senses": [
+        },
         {
-            "question": "Which condition is characterized by increased intraocular pressure?",
+            "question": "An Gabe, berusia 4 tahun dibawa keluarganya ke rumah sakit dengan keluhan bercak biru yang terjadi secara spontan pada sendi lutut kiri. Pasien diketahui pernah mengalami perdarahan yang lama berhenti ketika suntik imunisasi. Tanda vital HR 90kali/mnt, RR 23kali/mnt, T 37C. Pada pemeriksaan diperoleh hemarthrosis, tanpa perdarahan yang jelas. Pada pemeriksaan laboratorium darah didapatkan Hb 14 g/dL, leukosit 8,000/mL, trombosit 225,000/mL, Clotting time dan aPTT memanjang, PT normal, defisiensi faktor IX (+). Apakah jenis kelainan yang paling tepat pada kasus di atas?",
             "options": [
-                "Cataract",
-                "Glaucoma",
-                "Macular degeneration",
-                "Retinitis pigmentosa"
+                "Kuantitatif trombosit",
+                "Kualitatif trombosit",
+                "Koagulasi",
+                "Trombosis",
+                "Hemofilia b"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Tn. Damanso, usia 42 tahun, datang ke puskesmas dengan keluhan batuk sejak 3 minggu, demam, penurunan berat badan, dan keringat malam hari. Riwayat minum OAT (+). Pemeriksaan fisik: TD 120/80 mmHg, nadi 80x/menit, RR 20x/menit, suhu 37,8Â°C. Sputum BTA (+/+). Hasil fotothoraks tampak perselubungan pada apex paru kanan. Bagaimana patofisiologi pada penyakit ini?",
+            "options": [
+                "Hipersensitivitas yang diperantarai IgE dan menyebabkan sel mast menghasilkan histamin",
+                "Hipersensitivitas yang diperantarai IgG dan IgM yang menyebabkan kerusakan sel target",
+                "Hipersensitivitas yang kompleks antigen-antibody",
+                "Hipersensitivitas yang diperantarai sel T sehingga membentuk granuloma pada parenkim paru",
+                "Hipersensitivitas yang diperantarai sel B yang mengakibatkan lepasnya histamin"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Seorang anak berusia 14 tahun yang sedang dirawat di puskesmas mengalami penurunan kesadaran setelah mendapat suntikan antibiotik. Kondisi pasien diawali dengan pusing, mata berair dan merah, serta merasa sesak napas. Pemeriksaan fisik tampak sakit berat, somnolen. Tekanan darah 50/ palpasi, frekuensi nadi 190 x/mnt kecil, lemah, frekuensi napas 40x/menit, suhu 40Â°C. Apakah tatalaksana awal yang paling tepat?",
+            "options": [
+                "Beri O2, pasang infus koloid, berikan dosis maintenance, berikan kortikosteroid im",
+                "Beri O2, pasang infus kristaloid, adrenalin IM",
+                "Beri O2, pasang infus kristaloid, berikan dosis maintenance, berikan kortikosteroid IM",
+                "Beri O2, pasang infus, lakukan resusitasi cairan, berikan kortikosteroid iv, dan antibiotic",
+                "Beri O2, pasang infus koloid, lakukan resusitasi cairan, berikan kortikosteroid IV"
             ],
             "answer": 1
         },
         {
-            "question": "BPPV is caused by what ?",
+            "question": "Seorang anak laki-laki berusia 8 tahun dibawa orangtuanya ke unit gawat darurat RS dengan keluhan sesak napas sejak 10 menit yang lalu. Keluhan ini dirasakan beberapa saat setelah pasien mengkonsumsi roti selai kacang setengah jam sebelumnya. Pada pemeriksaan fisik ditemukan tanda vital tekanan darah 80/60 mmHg, denyut nadi 110 kali/menit isi tegangan tidak adekuat, frekuensi nafas 38 kali/menit, suhu tubuh 36,8Â°C, akral dingin, urtikaria dan bibir membengkak. Apakah terapi awal yang sebaiknya diberikan pada kasus diatas?",
             "options": [
-                "",
-                "",
-                "",
-                ""
+                "Oksigenasi dan terapi cairan RL sesuai kebutuhan cairan tubuh",
+                "Adrenalin intramuskular",
+                "Terapi cairan RL sesuai kebutuhan cairan",
+                "Dexametason intravena",
+                "Aminofilin drip"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Seorang laki-laki, 25 tahun, sedang dalam perawatan di UGD RS tiba-tiba mengeluh jantung berdebar dan sesak napas 5 menit setelah mendapatkan terapi antibiotik secara intravena. Pada pemeriksaan fisik didapatkan tekanan darah 80/60 mmHg, nadi sulit diraba, dan akral dingin. Apakah patomekanisme yang tepat?",
+            "options": [
+                "Reaksi imun tipe 3",
+                "Reaksi imun tipe 2",
+                "Reaksi imun tipe 5",
+                "Reaksi imun tipe 1",
+                "Reaksi imun tipe 4"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Tn. Diego, usia 56 tahun, datang ke RS dengan keluhan berupa batuk berdahak kadang berdarah sejak 3 minggu yang lalu. Keluhan disertai demam subfebris, selalu berkeringat malam walaupun pasien tidak melakukan aktivitas. Pasien juga mengeluh berat badan menurun. Pada pemeriksaan tanda-tanda vital didapatkan TD 120/80 mmHg, HR 80x/mnt, RR 22x/mnt dan suhu 37,5 C. pemeriksaan paru didapatkan Rhonki pada regio apeks. Tipe reaksi berapakah yang terjadi pada kasus ini?",
+            "options": [
+                "Tipe I",
+                "Tipe II",
+                "Tipe III",
+                "Tipe IV",
+                "Tipe V"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Seorang laki-laki berusia 23 tahun sedang dirawat di IGD RS tiba-tiba tidak sadarkan diri. Sebelumnya pasien tiba-tiba mengeluh sesak napas, gelisah dan lemas setelah diberi cairan dan pemberian antibiotik intravena. Pada pemeriksaan fisik didapatkan kesadaran somnolen, tekanan darah 85/40 mmHg, denyut nadi 120 x/menit, frekuensi napas 30 x /menit, pada auskultasi paru didapatkan wheezing di seluruh lapang paru. Apakah jenis reaksi hipersensitivitas yang tepat?",
+            "options": [
+                "Cell Mediated Hypersensitivity",
+                "Immune-Complex Reaction",
+                "Immediate Hypersensitivity Reaction",
+                "Cytotoxic Hypersensitivity Reaction",
+                "Delayed Hypersensitivity Reaction"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Seorang laki-laki berusia 33 tahun datang ke Unit Gawat Darurat RS dengan keluhan sesak nafas tiba-tiba, tampak gelisah, muka kemerahan. Keluhan disertai dengan lemah badan, dan palpitasi. Pasien baru saja disengat tawon madu ketika bekerja di ladang. Didapatkan tekanan darah 130/80mmHg, nadi 110 x/menit, respirasi 28 x/menit, dan suhu 37,10C; wajah kemerahan / flushing; dan terdapat luka bekas sengatan kemerahan tidak bernanah di kaki. Apakah penatalaksanaan awal yang paling tepat?",
+            "options": [
+                "Pemberian Epinefrin IV",
+                "Pemberian Epinefrin IM",
+                "Pemberian difenhidramin IV",
+                "Resusitasi Jantung paru",
+                "Nilai Airway, Breathing & Circulation"
+            ],
+            "answer": 4
+        }
+    ]
+},
+{
+    "Dermatovenerology": [
+        {
+            "question": "Seorang laki-laki berusia 30 tahun datang ke puskesmas dengan keluhan kencing bernanah sejak 2 hari yang lalu. Awalnya pasien mengeluh panas dan gatal di sekitar alat kelamin. Keluhan disertai nyeri saat buang air kecil. Pasien mengaku pernah berhubungan seksual dengan PSK 5 hari yang lalu. Pemeriksaan fisik didapatkan tekanan darah 120/80 mmHg, denyut nadi 84 x/menit, frekuensi napas 20 x/menit, suhu 37,5Â°C, orifisium uretra eksternum eritema dan edema, duh tubuh (+) mukopurulen. Hasil pemeriksaan mikroskopik duh tubuh dijumpai kuman berbentuk kokus, Gram (-). Apakah penyebab yang paling tepat?",
+            "options": [
+                "Neisseria gonorhea",
+                "Mycoplasma sp",
+                "Treponema pallidum",
+                "Escherichia coli",
+                "Chlamydia trachomatis"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "Seorang laki-laki berusia 30 tahun datang ke puskesmas dengan keluhan kencing bernanah sejak 2 hari yang lalu. Awalnya pasien mengeluh panas dan gatal di sekitar alat kelamin. Keluhan disertai nyeri saat buang air kecil. Pasien mengaku pernah berhubungan seksual dengan PSK 5 hari yang lalu. Pemeriksaan fisik didapatkan tekanan darah 120/80 mmHg, denyut nadi 84 x/menit, frekuensi napas 20 x/menit, suhu 37,5Â°C, orifisium uretra eksternum eritema dan edema, duh tubuh (+) mukopurulen. Hasil pemeriksaan mikroskopik duh tubuh dijumpai kuman berbentuk kokus, Gram (-). Apakah penatalaksanaan yang paling tepat?",
+            "options": [
+                "Metronidazol 2 g PO dan azitromisin 1 g PO dosis tunggal",
+                "Benzantin penisilin G 1,2 juta Unit IM dan metronidazol 2 g PO dosis tunggal",
+                "Seftriakson 250 mg IM dan doksisiklin 200 mg PO dosis tunggal",
+                "Seftriakson 250 mg IM dan azitromisin 1 g PO dosis tunggal",
+                "Benzantin penisilin G 1,2 juta Unit IM dan azitromisin 1 g PO dosis tunggal"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Seorang perempuan 29 tahun datang ke puskesmas dengan keluhan keputihan sejak 2 minggu yang lalu, semakin hari semakin banyak. Keputihan berwarna kekuningan dan berbau. Keluhan disertai nyeri saat buang air kecil dan saat berhubungan seksual. Keluhan gatal pada daerah kemaluan disangkal. Riwayat pasien berhubungan seksual dengan berganti pasangan, tidak menggunakan kondom. Pada pemeriksaan ginekologi vulva dan vagina kemerahan, tampak sekret purulen kekuningan dan berbau. Hasil pemeriksaan vaginal swab tampak bakteri diplococcus Gram negatif intraseller lekosit. Apakah tatalaksana farmakoterapi yang tepat?",
+            "options": [
+                "Asiklovir 4x800 mg selama 1 minggu",
+                "Cefiksim 400 mg, dosis tunggal",
+                "Ketokonazol 200 mg, dosis tunggal",
+                "Metronidazol 500 mg, dosis tunggal",
+                "Kotrimoksazol 2x960 mg, selama 1 minggu"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Seorang laki-laki berusia 45 tahun datang ke puskesmas dengan keluhan kencing nanah sejak 2 hari yang lalu. Pasien mengaku pernah melakukan hubungan seksual dengan pekerja seks komersial 1 minggu yang lalu. Keluhan disertai nyeri saat buang air kecil. Pada pemeriksaan fisik didapatkan tanda vital dalam batas normal. Pada pemeriksaan genitalia didapatkan dari penis keluar sekret purulen berwarna kuning kehijauan, dan orificium uretra eksterna eritema. Apakah penatalaksanaan yang tepat?",
+            "options": [
+                "Kanamisin 1 gr injeksi intramuskular dosis tunggal + doksisiklin 2x100 mg 7 hari",
+                "Sefiksim 400 mg peroral dosis tunggal + eritromisin 4x500 mg peroral selama 7 hari",
+                "Seftriakson 250 mg injeksi intramuskular dosis tunggal + tetrasiklin 4x500 mg peroral 7 hari",
+                "Sefiksim 400 mg peroral + doksisiklin 2x100 mg peroral 7 hari",
+                "Siprofloksasin 2x500 mg selama 5 hari"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "Ny. Vanya, usia 27, P1A0 datang ke RS dengan keluhan keluar cairan dari jalan lahir yang berwarna kuning kehijauan sejak 1 minggu yang lalu. Keluhan disertai nyeri pasca berhubungan suami istri. Tanda vital TD 120/80mmg, nadi 80kali/menit, RR 20kali/menit, suhu 37.1C. Pada pemeriksaan inspekulo tampak cairan kuning kehijauan berbuih dan berbau, disertai gambaran serviks berbintik-bintik kemerahan. Hasil pemeriksaan penunjang terkait kasus?",
+            "options": [
+                "Gambaran pseudohifa",
+                "Badan inklusi",
+                "Ditemukan parasit berflagel",
+                "Gambaran clue cells",
+                "Diplokokus gram negative"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Ny. Giva, usia 29 tahun datang ke dokter dengan keluhan keputihan sejak 4 hari yang lalu. Keluhan tidak disertai dengan rasa nyeri maupun gatal. Pasien aktif berhubungan seksual dengan 2 pasangan dan menggunakan diafragma untuk kontrasepsi. Tanda vital TD 120/80mmHg, nadi 80kali/menit, RR 20kali/menit, T 37.1C Pada pemeriksaan fisik ditemukan duh vagina berwarna keabuan yang berbau amis. pH duh vagina 5.0. Pada pemeriksaan mikroskopis ditemukan gambaran clue cell. Apakah patogen penyebab keluhan pasien ini?",
+            "options": [
+                "Escherichia coli",
+                "Gardnerella vaginalis",
+                "Chlamydia trachomatis",
+                "Candida albicans",
+                "Trichomonas vaginalis"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Ny. Clara, usia 27 tahun datang ke RS dengan keluhan keluar cairan dari kemaluan yang dirasakan sejak 5 hari yang lalu. Cairan berwarna putih keabuan. Keluhan rasa gatal maupun nyeri disangkal. Tanda vital TD 120/80, HR 92 kali/menit, RR 23kali/menit, T 36.8C Pada pemeriksaan fisik ditemukan cairan berwarna putih abu yang berbau amis. Tidak tampak adanya tanda inflamasi vagina pada area vulvovagina. Dokter meneteskan KOH pada secret dan didapatkan bau amis, saat dilakukan pemeriksaan mikroskopik didapatkan clue cell(+). Apakah terapi yang tepat pada pasien ini?",
+            "options": [
+                "klindamisin 3 x 200mg selama 7 hari",
+                "klindamisin 3 x 300mg selama 7 hari",
+                "Metronidazole 1 gr PO dosis tunggal",
+                "Metronidazole 3 x 500 mg PO selama 7 hari",
+                "Metronidazole 2 x 500 mg PO selama 7 hari"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Seorang perempuan berusia 30 tahun datang ke puskesmas dengan keluhan timbul benjolan di ketiak sejak 2 hari yang lalu. Benjolan berukuran 5 mm, bernanah, sedikit nyeri dan kadang-kadang gatal. Pasien mengaku 3 hari yang lalu mencukur rambut ketiaknya sendiri. Pada pemeriksaan dermatologi didapatkan 2 buah papul berukuran 3-5 mm di sekitar folikel rambut, berisi pus, tepi berwarna kemerahan, dengan sedikit nyeri tekan. Pada permukaan papul yang sudah pecah terdapat krusta. Apakah diagnosis yang paling mungkin?",
+            "options": [
+                "Impetigo bullosa",
+                "Tinea barbae",
+                "Folikulitis",
+                "Impetigo krustosa",
+                "Varisella"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Tn. Abdalla, usia 36 tahun, datang ke klinik dokter umum dengan keluhan muncul bisul pada area lehernya. Terdapat riwayat demam sebelumnya. Pasien baru pertama kali mengalami hal ini. Awalnya bisul hanya kecil kemudian membesar, nyeri dan berisi nanah. Tanda vital TD 110/70, HR 92 kali/menit, RR 23kali/menit, T 37.8C. Pada pemeriksaan fisik ditemukan gambaran berikut. Apa kemungkinan diagnosis yang sesuai dengan kasus?",
+            "options": [
+                "Impetigo Bockhart",
+                "Furunkulosis",
+                "Furunkel",
+                "Folikulitis superfisial",
+                "Karbunkel"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Nn. Nivea usia 21 tahun, datang ke puskesmas dengan keluhan bintil bintil pada ketiaknya sejak 3 hari yang lalu. Bintil-bintil berjumlah banyak dan kadang suka digaruk hingga luka. Awalnya pasien sempat berganti-ganti deodoran, dan akhir akhir ini justru memakai deodoran 3-5 sekaligus karena merasa keringat keluar sangat banyak, dan takut bau badan. Tanda vital didapatkan TD 110/70mmHg, HR 75 kali/mnt, RR 19 kali/mnt, suhu 36.7C Pada pemeriksaan fisik, tampak plak eritema disertai nodul multipel, pada perabaan nyeri tekan (+), pus (+), dan tampak adanya fistula. Diagnosa kasus diatas adalahâ€¦",
+            "options": [
+                "Folikulitis",
+                "Furunkel",
+                "Karbunkel",
+                "Acne inversa",
+                "Acne vulgaris"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Th. Bram, usia 40 tahun datang ke puskesmas dengan keluhan gatal di sela jari kaki sejak satu minggu ini. Pasien bekerja sebagai satpam yang selalu menggunakan sepatu.. Tanda vital dalam batas normal. Pada pemeriksaan fisik ditemukan plak eritematosa disertai erosi dan skuama, lesi satelit (+). Pada pemeriksaan KOH didapatkan hifa semu. Apakah diagnosis yang tepat ?",
+            "options": [
+                "Dermatitis kontak alergi",
+                "Tinea pedis",
+                "Pedikulosis pedis",
+                "Kandidosis intertriginosa",
+                "Skabies"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Seorang laki-laki berusia 20 tahun datang ke klinik dokter keluarga dengan keluhan bintil-bintil kemerahan yang gatal di dagu dan area rahang bawah. Keluhan gatal bertambah bila berkeringat. Satu minggu yang lalu pasien mencukur rambut janggutnya. Pemeriksaan dermatologis pada dagu sampai area mandibula tampak papul eritem non folikuler tersebar. Apakah diagnosis yang paling mungkin?",
+            "options": [
+                "Veruka vulgaris",
+                "Dermatitis kontak alergi",
+                "Folikulitis",
+                "Tinea barbae",
+                "Erisipelas"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Tn. Dito, usia 38 tahun datang ke RS dengan keluhan berak kemerahan dan gatal pada dada kiri sejak 2 minggu yang lalu. Pasien beli obat antigatal sendiri ke apotek 5 hari yan lalu dan kambuh saat lupa minum obat. Pasien seorang arsitek lapangan yang sering berkeringat dan memakai baju ketat. Tanda vital TD 110/80, HR 88 kali/menit, RR 20kali/menit, T 36.6C Pada pemeriksaan dermatologi terdapat makula hiperpigmentasi berbentuk bulat, tepi polisiklik, berskuama halus di atasnya, diameter 4,5 cm, central healing (+). Apakah hasil pemeriksaan penunjang yang paling sesuai ?",
+            "options": [
+                "Pewarnaan gram parasite berflagel",
+                "Lampu Wood: kuning keemasan",
+                "Kerokan kulit dengan pewarnaan KOH hifa sejati, atrospora",
+                "Kerokan kulit dengan KOH tampak pseudohifa, blastospora",
+                "Kerokan kulit dengan KOH hifa pendek bergerombol"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Seorang laki-laki berusia 30 tahun datang ke Puskesmas dengan keluhan muncul bercak kemerahan di dagu sejak 1 hari yang lalu. Keluhan disertai dengan sisik yang terasa gatal. Kelainan kulit timbul setelah pasien meminjam pisau cukur milik temannya. Pasien tidak pernah sakit seperti ini sebelumnya. Pada pemeriksaan dermatologi didapatkan lesi multipel papul eritematosa ditutupi skuama halus dengan tepi yang aktif. Apakah terapi yang tepat pada kasus diatas?",
+            "options": [
+                "Krim hidrokortison 2,5%",
+                "Krim ketokonazol",
+                "Krim gentamisin",
+                "Krim mupirosin",
+                "Krim clindamycin"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Tn. Maddy, usia 37 tahun datang ke Pukesmas dengan keluhan ulkus di leher sejak satu hari yang lalu. Keluhan awalnya berupa benjolan di leher berjumlah banyak dan kemudian pecah mengeluarkan cairan berwarna putih kekuningan. Riwayat batuk lama disangkal. Tanda vital : didapatkan TD 110/70mmHg, HR 89kali/mnt, RR 22kali/mnt, suhu 37.7C Pada pemeriksaan dermatologi ditemukan ulkus dengan tepi bergaung, sikatrik, dan terdapat skin bridging. Apakah diagnosis yang tepat ?",
+            "options": [
+                "Tuberkulosis kutis",
+                "Scrofuloderma",
+                "Eritema induratum",
+                "Eritema nodusum",
+                "Hidraadenitive supuratif"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Seorang laki-laki berusia 32 tahun datang ke puskesmas dengan keluhan bercak putih di dada sejak 7 bulan yang lalu. Keluhan tidak disertai rasa gatal, bahkan cenderung mati rasa. Pada pemeriksaan dermatologis ditemukan satu makula hipopigmentasi berbatas tegas, anestesia, tepi tak aktif bentuk oval dengan diameter 8 cm. Apakah diagnosis yang paling mungkin?",
+            "options": [
+                "Pityriasis alba",
+                "Pityriasis versicolor",
+                "Vitiligo",
+                "Nevus anemikus",
+                "Morbus Hansen"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Seorang laki-laki berusia 25 tahun datang ke puskemas dengan keluhan muncul 2 buah bercak putih pada wajah sejak 3 bulan lalu. Keluhan disertai rasa baal pada bercak tersebut. Pada pemeriksaan dermatologis didapatkan makula hipopigmentasi, rasa baal (+), rasa nyeri (-). Pada pemeriksaan penunjang didapatkan pewarnaan BTA (-). Apakah diagnosis yang paling tepat pada pasien ini?",
+            "options": [
+                "Kusta tipe MB",
+                "Kusta tipe PB",
+                "Vitiligo",
+                "Pitiriasis versicolor",
+                "Pitiriasis alba"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Seorang laki-laki berusia 32 tahun, datang ke puskesmas dengan keluhan bercak putih di dada sejak 7 bulan yang lalu. Keluhan tidak disertai rasa gatal, bahkan cenderung mati rasa. Pada pemeriksaan fisik didapatkan pembesaran nervus ulnaris sinistra. Pemeriksaan dermatologis ditemukan 1 makula hipopigmentasi berbatas tegas, tepi tak aktif bentuk oval dengan diameter 8 cm. Apakah terapi yang paling tepat berdasarkan WHO ?",
+            "options": [
+                "Rifampisin",
+                "Klofazimin",
+                "Klaritromisin",
+                "Minosiklin",
+                "Ofloksasin"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "Seorang bayi perempuan berusia 8 bulan dibawa ibunya ke puskesmas dengan keluhan kemaluan tampak kemerahan sejak 5 hari yang lalu. Anak kadang-kadang rewel. Pasien sehari-hari memakai pampers dan diganti sehari 3 kali sejak usia 6 bulan. Pemeriksaan fisik menunjukkan patch eritem tanpa lesi satelit. Ibu pasien sudah mengoleskan baby cream, tetapi keluhan tetap. Apakah diagnosis yang paling mungkin?",
+            "options": [
+                "Psoriasis inversa",
+                "Dermatitis kontak alergi",
+                "Kandidiasis kutis",
+                "Dermatitis atopik",
+                "Dermatitis popok"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Seorang anak perempuan berusia 6 bulan dibawa ibunya ke pukesmas dengan keluhan pantat kemerahan sejak 3 hari yang lalu. Keluhan disertai anak rewel. Pasien sehari-hari memakai pampers dan diganti sehari 2 kali, sejak usia 5 bulan. Pemeriksaan fisik menunjukkan patch eritem dengan skuamasi ringan pada pantat. Apakah terapi topikal yang sesuai?",
+            "options": [
+                "Salep kloramfenikol",
+                "Krim ketokonazol",
+                "Krim mikonazol",
+                "Salep gentamisin",
+                "Krim betametason"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Seorang laki-laki berusia 35 tahun datang ke klinik dengan keluhan bercak kemerahan pada kedua telapak tangan yang terasa perih dan kadang terasa gatal. Keluhan timbul sejak 6 micron yang lalu. Pasien sehari hari bekerja sebagai pegawai restoran dan sering mencuci piring. Apakah pemeriksaan yang diperlukan untuk menegakkan diagnosis pada kasus ini?",
+            "options": [
+                "Pemeriksaan eosinophil",
+                "Pemeriksaan IgE",
+                "Uji provokasi",
+                "Uji tempel kulit",
+                "Uji tusuk kulit"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Tn. Donald, usia 60 tahun, datang ke poliklinik kulit dengan keluhan adanya bercak kehitaman menonjol pada wajah yang cepat membesar sejak satu bulan yang lalu. Benjolan mudah berdarah (+). Tanda vital didapatkan TD 110/70mmHg, HR 75 kali/mnt, RR 19 kali/mnt, suhu 36.7C. Status dermatologis didapatkan adanya plak berwarna cokelat kehitaman dengan warna yang tidak merata, tepi yang ireguler berukuran 3 x 3 cm. Apa kemungkinan diagnosisnya ?",
+            "options": [
+                "Nevus pigmentosus",
+                "Keratosis seboroik",
+                "Karsinoma sel basal",
+                "Karsinoma sel skuamosa",
+                "Melanoma maligna"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Ny. Viona, usia 61 tahun, datang ke Polikulit dengan keluhan benjolan bergerombol seperti kembang kol di daerah pipi yang mudah berdarah. Benjolan dikatakan sudah ada sejak 4 bulan terakhir. Pasien sehari-hari bekerja sebagai pengantar makanan. Dari pemeriksaan fisik didapatkan tanda vital TD 120/80, HR 92 kali/menit, RR 23kali/menit, T 36.8C, Status lokalis didapatkan plak verukosa berwarna kemerahan ukuran 3x4 cm, soliter, tepi tidak teratur, batas tegas. Dari hasil pemeriksaan histopatologi didapatkan keratinisasi dan mutiara tanduk. Diagnosis yang tepat untuk kondisi diatas adalah...",
+            "options": [
+                "Karsinoma Sel Skuamosa",
+                "Karsinoma Sel Basal",
+                "Melanoma maligna",
+                "Keratosis aktinik",
+                "Nevus pigmentosus"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "Tn. Fulgoso, 74 tahun, datang dengan keluhan benjolan pada dahi yang mulai disadari sejak 2 tahun yang lalu. Benjolan terasa nyeri dan dirasakan semakin membesar dan beberapa kali berdarah. Pada pemeriksaan, didapatkan tanda vital dalam batas normal, pada regio frontalis tampak massa mengilap seperti mutiara dengan pelebaran pembuluh darah di sekitarnya. Dokter mencurigai benjolan tersebut adalah keganasan, sehingga dilakukan pemeriksaan lebih lanjut. Setelah dilakukan pemeriksaan sitologi, didapatkan gambaran kohesi interselular yang tinggi pada fragmen jaringan, kelompok sel kecil yang seragam dan padat dengan sitoplasma basofilik. Diagnosis yang tepat untuk kondisi pasien adalah...",
+            "options": [
+                "Karsinoma Sel Skuamosa",
+                "Karsinoma Sel Basal",
+                "Melanoma maligna",
+                "Keratosis aktinik",
+                "Nevus pigmentosus"
             ],
             "answer": 1
         }
     ]
+},
+{
+    "oftalmologi": [
+        {
+            "question": "An. Roarke, berusia 6 tahun diantar oleh ibunya ke Puskesmas dengan keluhan kelopak mata kanan dan kiri merah sejak 5 hari lalu. Pasien memiliki riwayat keterbelakangan mental. Tanda vital didapatkan HR: 68x/menit, RR: 14x/menit, suhu afebris. Pemeriksaan fisik oftalmologis didapatkan VOD 6/6 didapatkan palpebra hiperemis dengan krusta kekuningan (+) bulu mata tampak rontok (+) injeksi konjungtiva minimal. Ketika diangkat krusta tampak berdarah dan terdapat ulkus. Apakah diagnosis yang tepat adalah ..",
+            "options": [
+                "Kalazion",
+                "Hordeolum eksternum",
+                "Blepharitis Posterior",
+                "Blepharitis seborroik",
+                "Blepharitis ulseratif"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Ny. Watson, usia 38 tahun, datang ke puskesmas dengan keluhan tepi kelopak mata merah sejak 5 harui yang lalu. Keluhan disertai mata tampak terdapat sisik berminyak, gatal dan sensasi seperti terbakar. Bulu mata dan alis pasien juga berketombe. Pada pemeriksaan oftalmologi didapatkan visus ODS 6/6, pada palpebra superior ODS bagian anterior mengkilat, eritema, telangiektasis, serta deskuamasi yang tidak berdarah jika diangkat. Terapi yang tepat untuk mengurangi sisik yang ada pada palpebra pasien tersebut ?",
+            "options": [
+                "Salep Salisyl",
+                "Antibiotik topical",
+                "Antibiotik oral",
+                "Antihistamin topical",
+                "Steroid topical"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "An. Janssen berusia 15 tahun diantar ibunya ke Puskesmas dengan keluhan terdapat benjolan di kelopak mata kanan disertai nyeri selama 3 hari. Awalnya keluhan bintil kecil kemudian membesar. Pada pemeriksaan fisik didapati TD : 110/70 mmHg, HR : 85 x/menit, RR : 18 x/menit, suhu afebris. Dari pemeriksaan oftalmologis di didapatkan benjolan berukuran 0.5 cm pada margo palpebra superior berwarna kemerahan, edema disertai fluktuasi (+). Apakah diagnosis yang tepat untuk pasien tersebut?",
+            "options": [
+                "Kalazion",
+                "Hordeolum interna",
+                "Hordeolum eksterna",
+                "Blefaritis anterior",
+                "Dacryoadenitis"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Nn. Edelia usia 21 tahun datang ke Puskesmas dengan keluhan benjolan pada kelopak mata bawah sejak 3 hari yang lalu. Keluhan disertai mata merah dan nyeri. Pada pemeriksaan fisik didapati TD : 110/70 mmHg, HR : 85 x/menit, RR: 18 x/menit, suhu afebris. Dari pemeriksaan oftalmologis di didapatkan benjolan pada margo palpebra inferior, disertai edema dan hiperemis. Tatalaksana awal yang diberikan adalah...",
+            "options": [
+                "Kompres hangat dan dingin + amoxicillin 3x500 mg selama 5 hari",
+                "Kompres hangat dan dingin + insisi-drainase segera + amoxicillin 3 x 500 mg selama 5 hari",
+                "Kompres dingin + salep mata kloramfenikol 3x/hari selama 5 hari",
+                "Kompres hangat + salep oxytetrasiklin 3x/hari selama 5 hari",
+                "Kompres hangat + insisi-drainase segera"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Ny. Della, usia 30 tahun, datang RS dengan keluhan benjolan di kelopak mata kanan bagian bawah sejak satu bulan ini. Keluhan tidak disertai mata merah maupun nyeri. Pasien sudah mencoba menggunakan salep mata selama satu bulan namun benjolan tidak kunjung sembuh. Riwayat trauma disangkal. Pada pemeriksaan fisik didapati TD: 110/70 mmHg, UrB HR 70 x/menit, RR: 17 x/menit, suhu afebris. Pada pemeriksaan oftalmologi VODS 6/6, tampak benjolan di palpebra inferior dextra, eritema (-), nyeri tekan (-), Segmen mata depan dan belakang normal. Pemeriksaan nervus II, III, IV dan VI dalam batas normal. Apa diagnosis yang tepat pada kasus ini?",
+            "options": [
+                "Hordeulum Eksterna",
+                "Hordeolum Interna",
+                "Kalazion",
+                "Blepharitis anterior",
+                "Tumor palpebra"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Tn. Indra, 32 tahun datang dengan keluhan mata kanan merah dan nyeri sejak 1 hari yang lalu. Keluhan juga disertai penglihatan kabur dan silau bila terkena cahaya. Pasien merupakan seorang petani dan memiliki riwayat mata pasien terkena daun padi saat bekerja di sawah. Dalam pemeriksaan fisik didapati TD: 120/80 mmHg, HR : 92 x/menit, RR : 18 x/menit, suhu afebris. Pemeriksaan visus OD 2/6 OS 6/6, OD injeksi siliar, feathery like finger appearance(+). Apakah etiologi kasus diatas ...",
+            "options": [
+                "Virus herpes simpleks",
+                "Jamur Aspergillus",
+                "Virus herpes zoster",
+                "Acanthamoeba",
+                "Staphylococcus sp."
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Tn Reno, usia 46 tahun, datang ke Rumah sakit dengan keluhan nyeri dan pandangan kabur pada mata kiri sejak 2 hari alu. Mata juga dirasakan terasa mengganjal dan panas. Pasien mengaku sempat terkena serpihan kayu saat bekerja. Tanda vital TD: 120/70 mmHg, HR : 90 x/menit, RR: 20 x/menit, suhu afebris. visus OD 2/60, Injeksi silier (+), infiltrat kornea (+) dengan adanya gambaran bul-bulu halus di tepi lesi dan terdapat lesi satelit. Terapi yang tepat?",
+            "options": [
+                "Tobramycin tetes mata",
+                "Amfoterisin tetes mata",
+                "Acyclovir Salep Mata",
+                "Ketoconazole oral",
+                "Doxycycline oral"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Tn. Robb usia 36 tahun datang ke poliklinik mata dengan keluhan tiba-tiba mengalami penurunan pengelihatan pada mata kanannya. Pasien mengatakan bahwa sekarang tidak dapat melihat dengan jelas. Pasien mengatakan Pengelihatannya seperti tertutup tirai. Keluhan mata merah atau nyeri disangkal. Pasien memiliki riwayat perdarahan di dalam bola matanya beberapa bulan yang lalu. Pemeriksaan tanda vital didapatkan TD : 130/70 mmHg, HR : 70 x/menit, RR: 16 x/menit, suhu 37.0C. Pada pemeriksaan optalmology didapatkan mata tenang, Visus OD 1/300, TIO ODS 18 mmg. Pada Funduscopy tampak adanya vitreoretinal band. Kemungkinan diagnosis pada pasien ini adalah ...",
+            "options": [
+                "Age-Related Macular Degeneration",
+                "Ablasio Retina Rhegmatogen",
+                "Ablasio Retina Eksudatif",
+                "Ablasio Retina Traksional",
+                "Pendarahan Vitreus"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Ny. Mawar usia 26 thn datang ke RS dengan keluhan penglihatan kedua mata kabur dirasakan mendadak. Pasien mengatakan penglihatannya seperti tertutup tirai. Tidak ada rasa nyeri. Pada pemeriksaan ophthalmology di dapatkan mata tenang. Riwayat menggunakan kacamata selama 6 tahun, dengan lensa sferis OD S- 12,00, OS S- 14,00. Pada pemeriksaan fisik didapati TD: 140/70 mmHg, HR : 68 x/menit, RR : 14 x/menit, suhu afebris. Pada pemeriksaan funduskopi didapatkan tobacco dust apperance. Kemungkinan diagnosis pada pasien ini adalah ...",
+            "options": [
+                "Age-Related Macular Degeneration",
+                "Ablasio Retina Rhegmatogen",
+                "Ablasio Retina Eksudatif",
+                "Ablasio Retina Traksional",
+                "Pendarahan Vitreus"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Ny. Dania usia 61 tahun, datang ke Puskesmas dengan keluhan pandangan buram sejak 3 minggu lalu di kedua mata. Pasien juga mengeluh mata merah, silau saat melihat cahaya, dan berair Pasien menderita DM dan HT sejak 10 tahun yang lalu. Pada pemeriksaan visus OD 5/60, OS 4/60, pada pemeriksaan mata injeksi konjungtiva (+), edema kornea (+), keratikpresipitat (-), COA dalam batas normal, lensa jernih. Pada pemeriksaan funduskopi, ditemukan perdarahan blood and thunder appearance, dan edema papil. Diagnosis yang paling tepat pada kasus ini adalah...",
+            "options": [
+                "Perdarahan vitreus",
+                "Oklusi arteri retina perifer",
+                "Oklusi vena retina perifer",
+                "Oklusi arteri retina sentral",
+                "Oklusi vena retina sentral"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Nn. Sherly usia 20 tahun datang ke Puskesmas dengan keluhan sering pusing sejak 1 tahun disertai dengan keluhan kedua mata sering berair dan pedih. Visus OD 6/7,5 dikoreksi dengan S-0.50 menjadi 6/6, OS 3/60 dikoreksi dengan S-4,00 menjadi 6/6. Pemeriksaan segmen anterior dalam batas normal and dari pemeriksaan funduskopi normal. Diagnosa pasien tersebut?",
+            "options": [
+                "Hipermetropia",
+                "Ambliopia",
+                "Anisokonia",
+                "Isometropia",
+                "Anisometropia"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "An. Dailin, usia 8 tahun datang ke poliklinik mata dibawa ibunya dengan untuk memeriksakan matanya. Pasien mengeluhkan penglihatan ganda. Riwayat trauma disangkal. Pada pemeriksaan fisik didapati HR : 89 x/menit, RR : 18 x/menit, suhu afebris. Pada saat dilakukan tes cover-uncover, mata kanan yang awalnya ditutup kemudian saat dibuka tampak bergerak. Kemungkinan diagnosis ...",
+            "options": [
+                "Heterophoria",
+                "Heterotropia",
+                "Orthoporia",
+                "Miopia",
+                "Ambliopia"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "An Louis, usia 9 tahun, dibawa oleh ibunya ke RS dengan keluhan sering terlihat memincingkan matanya apabila melinat benda jauh sejak tiga tahun yang lalu. Keluhan disertai melihat benda seperti bergelombang. Tanda vital didapati HR : 92 x/menit, RR: 16 x/menit, suhu afebris. Dari pemeriksaan oftalmologis didapatkan: VOD 4/60 koreksi dengan S-5 C-1,25 axis 90Â°: 6/18 VOS 3/60 koreksi dengan S-6 C-1,25 axis 180Â°: 6/20. Apa diagnosis yang tepat?",
+            "options": [
+                "Miopia tinggi",
+                "Isometropia",
+                "Miopia Ringan-Sedang",
+                "Astigmatisma miopia kompleks",
+                "Ambliopia"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Tn. Hiro, usia 53 tahun, datang ke RS dengan keluhan penurunan penglihatan di kedua mata sejak 1 tahun terakhir. Sejak 2 bulan yang lalu, keluhan semakin memberat. Pasien memiliki riwayat tekanan darah tinggi tidak terkontrol. Riwayat DM disangkal pasien. GDP terakhir pasien 80 mg/dL. Tidak terdapat riwayat trauma maupun mata merah. Pada pemeriksaan fisik didapati TD: 150/70 mmHg, HR : 70 x/menit, RR: 17 x/menit, suhu afebris. Dari pemeriksaan funduskopi, didapatkan blot dot haemorhages (+), A/V crossing (+), A/V nicking (+), papilledema (-), Silver Wire (+). Diagnosis yang tepat adalah adalah...",
+            "options": [
+                "CRVO",
+                "CRAO",
+                "Hipertensi retinopathy",
+                "Proliferative diabetic retinopathy",
+                "Non-proliferative diabetic retinopathy"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Tn. Mike usia 69 tahun, datang ke poli mata dengan keluhan mengalami penurunan penglihatan kedua mata sejak 1 tahun yang lalu. Keluhan tersebut memberat pada 2 bulan terakhir. Pasien memiliki riwayat darah tinggi tetapi tidak rutin minum obat. Tidak ada riwayat trauma maupun mata merah. Pada pemeriksaan fisik didapati TD: 160/100 mmHg, HR : 90 x/menit, RR : 20 x/menit, suhu afebris. Tanda patognomonik yang dapat ditemukan pada pemeriksaan funduskopi pasien ini adalah...",
+            "options": [
+                "Edema discus opticus",
+                "AV crossing",
+                "Cotton wool spot",
+                "Neovaskularisasi",
+                "Bone spicule appearance"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Tn. Patrick, usia 47 tahun dirujuk ke poliklinik mata dengan keluhan penurunan penglihatan sejak 6 bulan yang lalu. Keluhan mata merah dan nyeri disangkal. Pasien adalah penderita DM sejak 10 tahun yang lalu yang tidak rutin kontrol. Pengobatan dengan metformin tetapi tidak rutin. Riwayat trauma disangkal. Pada pemeriksaan fisik didapati TD: 130/70 mmng, HR : 81 x/menit, RR : 20 x/menit, suhu afebris. Pada pemeriksaan funduskopi didapatkan media jernih, papil normal, retina datar, didapatkan cotton wall patches (+), hard exudate (+), neovaskularisasi (+), makula edema (-), refleks fovea normal. Pada pemeriksaan GDS didapati hasil 250 mg/dL. Diagnosis yang paling mungkin adalah...",
+            "options": [
+                "CRVO",
+                "CRAO",
+                "Hipertensi retinopathy",
+                "Proliferative diabetic retinopathy",
+                "Non-proliferative diabetic retinopathy"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Ny. Bela berusia 57 tahun datang ke Puskesmas dengan keluhan mata terasa mengganjal sejak 1 minggu ini. Pasien juga merasa panas pada mata serta sensasi berpasir pada mata. Dalam pemeriksaan fisik didapati TD: 140/90 mmHg, HR : 77 x/menit, RR: 19 x/menit, suhu afebris. Pada pemeriksaan mata tidak ditemukan adanya penurunan visus, injeksi konjungtiva minimal, serta pemeriksaan lanjut Schirmer test 5 mm. Apakah diagnosis yang sesai untuk kasus pasien diatas?",
+            "options": [
+                "Pterigium",
+                "Episkleritis",
+                "Skleritis",
+                "Dry eye syndrome",
+                "Dakriosistis"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Ny. Raidena berusia 60 tahun datang ke RS dengan keluhan mata terasa mengganjal sejak 2 bulan yang lalu. Pasien juga merasa panas pada mata serta sensasi berpasir pada mata. Pada pemeriksaan fisik didapatkan TD : 140/90 mmHg, HR : 77 x/menit, RR : 19 x/menit, suhu afebris. Pada pemeriksaan ophthalmology VODS 6/6, add +3.00D, tampak benang mukus kekuningan pada forniks konjungtiva bawah, injeksi konjungtiva minimal, pada pemeriksaan funduskopi tidak di temukan kelainan. Pemeriksaan yang tepat pada pasien ini adalah...",
+            "options": [
+                "Anel test",
+                "Fluoresein test",
+                "Uji fistel",
+                "Tear break up time",
+                "Amsler grid"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Ny. Choi, usia 45 tahun datang ke poli mata dengan keluhan kedua mata terasa mengganjal dan berpasir sejak 1 bulan yang lalu. Keluhan disertai terkadang pandangan kabur. Pasien juga mengeluhkan mata terasa seperti lengket dan sulit untuk dibuka. Mata merah maupun nyeri disangkal. Tanda vital TD 110/80 mmHg, nadi 88x/menit, RR 22x/menit Suhu 37 Celsius Pada pemeriksaan ophtalmology didapatkan miniskus air pada tepi kelopak mata bawah hilang dan terdapat filamen-filamen melekat di kornea. Dokter akan melakukan pemeriksaan tambahan untuk menentukan diagnose. Pemeriksaan yang tepat adalah.....",
+            "options": [
+                "Tes Amsler Grid",
+                "Tes Placido",
+                "Tes warna Rose Bengal",
+                "Tes fluoresein",
+                "Tes Regurgitasi"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Seorang laki-laki berusia 24 tahun datang ke dokter praktik umum dengan keluhan mata perih dan terasa panas sejak 1 bulan yang lalu. Keluhan disertai dengan mata terasa berpasir, tetapi tidak ada kotoran mata. Pasien sering tidak memakai helm ketika mengendarai sepeda motor. Pemeriksaan mata ditemukan konjungtiva bulbi hiperemis, visus dalam batas normal. Pemeriksaan Schimmer tanpa anastesi diperoleh hasil 7 mm. Apakah tatalaksana yang paling tepat?",
+            "options": [
+                "Tetes mata antifungal",
+                "Tetes mata antivirus",
+                "Tetes mata antibiotik",
+                "Air mata buatan",
+                "Tetes mata steroid"
+            ],
+            "answer": 3
+        }
+    ]
+},
+{
+    "THT": [
+        {
+            "question": "An Adi berusia 17 tahun datang ke Puskesmas dengan keluhan benjolan yang terasa nyeri di daun telinga sebelah kiri. Keluhan diawali dari benjolan yang berisi darah di daun telinga kiri setelah pasien tertinju oleh temannya saat berolahraga di sekolah kurang lebih seminggu yang lalu. Setelah muncul benjolan pasien datang ke rumah sakit dan cairan tersebut dikeluarkan menggunakan suntikan. Namun pasien tidak merawat bekas luka di telinganya sehingga benjolan kembali muncul. Keluhan penurunan pendengaran disangkal. Tanda vital TD 110/70 mmHg, nadi 80x/menit, RR: 18x/menit dan suhu: 36.7C. Pada pemeriksaan status lokalis auricula sinistra: didapatkan pinna edema, hiperemis, nyeri pada perabaan. Pemeriksaan otoskopi: meatus accusticus ekstena dalam batas normal. Membran timpani dalam batas normal. Diagnosis yang mungkin pada pasien diatas adalah...",
+            "options": [
+                "Perikondritis",
+                "abses auricular",
+                "Othematoma",
+                "Wrestler's ear",
+                "Mastoiditis"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "Tn. Jhonson berusia 36 tahun datang ke RS dengan keluhan benjolan yang terasa nyeri di daun telinga sebelah kiri sejak 2 hari yang lalu. Pasien merupakan seorang atlet tinju yang baru saja selesai bertanding 2 hari yang lalu. Diketahui saat bertanding, telinga pasien sempat terkena pukul oleh lawannya. Pemeriksaan tanda vital didapatkan tekanan darah 120/80 mmHg, nadi 86 kali/menit, RR 20 kali/menit, suhu 36,9C. Pada pemeriksaan status lokalis didapatkan edema, hiperemis, nyeri pada perabaan, tampak massa berisi darah pada daun telinga kanan, serta fluktuatif (+). Dokter melakukan aspirasi pada benjolan dan didapatkan cairan berwarna kemerahan. Diagnosis yang mungkin pada pasien diatas adalah...",
+            "options": [
+                "Perikondritis",
+                "Othematoma",
+                "Abses aurikular",
+                "Pseudoothematoma",
+                "cauliflower ear"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Nn Tika, usia 20 tahun datang ke puskesmas dengan keluhan nyeri pada telinga kiri sejak 3 hari yang lalu. Diketahui telinga kirinya terkena pukulan, namun pasien tidak berobat. Tanda vital didapatkan tekanan darah 110/80 mmHg, nadi 70 kali/menit, RR 18 kali/menit, suhu 37,0C. Pemeriksaan telinga ditemukan pinna Sinistra edema, hiperemis, nyeri tekan (+). Komplikasi yang dapat terjadi pada pasien ini adalah?",
+            "options": [
+                "Hematoma aurikula",
+                "Otitis media supuratif kronik",
+                "Cauliflower ear",
+                "Mastoiditis",
+                "Perikondritis"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "An. Viona usia 5 tahun, dibawa ke Puskesmas dengan keluhan keluar cairan kuning kental dan kadang berbau pada lubang di area depan telinga kanan. Menurut ibunya area depan lubang saat ini anak tersebut pernah mengalami pembengkakan dan demam. Pada pemeriksaan fisik didapatkan HR 78 kali/mnt, RR 20 kali/mnt, suhu 38,8Â°C, ditemukan lubang depan tragus berdiameter 1 mm, bila ditekan keluar cairan kekuningan, nyeri tekan (+) eritema (+) dan edema (+). Diagnosis yang paling mungkin pada pasien adalah...",
+            "options": [
+                "Perikondritis",
+                "Mastoiditis",
+                "Abses preaurikula",
+                "Fistula preaurikula",
+                "Microtia"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "An. Debora berusia 7 tahun datang ke Pukesmas diantar oleh ibunya dengan keluhan keluar cairan pada lubang kecil didekat telinga kanannya. Menurut keterangan dari ibu pasien, lubang kecil yang ada didekat telinga kanannya sudah diketahui sejak anak berusia 3 tahun. Namun akhir-akhir ini keluar cairan keruh dan tidak berbau. Diketahui 1 tahun yang lalu pernah bengkak dilubang tersebut. Pemeriksaan fisik didapatkan lubang didepan tragus diameter 1 mm, bila dipencet keluar cairan keruh, tanda radang (-). Diagnosis yang tepat pada pasien tersebut adalah...",
+            "options": [
+                "Fistula preaurikula",
+                "Cauliflower ear",
+                "Hematoma auricula",
+                "Abses preaurikula",
+                "Kista preaurikula terinfeksi"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "An. Raisya usia 8 tahun dibawa ke Puskesmas oleh orang tuanya dengan keluhan nyeri pada telinga kanannya sejak 3 hari yang lalu. Keluhan tersebut diperberat saat pasien membuka mulut. Saat ini pasien juga mengeluh mengalami penurunan pendengaran. 5 hari sebelumnya, pasien berenang dan waktu pulang mengeluh telinganya kemasukan air kemudian dibersihkan menggunakan cotton bud oleh neneknya. Tanda vital pasien didapatkan HR 69kali/mnt, RR 20kali/mnt, suhu 37.5C. Pada pemeriksaan telinga kanan didapatkan nyeri tekan tragus. Pada pemeriksaan otoskopi meatus acusticus eksternus bagian dalam tampak edema, hiperemis, sempit, batas tidak jelas, membran timpani sulit dievaluasi. Diagnosis kasus diatas adalah",
+            "options": [
+                "Otitis media serosa",
+                "Otitis eksterna sirkumkripta",
+                "Otitis media efusi",
+                "Otitis eksterna difusa",
+                "Otitis eksterna maligna"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Seorang anak perempuan 12 tahun dibawa ibunya ke poliklinik dengan keluhan nyeri telinga kanan sejak 2 hari yang lalu. Keluhan nyeri semakin terasa saat daun telinga kanan tertarik atau saat membuka mulut. Keluhan nyeri terkadang disertai rasa gatal di lubang telinga kanan. Pada pemeriksan telinga kanan didapatkan nyeri tekan tragus, kanalis akustikus eksternus dextra tampak sempit, edema, hiperemis dan membran timpani tidak bisa dinilai. Apakah terapi farmakologis yang paling tepat?",
+            "options": [
+                "Antibiotik topikal",
+                "Kortikosteroid oral",
+                "Antibiotik oral",
+                "Antiseptik topikal",
+                "Kortikosteroid topical"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "Tn. Liam, berusia 21 tahun datang ke tempat praktek dokter umum dengan keluhan nyeri pada telinga sejak 1 hari yang lalu. Keluhan disertai rasa berdenging. Pasien juga mengeluh bersin-bersin, hidung tersumbat dan mengeluarkan cairan bening dari hidungnya. Sebelumnya pasien berlibur dengan teman-temannya dan melakukan aktivitas menyelam pada kedalaman sekitar 60 meter. Ayah pasien memiliki riwayat asma, sedangkan ibu pasien memiliki riwayat alergi seafood. Tanda vital didapatkan tekanan darah 110/70 mmHg, nadi 82 kali/menit, RR 20 kali/menit, suhu 36,2C. Pemeriksaan lokalis telinga didapatkan membran timpani tampak seperti gelembung udara. Pemeriksaan hidung didapatkan sekret berwarna bening dari hidung, konka edema hiperemis. Terapi konservatif yang tepat diberikan pada pasien adalah...",
+            "options": [
+                "Antibiotik topikal",
+                "Antibiotik lokal",
+                "Analgetik",
+                "Antihistamin",
+                "Dekongestan lokal"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Ny. Lucy usia 48 tahun datang ke puskesmas dengan keluhan penurunan pendengaran sejak 1 tahun yang lalu. Pendengaran menurun secara perlahan pada kedua telinga. Telinga kanan lebih berat daripada telinga kiri. Pasien cenderung berbicara pelan. Pasien dapat mendengar lebih baik daripada orang normal pada situasi ramai. Pasien mengeluh telinga berdenging dan pusing. Tanda vital didapatkan tekanan darah 130/80 mmHg, nadi 90 kali/menit, RR 18 kali/menit, suhu 37,0C. Pada pemeriksaan otoskopi didapatkan membran timpani utuh dan refleks cahaya normal. Apakah diagnosa yang dialami pada pasien tersebut?",
+            "options": [
+                "Timpanosklerosis",
+                "Otosklerosis",
+                "Presbiaskusis",
+                "Sumbatan Serumen",
+                "Kolesteatoma"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Ny. Violet, usia 30 tahun, datang ke Puskesmas dengan keluhan penurunan pendengaran sejak 6 months yang lalu, Semakin lama, penurunan pendengaran semakin berat. Pasien merasa gangguan pada telinga kanan lebih berat daripada telinga kiri. Pasien cenderung bicara lebih pelan dan dapat mendengar lebih baik ketika suasana ramai. Pasien mengeluh telinga berdenging dan pusing. Ayah pasien mempunyai riwayat keluhan serupa. Tanda vital didapatkan TD 120/80 mmHg, HR 80x/mnt, RR 22x/mnt dan suhu 36,7C. Pemeriksaan yang dapat ditemukan pada pasien adalah...",
+            "options": [
+                "Cocktail party sign",
+                "Milian's ear sign",
+                "Flemingo's pink sign",
+                "Halo sign",
+                "Paracusis Willisi sign"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Tn Robbie usia 45 tahun datang ke rumah sakit dengan keluhan gangguan pendengaran sejak 1 bulan terakhir. Sebelumnya pasien merasa ada yang aneh dengan pendengarannya, namun pasien belum sempat berobat. Gangguan pendengaran dirasakan makin berat akhir-akhir ini. Keluhan nyeri atau gatal pada telinga tidak ada. Riwayat infeksi telinga (+). Tanda vital TD 130/80mmg, HR 89kali/mt, RR 22 kali/mnt, suhu 37.1C. Pada pemeriksaan otoskopi didapatkan patch putih ireguler pada membran timpani seperti kapur. Diagnosis kasus diatas adalah....",
+            "options": [
+                "Otosklerosis",
+                "Keratosis obturans",
+                "Timpanosklerosis",
+                "Kolesteatom",
+                "Otomikosis"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Tn. Levin berusia 68 tahun datang ke RS dengan keluhan penurunan pendengaran sejak 2 tahun yang lalu. Pasien tidak bisa memahami perkataan apalagi jika suasana ribut dan kerumunan. Keluhan pusing berputar maupun berdenging disangkal. Riwayat HT (-), DM (-). Pada pemeriksaan fisik didapatkan TD 130/80 mmHg, HR 80x/mnt, RR 22x/mnt dan suhu 37C. Dari pemeriksaan garpu tala dijumpai rinne test (+), swabach memendek pada kedua telinga. Apakah kemungkinan diagnosis pasien tersebut?",
+            "options": [
+                "Otosklerosis",
+                "Trauma akustik",
+                "Presbiaskusis",
+                "NIHL",
+                "Sensorineural hearing loss"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Tn. Johan, usia 78 tahun, dibawa oleh anaknya ke Poli THT dengan keluhan sulit diajak bicara, terutama di tempat ramai, sejak 2 tahun terakhir. Pasien sewaktu muda sempat menjadi DJ di klub malam selama 3 tahun. Pasien juga pernah menjalani pengobatan TB dengan obat suntikan ketika muda. Pasien memiliki riwayat hipertensi dan diabetes, tetapi tidak pernah kontrol. Pada pemeriksaan fisik, tekanan darah 140/90 mmHg, HR 79 kali/mnt, RR 20 kali/mnt, T 36,7C. Pemeriksaan fisik lain dalam batas normal. Pada pemeriksaan audiometri, didapatkan tuli sensorineural kedua telinga pada frekuensi 2000 Hz ke atas. Apakah penyebab penurunan pendengaran pada pasien?",
+            "options": [
+                "Paparan bising",
+                "Penggunaan obat ototoksik",
+                "Hipertensi",
+                "Diabetes",
+                "Usia tua"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Seorang anak laki-laki 7 tahun dibawa ibunya ke praktek dokter umum dengan keluhan pilek sejak 3 hari yang lalu. Ingus banyak dan encer. Pilek disertai hidung tersumbat dan kadang-kadang bersin. Pasien juga mengalami demam tapi tidak terlalu tinggi. Tidak dijumpai riwayat keluarga alergi. Pasien belum ada diberi obat apapun. Pada pemeriksaan rinoskopi anterior didapatkan kavum nasi sempit, konka inferior edema, hiperemis dan sekret serous (+). Apakah diagnosis yang paling tepat ?",
+            "options": [
+                "Rhinitis akut",
+                "Rhinitis medikamentosa",
+                "Rhinitis kronik",
+                "Rhinitis atrofi",
+                "Rhinitis vasomotor"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "An. Veronika berusia 10 tahun datang ke Puskesmas diantar orang tuanya dengan keluhan bersin-bersin dan pilek sejak 5 hari yang lalu. Keluhan disertai hidung yang tersumbat. Keluhan tersebut hilang timbul dan sudah terjadi sejak 3 bulan yang lalu. Orang tuanya juga mengatakan bahwa anaknya sampai sering sulit tidur dan merasa tidak nyaman setiap harinya. Tidak diketahui riwayat alergi pada pasien, namun ayah pasien menderita asma, dan ibu pasien memiliki riwayat alergi seafood. Pemeriksaan tanda vital nadi: 90x/m RR: 22x/m suhu 37C. Pemeriksaan fisik ditemukan garis melintang pada hidung dan ditemukan warna hitam dibawah mata. Rhinoskopi anterior ditemukan tampak konka inferior pucat, edema, dan sekret serosa. Diagnosis pasien tersebut adalah...",
+            "options": [
+                "Rhinitis vasomotor",
+                "Rhinitis intermiten ringan",
+                "Rhinitis alergi persisten ringan",
+                "Rhinitis alergi intermiten sedang berat",
+                "Rhinitis alergi persisten sedang berat"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Seorang laki laki berusia 27 tahun datang ke puskesmas dengan keluhan hidung tersumbat sejak 1 tahun yang lalu. Keluhan disertai bersin-bersin, pilek dan hidung terasa gatal. Berdasarkan anamnesis diketahui pasien saat ini bekerja pada sebuah pabrik pembuatan perabot kayu. Pasien juga sering gatal-gatal pada kulit bila makan udang. Pemeriksaan fisik hidung didapatkan konka livid, udem dan sekret serous. Hasil skin prick tes positif. Apakah terapi yang tepat untuk kasus diatas?",
+            "options": [
+                "Antipiretik",
+                "Antihistamin",
+                "Analgetik",
+                "Antibiotika",
+                "Antiviral"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Seorang perempuan hamil berusia 35 tahun datang ke praktek dokter umum dengan keluhan hidung tersumbat bergantian terutama pagi hari sejak 3 bulan yang lalu. Keluhan tidak disertai bersin ataupun gatal pada mata. Pada pemeriksaan rinoskopi anterior tampak gambaran konka inferior membesar dan berwarna merah gelap dengan sekret serosa. Apakah diagnosis yang paling mungkin?",
+            "options": [
+                "Rinitis Kronik",
+                "Rinitis Akut",
+                "Rinitis Alergi",
+                "Rinitis Atrofi",
+                "Rinitis Vasomotor"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Tn. Junno usia 32 tahun datang ke tempat praktek dokter umum dengan keluhan hidung tersumbat selama 1 tahun terakhir. Keluhan hidung tersumbat dirasakan bergantian kanan kiri. Pasien memiliki riwayat bersin-bersin dan keluar sekret kental berwarna putih. Keluhan membaik jika menghirup minyak kayu putih. Riwayat alergi disangkal, Riwayat alergi di keluarga juga disangkal. Pemeriksaan tanda vital didapatkan tekanan darah 110/70 mmHg, nadi 72 kali/menit, RR 18 kali/menit, suhu 36.8C. Pada pemeriksaan fisik didapatkan konka hipertrofi, edema, berwarna merah gelap dan terdapat sekret seromukosa. Hasil pemeriksaan penunjang yang diharapkan adalah...",
+            "options": [
+                "Skin prick test positif kuat",
+                "Leukosit meningkat",
+                "Eusinophilia bermakna",
+                "IgE total normal",
+                "Kadar eosinophil meningkat"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Tn Mark, usia 27 tahun datang ke Poli THT dengan keluhan hidung tersumbat sejak 1 minggu terakhir. Dari anamnesis, diketahui pasien sering mengalami hidung tersumbat bergantian dan mengeluarkan sekret encer berwarna jernih bila pasien kelelahan saat bekerja atau saat terpapar asap rokok. Tanda vital didapatkan tekanan darah 130/80 mmHg, nadi 90 kali/menit, RR 18 kali/menit, suhu 36,7C. Dari pemeriksaan rhinoskopi anterior didapatkan konka inferior hipertrofi bilateral, berwarna merah gelap dan sekret pada meatus inferior (+) minimal. Apakah terapi yang tepat untuk keluhan yang dialami pasien ?",
+            "options": [
+                "Dekongestan",
+                "Anti histamin generasi 1",
+                "NSAID",
+                "Steroid oral",
+                "Antibiotik oral"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "Seorang anak laki-laki berusia 8 tahun dibawa ke puskesmas dengan keluhan hidung tersumbat sejak 3 hari yang lalu. Keluhan disertai bersin-bersin dan demam. Pada pemeriksaan fisik didapatkan denyut nadi 90 x/menit, frekuensi napas 20 x/menit dan suhu 38C. Pemeriksaan hidung didapatkan mukosa konka hiperemis, edema serta sekret serous. Apakah terapi yang paling tepat?",
+            "options": [
+                "Antibiotik dan dekongestan",
+                "Antipiretik dan analgetik",
+                "Antibiotik dan analgetik",
+                "Antipiretik dan dekongestan",
+                "Antiviral dan dekongestan"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Nn. Helen, usia 45 tahun, datang ke RS dengan keuhan hidung tersumbat sejak 3 bulan yang lalu. Pasien mengatakan sulit bernafas terutama saat malam hari. Pasien mengatakan sudah menggunakan obat hidung selama 6 bulan terakhir. Namun, obat tersebut menurutnya kurang bekerja sejak 1 bulan terakhir dan malah justru semakin parah. Tanda vital TD 130/80mmHg, HR 89kali/mnt, RR 22kali/mnt, suhu 36.8C. Pada pemeriksaan rhinoskopi anterior, didapatkan konka edema, hiperemis dan hipertrofi dengan sekret yang kental dan kavum nasi yang sempit. Apakah diagnosis yang sesuai untuk pasien saat ini?",
+            "options": [
+                "Rhinitis vasomotor",
+                "Rhinitis Medikamentosa",
+                "Rhinitis Alergika",
+                "Sinusitis Akut",
+                "Rhinosinusitis"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Seorang laki-laki berusia 32 tahun datang ke puskesmas dengan keluhan demam sejak 3 hari yang lalu. Sejak 1 minggu yang lalu pasien mengalami batuk pilek, namun saat ini pileknya sudah sembuh, batukya mash ada, berdahak warna hijau khususnya malam hari. Dari pemeriksaan didapatkan faring kemerahan. Riwayat penyakit terdahul tidak dijumpai, pasien tidak merokok. Pada foto toraks menunjukkan tidak ada kelainan. Apakah pengobatan yang tepat diberikan pada pasien ini?",
+            "options": [
+                "Gliseril guaiakolat + eritromisin + parasetamol",
+                "Kodein + salbutamol + parasetamol",
+                "Gliseril guaiakolat + pseudoefedrin + parasetamol",
+                "Dekstrometorfan + pseudoefedrin + parasetamol",
+                "Dekstrometorfan + salbutamol + eritromisin"
+            ],
+            "answer": 0
+        },
+        {
+            "question": "Seorang laki-laki berusia 24 tahun datang ke puskesmas dengan keluhan nyeri telan sejak 3 hari. Keluhan disertai batuk, demam, badan dan tenggorokan terasa bengkak. Pada pemeriksaan tanda vital tekanan darah 120/80 mmHg, denyut nadi 90 x/menit, frekuensi napas 20 x/menit, suhu 38,5Â°C. Pemeriksaan fisik faring tampak hiperemis. Pada pemeriksaan laboratorium didapatkan lekosit 15.000/mm3. Apakah terapi yang tepat pada kasus tersebut?",
+            "options": [
+                "Nasal dekongestan",
+                "Analgetik",
+                "Antibiotik",
+                "Antipiretik",
+                "Obat kumur"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Seorang anak laki-laki berusia 7 tahun diantar ibunya ke poliklinik dokter umum di RS dengan keluhan demam sejak 2 hari yang lalu. Keluhan disertai nyeri menelan. Pasien menyangkal adanya batuk dan pilek. Keluhan serupa sudah beberapa kali dialami pasien. Pada pemeriksaan fisik didapatkan suhu 38Â°C, pembesaran kelenjar limfe di leher, faring hiperemis dan tonsil dalam batas normal. Apakah penatalaksanaan yang tepat sesuai etiologi kasus ini ?",
+            "options": [
+                "Metronidazol 3 x 250 mg",
+                "Kloramfenikol 3 x 250 mg",
+                "Ambroxol 3 x 30 mg",
+                "Amoksisillin 3 x 250 mg",
+                "Parasetamol 3 x 200 mg"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Tn Dolpin, usia 50 tahun datang ke Poli THT mengeluhkan suara serak sejak 2 minggu lalu yang lalu. Keluhan disertai batuk dan demam sejak 2 bulan lalu. Pasien mengaku BB turun drastis 10 kg. Pada pemeriksaan vital sign TD 110/80 mmHg, nadi 80 kali/menit, RR 22kali/menit, Temperature 37.8C. Pemeriksaan laringoskopi indirect didapatkan faring, laring, plika vokalis hiperemis, mouse bitten appearance pada vocal cord. Apakah diagnosis pasien?",
+            "options": [
+                "Laryngitis akut",
+                "Laryngitis TB",
+                "Laryngitis Luetika",
+                "Laryngitis kronis",
+                "Karsinoma in situ"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "Seorang laki-laki berusia 17 tahun diantar ke UGD dengan keluhan leher terasa nyeri sejak 5 hari yang lalu. Keluhan disertai suara serak, demam and batuk. Keluhan nyeri menelan disangkal. Riwayat keluhan sering berulang sejak 1 tahun terakhir. Pemeriksaan fisik rongga hidung normal, faring dan tonsil normal. Apakah pemeriksaan penunjang yang paling tepat?",
+            "options": [
+                "Oesofagoskopi",
+                "Radiologi thoraks",
+                "Bronkoskopi",
+                "Laringoskopi indirect",
+                "Endoskopi"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "By. Silvia berusia 2 minggu dibawa ibunya ke RS dengan keluhan sering mengorok dan nafas sering berbunyi. Keluhan makin berat saat pasien menangis, makan dan tidur terlentang. Saat ini pasien sangat sulit untuk makan karena sering tersedak. Tanda vital dalam batas normal. Pemeriksaan fisik laringoskopi ditemukan omega shape epiglottis. Diagnosis yang mungkin adalah...",
+            "options": [
+                "Vocal nodul",
+                "Faringitis akut",
+                "Laringitis TB",
+                "Laringitis akut",
+                "Laringomalasia"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "Ny. Romania usia 30 tahun datang ke praktek dokter umum dengan keluhan parau sejak 3 hari yang lalu. Keluhan disertai nyeri tenggorokan dan kadang disertai batuk. Pasien menyangkal adanya nyeri menelan. Pasien sehari-hari bekerja sebagai penyanyi yang ramai job sejak satu tahun ini. Riwayat merokok dan konsumsi minuman beralkohol disangkal. Pada pemeriksaan vital sign TD 110/80 mmHg, nadi 80 kali/menit, RR 22kali/menit, Tax 37C. Pemeriksaan fisik di dapatkan tonsil T1/T1 tidak hiperemis. Pada pemeriksaan laringoskopi indirek didapatkan benjolan tidak bertangkai sebesar kedelai warna putih, simetris, bilateral tanpa tanda radang di pita suara. Diagnosis yang paling mungkin untuk pasien tersebut adalah...",
+            "options": [
+                "Laringitis kronis",
+                "Ca laring",
+                "Polip laring",
+                "Epiglotitis",
+                "Vocal nodule"
+            ],
+            "answer": 4
+        }
+    ]
 }
+]

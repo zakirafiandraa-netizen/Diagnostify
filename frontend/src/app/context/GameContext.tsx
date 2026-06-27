@@ -38,6 +38,7 @@ interface GameState {
   undercoverWord: string;
   // ── New: clue request ─────────────────────────────────────────
   clueRequested: boolean;
+  setClueRequested: (val: boolean) => void;
 }
 
 const GameContext = createContext<GameState | null>(null);
@@ -135,6 +136,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setVotesCast(0);
       setVoteTied(false);
       setEliminatedPlayer(null);
+      setClueRequested(false);
       setScreen("voting");
     };
 
@@ -201,7 +203,6 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setCurrentQuestion(null);
       setEliminatedPlayer(null);
       setVoteTied(false);
-      setClueRequested(false);
       setScreen("discussion");
     };
 
@@ -224,6 +225,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
       if (data.myRole) setMyRole(data.myRole);
       if (data.myWord) setMyWord(data.myWord);
       if (data.category) setGameCategory(data.category);
+      if (data.pendingCategory) setSelectedCategory(data.pendingCategory);
       if (data.votesCast !== undefined) setVotesCast(data.votesCast);
       if (data.totalVoters !== undefined) setTotalVoters(data.totalVoters);
       if (data.currentQuestion) setCurrentQuestion(data.currentQuestion);
@@ -244,6 +246,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
       clearSession();
       alert("You have been kicked for inactivity.");
       setScreen("home");
+    };
+
+    // ── Lobby: category sync ──────────────────────────────
+    const onLobbyCategoryChanged = (data: { category: string }) => {
+      setSelectedCategory(data.category);
     };
 
     socket.on("connect", onConnect);
@@ -268,6 +275,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     socket.on("room:rejoined", onRoomRejoined);
     socket.on("session:expired", onSessionExpired);
     socket.on("kicked:inactivity", onKickedInactivity);
+    socket.on("lobby:category_changed", onLobbyCategoryChanged);
 
     return () => {
       socket.off("connect", onConnect);
@@ -292,6 +300,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
       socket.off("room:rejoined", onRoomRejoined);
       socket.off("session:expired", onSessionExpired);
       socket.off("kicked:inactivity", onKickedInactivity);
+      socket.off("lobby:category_changed", onLobbyCategoryChanged);
     };
   }, []);
 
@@ -317,7 +326,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     currentQuestion, quizRound, quizResult,
     privilegeOptions, fastestPlayerId,
     winners, civilianWord, undercoverWord,
-    clueRequested,
+    clueRequested, setClueRequested
   }), [
     screen, go, players, selectedCategory, roomCode, chatMessages,
     playerId, myRole, myWord, gameCategory, cards,
