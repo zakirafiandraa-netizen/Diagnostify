@@ -3,7 +3,8 @@ export type Screen =
   | "home" | "guidebook" | "offline-players" | "offline-category" | "offline-summary"
   | "online-join" | "lobby-main" | "lobby-players" | "choose-role"
   | "role-revealed" | "discussion" | "voting" | "finalist"
-  | "final-submissions" | "game-over" | "quiz" | "session-expired";
+  | "final-submissions" | "game-over" | "quiz" | "session-expired"
+  | "final-diagnosis" | "final-voting";
 
 export interface Player {
   id: string;
@@ -41,4 +42,19 @@ export interface ChatMessage {
 export interface CardState {
   id: number;
   pickedBy?: string;
+}
+
+// ── Final round types ──────────────────────────────────────────────
+export interface FinalSolutionEntry {
+  label: string;       // "A" | "B" | "C"
+  solution?: string;   // anonymized solution text
+}
+
+export interface FinalRevealEntry {
+  label: string;
+  playerId: string;
+  playerName?: string;
+  solution?: string;
+  votesReceived: number;
+  pointsAwarded: number;
 }

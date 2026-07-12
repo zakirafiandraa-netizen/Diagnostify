@@ -6,7 +6,7 @@ import { Avatar } from "../components/shared/Avatar";
 import { fadeUp, staggerList } from "../animations/presets";
 
 export default function GameOverScreen() {
-  const { go, players, winners, civilianWord, undercoverWord } = useGame();
+  const { go, players, winners, civilianWord, undercoverWord, finalReveal } = useGame();
 
   // Leaderboard: all players sorted by score descending
   const leaderboard = useMemo(() => {
@@ -119,6 +119,14 @@ export default function GameOverScreen() {
         </motion.div>
 
         <div className="flex gap-3 mt-6">
+          {finalReveal.length > 0 && (
+            <button
+              onClick={() => go("final-submissions")}
+              className="flex-1 border border-orange-300 text-orange-600 py-3 rounded-xl font-semibold text-sm hover:bg-orange-50 transition-colors"
+            >
+              🏥 Final Results
+            </button>
+          )}
           <button
             onClick={() => go("home")}
             className="flex-1 border border-border text-foreground py-3 rounded-xl font-semibold text-sm hover:bg-muted/50 transition-colors"

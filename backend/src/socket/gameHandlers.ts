@@ -1,5 +1,11 @@
 import { Server, Socket } from "socket.io";
-import { createRoom, joinRoom, leaveRoom, startGame, pickCard, castVote, resolveVotes, checkWinCondition, applyQuizPoints, applyPrivilege, getAlivePlayers, getRoom, rejoinRoom } from "../rooms/roomManager.js";
+import {
+    createRoom, joinRoom, leaveRoom, startGame,
+    pickCard, castVote, resolveVotes, checkWinCondition,
+    applyQuizPoints, applyPrivilege, getAlivePlayers, getRoom,
+    rejoinRoom, startFinalRound, submitFinalSolution, castSolutionVote,
+    resolveFinalVotes, getEliminatedPlayers
+} from "../rooms/roomManager.js";
 import type { Player } from "../types/game.js";
 import { getCategories } from "../rooms/wordManager.js";
 import { getRandomQuestion, getQuizCategories } from "../rooms/quizManager.js";
@@ -21,6 +27,20 @@ function endQuiz(io: Server, roomCode: string) {
     const room = getRoom(roomCode);
     if (!room || room.phase !== "quiz") return;
 
+    const aliveCount = room.players.filter((p) => p.status === "Alive").length;
+
+    if (aliveCount <= 3 && !room.finalRoundStarted) {
+        const finalRoom = startFinalRound(roomCode);
+        if (finalRoom) {
+            io.to(roomCode).emit("room:updated", finalRoom);
+            io.to(roomCode).emit("final:solution_phase", {
+                finalists: finalRoom.finalists,
+                diagnosis: finalRoom.civilianWord,
+            });
+            return;
+        }
+    }
+
     // Check win condition
     const { won, winners } = checkWinCondition(roomCode);
     if (won) {
@@ -31,9 +51,9 @@ function endQuiz(io: Server, roomCode: string) {
         return;
     }
 
-    // +20 points for all alive players advancing to next round
+    // +10 points for all alive players advancing to next round
     room.players.forEach(p => {
-        if (p.status === "Alive") p.score += 20;
+        if (p.status === "Alive") p.score += 10;
     });
 
     // Transition to discussion
@@ -136,12 +156,24 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                 player.connected = false;
                 io.to(roomCode).emit("room:updated", room);
 
-                disconnectTimers[player.name] = setTimeout(() => {
-                    const updatedRoom = leaveRoom(roomCode, player.id);
-                    if (updatedRoom) {
-                        io.to(roomCode).emit("room:updated", updatedRoom);
+                const playerName = player.name;
+                const disconnectedSocketId = player.id;
+
+                // Give them a grace window to reconnect before actually removing them
+                disconnectTimers[playerName] = setTimeout(() => {
+                    const currentRoom = getRoom(roomCode);
+                    if (!currentRoom) return;
+                    const stillDisconnected = currentRoom.players.find(
+                        p => p.id === disconnectedSocketId && !p.connected
+                    );
+                    if (stillDisconnected) {
+                        const updatedRoom = leaveRoom(roomCode, disconnectedSocketId);
+                        if (updatedRoom) {
+                            io.to(roomCode).emit("room:updated", updatedRoom);
+                        }
                     }
-                }, 5 * 60 * 1000);
+                    delete disconnectTimers[playerName];
+                }, 15_000); // 15s grace period — tune as needed
             }
         });
     });
@@ -327,6 +359,10 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                         options: question.options,
                         round: updatedRoom.round,
                     });
+                    io.to(data.roomCode).emit("quiz:timer_start", {
+                        startsAt: Date.now(),
+                        durationMs: QUIZ_DURATION_MS,
+                    });
 
                     (updatedRoom as any)._currentAnswer = question.answer;
                     (updatedRoom as any)._currentQuestionText = question.question;
@@ -436,4 +472,76 @@ export function registerGameHandlers(io: Server, socket: Socket) {
 
     // Correction 3: quiz:end is no longer player-triggered; this handler is removed.
     // The quiz ends automatically via quizTimers set in vote:cast.
+
+    // ── Final round: each finalist submits a written solution for civilianWord ──
+    socket.on("final:submit_solution", (data: { roomCode: string; solution: string }) => {
+        const room = submitFinalSolution(data.roomCode, socket.id, data.solution);
+        if (!room) {
+            socket.emit("room:error", "Could not submit solution.");
+            return;
+        }
+
+        io.to(data.roomCode).emit("final:solution_submitted", { playerId: socket.id });
+
+        if (room.phase === "final_voting") {
+            // Anonymized — label + text only, author never included
+            const anonymized = Object.entries(room.solutionLabels ?? {}).map(([finalistId, label]) => ({
+                label,
+                solution: room.finalSolutions?.[finalistId],
+            }));
+            io.to(data.roomCode).emit("final:voting_started", { solutions: anonymized });
+            io.to(data.roomCode).emit("room:updated", room);
+        }
+    });
+
+    // ── Final round: eliminated players blind-vote on a solution label (10pts/vote) ──
+    socket.on("final:vote_solution", (data: { roomCode: string; label: string }) => {
+        const room = getRoom(data.roomCode);
+        if (!room || room.phase !== "final_voting") return;
+
+        const player = room.players.find(p => p.id === socket.id);
+        if (!player || player.status !== "Eliminated") return; // only eliminated players vote
+
+        const entry = Object.entries(room.solutionLabels ?? {}).find(([, label]) => label === data.label);
+        if (!entry) {
+            socket.emit("room:error", "Invalid solution.");
+            return;
+        }
+        const [finalistId] = entry;
+
+        const success = castSolutionVote(data.roomCode, socket.id, finalistId);
+        if (!success) {
+            socket.emit("room:error", "Vote could not be cast.");
+            return;
+        }
+
+        const eliminatedPlayers = getEliminatedPlayers(data.roomCode);
+        const votesCast = Object.keys(room.solutionVotes ?? {}).length;
+
+        io.to(data.roomCode).emit("final:solution_vote_updated", { votesCast, total: eliminatedPlayers.length });
+
+        if (votesCast >= eliminatedPlayers.length) {
+            const { scores, winners } = resolveFinalVotes(data.roomCode);
+            const updatedRoom = getRoom(data.roomCode);
+
+            // Identities revealed only now that voting is fully closed
+            const reveal = Object.entries(room.solutionLabels ?? {}).map(([fId, label]) => {
+                const p = updatedRoom?.players.find(pl => pl.id === fId);
+                return {
+                    label,
+                    playerId: fId,
+                    playerName: p?.name,
+                    solution: room.finalSolutions?.[fId],
+                    votesReceived: scores[fId] ?? 0,
+                    pointsAwarded: (scores[fId] ?? 0) * 10,
+                };
+            });
+
+            io.to(data.roomCode).emit("final:results", { reveal });
+            io.to(data.roomCode).emit("game:won", {
+                winners: winners.map(w => ({ id: w.id, name: w.name, score: w.score })),
+            });
+            io.to(data.roomCode).emit("room:updated", updatedRoom);
+        }
+    });
 }

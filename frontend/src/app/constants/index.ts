@@ -40,4 +40,6 @@ export const SCREEN_META: Record<Screen, { title: string; subtitle: string }> = 
   "game-over": { title:"Game Over!", subtitle:"Civilian Menang! 🏆" },
   quiz: { title:"Quiz Time", subtitle:"Answer fast for extra points!" },
   "session-expired": { title:"Session Ended", subtitle:"You have been disconnected" },
+  "final-diagnosis": { title:"Final Round", subtitle:"Write your diagnosis solution" },
+  "final-voting": { title:"Final Vote", subtitle:"Choose the best solution" },
 };

@@ -282,6 +282,28 @@ export function rejoinRoom(code: string, playerName: string, newSocketId: string
     room.immunePlayers = room.immunePlayers.map(id => id === oldSocketId ? newSocketId : id);
     room.clueRequests = room.clueRequests.map(id => id === oldSocketId ? newSocketId : id);
 
+    if (room.finalists) {
+        room.finalists = room.finalists.map(id => id === oldSocketId ? newSocketId : id);
+    }
+
+    if (room.finalSolutions && oldSocketId in room.finalSolutions) {
+        room.finalSolutions[newSocketId] = room.finalSolutions[oldSocketId]!;
+        delete room.finalSolutions[oldSocketId];
+    }
+    if (room.solutionLabels && oldSocketId in room.solutionLabels) {
+        room.solutionLabels[newSocketId] = room.solutionLabels[oldSocketId]!;
+        delete room.solutionLabels[oldSocketId];
+    }
+    if (room.solutionVotes) {
+        const newSolutionVotes: Record<string, string> = {};
+        for (const [voter, target] of Object.entries(room.solutionVotes)) {
+            const newVoter = voter === oldSocketId ? newSocketId : voter;
+            const newTarget = target === oldSocketId ? newSocketId : target;
+            newSolutionVotes[newVoter] = newTarget;
+        }
+        room.solutionVotes = newSolutionVotes;
+    }
+
     const anyRoom = room as any;
     if (anyRoom._quizAnswered) {
         anyRoom._quizAnswered = anyRoom._quizAnswered.map((id: string) => id === oldSocketId ? newSocketId : id);
@@ -298,4 +320,86 @@ export function rejoinRoom(code: string, playerName: string, newSocketId: string
     }
 
     return room;
+}
+
+export function getEliminatedPlayers(code: string): Player[] {
+    const room = rooms.get(code);
+    if (!room) return [];
+    return room.players.filter((p) => p.status === "Eliminated");
+}
+
+export function startFinalRound(code: string): Room | null {
+    const room = rooms.get(code);
+    if (!room || room.finalRoundStarted) return room ?? null;
+
+    const alive = room.players.filter((p) => p.status === "Alive");
+    if (alive.length > 3) return room;
+
+    room.finalRoundStarted = true;
+    room.finalists = alive.map((p) => p.id);
+    room.phase = "final_diagnosis";
+    room.finalSolutions = {};
+    room.solutionVotes = {};
+    room.solutionLabels = {};
+
+    alive.forEach((p) => { p.score += 50; });
+
+    return room;
+}
+
+export function submitFinalSolution(code: string, playerId: string, solution: string): Room | null {
+    const room = rooms.get(code);
+    if (!room || room.phase !== "final_diagnosis") return null;
+    if (!room.finalists?.includes(playerId)) return null;
+
+    room.finalSolutions = room.finalSolutions ?? {};
+    room.finalSolutions[playerId] = solution;
+
+    if (room.finalists.every((id) => room.finalSolutions![id])) {
+        const shuffled = [...room.finalists];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j]!, shuffled[i]!];
+        }
+        const labels = ["A", "B", "C"];
+        room.solutionLabels = {};
+        shuffled.forEach((id, idx) => { room.solutionLabels![id] = labels[idx]!; });
+        room.phase = "final_voting";
+    }
+
+    return room;
+}
+
+export function castSolutionVote(code: string, voterId: string, finalistId: string): boolean {
+    const room = rooms.get(code);
+    if (!room || room.phase !== "final_voting") return false;
+
+    const voter = room.players.find(p => p.id === voterId);
+    if (!voter || voter.status !== "Eliminated") return false;
+
+    room.solutionVotes = room.solutionVotes ?? {};
+    room.solutionVotes[voterId] = finalistId;
+    return true;
+}
+
+export function resolveFinalVotes(code: string): { scores: Record<string, number>; winners: Player[] } {
+    const room = rooms.get(code);
+    if (!room) return { scores: {}, winners: [] };
+
+    const scores: Record<string, number> = {};
+    for (const finalistId of Object.values(room.solutionVotes ?? {})) {
+        scores[finalistId] = (scores[finalistId] ?? 0) + 1;
+    }
+
+    for (const [finalistId, voteCount] of Object.entries(scores)) {
+        const player = room.players.find((p) => p.id === finalistId);
+        if (player) player.score += voteCount * 10;
+    }
+
+    room.phase = "finished";
+    const finalist = room.players.filter((p) => room.finalists?.includes(p.id));
+    const topScore = Math.max(...finalist?.map((p) => p.score));
+    const winners = finalist?.filter((p) => p.score === topScore);
+
+    return { scores, winners };
 }

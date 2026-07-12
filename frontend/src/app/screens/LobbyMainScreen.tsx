@@ -32,9 +32,25 @@ export default function LobbyMainScreen() {
   }, [roomCode, isHost]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const copy = () => {
-    if (roomCode) navigator.clipboard.writeText(roomCode).catch(() => {});
+    if (!roomCode) return;
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(roomCode).catch(() => fallbackCopy(roomCode));
+    } else {
+      fallbackCopy(roomCode);
+    }
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const fallbackCopy = (text: string) => {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;pointer-events:none;";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand("copy"); } catch (_) {}
+    document.body.removeChild(ta);
   };
 
   const handleCategoryChange = (cat: string) => {

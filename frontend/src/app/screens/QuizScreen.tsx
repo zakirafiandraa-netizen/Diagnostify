@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Star, Zap, Shield, HelpCircle, Trophy } from "lucide-react";
 import { useGame } from "../context/GameContext";
@@ -7,9 +7,9 @@ import { Avatar } from "../components/shared/Avatar";
 import { socket } from "../services/socket";
 
 const PRIVILEGE_META: Record<string, { icon: React.ReactNode; label: string; description: string; color: string }> = {
-  points:        { icon: <Star className="w-5 h-5" />,    label: "Take 15 Points",     description: "Collect 15 bonus points for your score",           color: "bg-yellow-50 border-yellow-300 text-yellow-700" },
-  immunity:      { icon: <Shield className="w-5 h-5" />,  label: "Immunity",           description: "You cannot be eliminated next round",              color: "bg-green-50 border-green-300 text-green-700" },
-  clue_request:  { icon: <HelpCircle className="w-5 h-5" />, label: "Clue Request",   description: "Force another player to reveal a clue next round",  color: "bg-purple-50 border-purple-300 text-purple-700" },
+  points: { icon: <Star className="w-5 h-5" />, label: "Take 15 Points", description: "Collect 15 bonus points for your score", color: "bg-yellow-50 border-yellow-300 text-yellow-700" },
+  immunity: { icon: <Shield className="w-5 h-5" />, label: "Immunity", description: "You cannot be eliminated next round", color: "bg-green-50 border-green-300 text-green-700" },
+  clue_request: { icon: <HelpCircle className="w-5 h-5" />, label: "Clue Request", description: "Force another player to reveal a clue next round", color: "bg-purple-50 border-purple-300 text-purple-700" },
 };
 
 export default function QuizScreen() {
@@ -23,10 +23,19 @@ export default function QuizScreen() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [chosenPrivilege, setChosenPrivilege] = useState<string | null>(null);
   const [clueTargetId, setClueTargetId] = useState<string>("");
+  const [timeLeft, setTimeLeft] = useState(30);
 
   const fastestPlayer = players.find(p => p.id === fastestPlayerId);
   const hasAnswered = quizResult !== null;
   const isMyPrivilege = privilegeOptions.length > 0;
+
+  useEffect(() => {
+    setTimeLeft(30);
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [currentQuestion]);
 
   const handleAnswer = (idx: number) => {
     if (hasAnswered || selectedIndex !== null) return;
@@ -54,11 +63,10 @@ export default function QuizScreen() {
         {(eliminatedPlayer || voteTied) && (
           <motion.div
             initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-            className={`rounded-2xl px-4 py-3 border text-sm font-medium flex items-center gap-2 ${
-              voteTied
-                ? "bg-yellow-50 border-yellow-200 text-yellow-800"
-                : "bg-red-50 border-red-200 text-red-800"
-            }`}
+            className={`rounded-2xl px-4 py-3 border text-sm font-medium flex items-center gap-2 ${voteTied
+              ? "bg-yellow-50 border-yellow-200 text-yellow-800"
+              : "bg-red-50 border-red-200 text-red-800"
+              }`}
           >
             {voteTied
               ? <><Zap className="w-4 h-4 flex-shrink-0" /> Tie — no elimination this round</>
@@ -101,17 +109,16 @@ export default function QuizScreen() {
                     whileTap={{ scale: 0.97 }}
                     onClick={() => handleAnswer(idx)}
                     disabled={hasAnswered}
-                    className={`w-full text-left px-4 py-3 rounded-xl border text-sm font-medium transition-all ${
-                      isCorrect
-                        ? "bg-green-100 border-green-400 text-green-800"
-                        : isWrong
-                          ? "bg-red-100 border-red-400 text-red-800"
-                          : isSelected
-                            ? "bg-primary/10 border-primary text-primary"
-                            : hasAnswered
-                              ? "bg-muted border-border text-muted-foreground cursor-default"
-                              : "bg-muted/50 border-border hover:bg-muted hover:border-primary/40 cursor-pointer"
-                    }`}
+                    className={`w-full text-left px-4 py-3 rounded-xl border text-sm font-medium transition-all ${isCorrect
+                      ? "bg-green-100 border-green-400 text-green-800"
+                      : isWrong
+                        ? "bg-red-100 border-red-400 text-red-800"
+                        : isSelected
+                          ? "bg-primary/10 border-primary text-primary"
+                          : hasAnswered
+                            ? "bg-muted border-border text-muted-foreground cursor-default"
+                            : "bg-muted/50 border-border hover:bg-muted hover:border-primary/40 cursor-pointer"
+                      }`}
                   >
                     <span className="font-bold mr-2 text-muted-foreground">{String.fromCharCode(65 + idx)}.</span>
                     {opt}
@@ -125,9 +132,8 @@ export default function QuizScreen() {
               {quizResult && (
                 <motion.div
                   initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-                  className={`rounded-xl px-4 py-3 text-sm font-semibold ${
-                    quizResult.correct ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"
-                  }`}
+                  className={`rounded-xl px-4 py-3 text-sm font-semibold ${quizResult.correct ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"
+                    }`}
                 >
                   {quizResult.correct
                     ? `✅ Correct! +${quizResult.points} pts${quizResult.hasPrivilege ? " — Choose your privilege below" : ""}`
@@ -221,7 +227,7 @@ export default function QuizScreen() {
         {/* Waiting indicator — quiz ends automatically */}
         {hasAnswered && (
           <p className="text-center text-xs text-muted-foreground animate-pulse py-1">
-            ⏳ Waiting for quiz to end… next round starts automatically.
+            ⏳ Next round starts in {timeLeft} seconds...
           </p>
         )}
       </div>

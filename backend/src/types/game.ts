@@ -28,9 +28,15 @@ export type Room = {
     undercoverWord?: string,
     cards?: Card[],
     round: number,
-    phase: "discussion" | "voting" | "quiz" | "finished"
+    phase: "discussion" | "voting" | "quiz" | "final_diagnosis" | "final_solutions" | "final_voting" | "finished",
     votes: Record<string, string>,
     immunePlayers: string[],
     clueRequests: string[],
-    quizWinnerId?: string
+    quizWinnerId?: string,
+    //FINAL ROUND SOLUTION
+    finalRoundStarted?: boolean,
+    finalists?: string[],
+    finalSolutions?: Record<string, string>,
+    solutionLabels?: Record<string, string>,
+    solutionVotes?: Record<string, string>
 };

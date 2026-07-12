@@ -10,17 +10,15 @@ type QuizData = {
     [category: string]: QuizQuestion[];
 };
 
-// quiz.json is now an array of objects, each with one category key
-const quizArray = quizData as QuizData[];
+// quiz.json is a flat object: { [category]: QuizQuestion[] }
+const quizMap = quizData as QuizData;
 
-// Merge all category objects into one flat lookup (lowercase keys)
+// Build lowercase lookup and category name list
 const quizLower: QuizData = {};
 const _categoryNames: string[] = [];
-for (const obj of quizArray) {
-    for (const key of Object.keys(obj)) {
-        _categoryNames.push(key);
-        quizLower[key.toLowerCase()] = (obj as any)[key];
-    }
+for (const [key, questions] of Object.entries(quizMap)) {
+    _categoryNames.push(key);
+    quizLower[key.toLowerCase()] = questions;
 }
 
 export function getQuizCategories(): string[] {

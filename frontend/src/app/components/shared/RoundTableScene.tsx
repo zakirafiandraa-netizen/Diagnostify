@@ -38,7 +38,7 @@ function getPositions(
     if (players.length === 0) return [];
     return players.map((player, i) => {
         // Distribute players along a semi-circle arc on the top side of the table (from -PI + margin to -margin)
-        const margin = 0.35; // margin to prevent sticking directly to the sides
+        const margin = 0.2; // margin to prevent sticking directly to the sides
         let angle = -Math.PI / 2;
         if (players.length > 1) {
             const startAngle = -Math.PI + margin;
@@ -65,16 +65,16 @@ function getStickmanImage(state: StickmanState): string {
 }
 
 export function RoundTableScene({ players, playerId = "", typingPlayerIds = [], speakingPlayerIds = [], playerClues = {} }: RoundTableSceneProps) {
-    const W = 600;
-    const H = 280; // Changed H from 520 to 280 to focus on the top half
+    const W = 900;
+    const H = 840;
     const cx = W / 2;
     const cy = H; // Positioned center exactly at the bottom of the viewBox
-    const tableRx = W / 2; // Stretch the table from bottom-left to bottom-right (300px radius)
-    const tableRy = 100; // Vertical radius of the table (controls table perspective)
-    const orbitRx = tableRx - 40; // Horizontal orbit radius (260px to keep players within boundaries)
-    const orbitRy = tableRy - 20; // Vertical orbit radius (80px to place players behind the table)
-    const IMG_W = 48;
-    const IMG_H = 64;
+    const tableRx = W / 2; // Stretch the table from left to right
+    const tableRy = 300; // Vertical radius of the table (controls table perspective)
+    const orbitRx = tableRx - 40; // Extra margin for wider inter-player spacing
+    const orbitRy = tableRy + 20; // Vertical orbit radius
+    const IMG_W = 72;
+    const IMG_H = 96;
 
     const positions = getPositions(players, playerId, typingPlayerIds, speakingPlayerIds, cx, cy, orbitRx, orbitRy);
 
@@ -82,7 +82,7 @@ export function RoundTableScene({ players, playerId = "", typingPlayerIds = [], 
         <div className="w-full flex justify-center items-center">
             <svg
                 viewBox={`0 0 ${W} ${H}`}
-                className="w-full max-w-lg aspect-[600/280]"
+                className="w-full max-w-2xl aspect-[900/840]"
                 style={{ height: "auto" }}
                 aria-label="Round table with players"
             >
@@ -126,15 +126,15 @@ export function RoundTableScene({ players, playerId = "", typingPlayerIds = [], 
 
                 {/* Layer 2: Table surface (placed in front of Layer 1 to hide lower bodies) */}
                 {/* Table shadow */}
-                <ellipse cx={cx} cy={cy + 8} rx={tableRx} ry={tableRy * 0.4} fill="rgba(0,0,0,0.07)" />
+                <ellipse cx={cx} cy={cy + 24} rx={tableRx} ry={tableRy * 0.4} fill="rgba(0,0,0,0.07)" />
 
                 {/* Table surface */}
-                <ellipse cx={cx} cy={cy} rx={tableRx} ry={tableRy} fill="#f0f4f8" stroke="#cbd5e1" strokeWidth={2.5} />
-                <ellipse cx={cx} cy={cy} rx={tableRx - 14} ry={tableRy - 10} fill="none" stroke="#e2e8f0" strokeWidth={1.2} />
+                <ellipse cx={cx} cy={cy} rx={tableRx} ry={tableRy} fill="#f0f4f8" stroke="#cbd5e1" strokeWidth={3} />
+                <ellipse cx={cx} cy={cy} rx={tableRx - 20} ry={tableRy - 14} fill="none" stroke="#e2e8f0" strokeWidth={1.5} />
 
                 {/* Table label */}
-                <text x={cx} y={cy - tableRy / 2 - 6} textAnchor="middle" fontSize={10} fill="#94a3b8" fontWeight={600} letterSpacing={1.5}>DISCUSSION</text>
-                <text x={cx} y={cy - tableRy / 2 + 10} textAnchor="middle" fontSize={9} fill="#cbd5e1" letterSpacing={0.5}>ROUND TABLE</text>
+                <text x={cx} y={cy - tableRy / 2 - 16} textAnchor="middle" fontSize={14} fill="#94a3b8" fontWeight={600} letterSpacing={2}>DISCUSSION</text>
+                <text x={cx} y={cy - tableRy / 2 + 28} textAnchor="middle" fontSize={12} fill="#cbd5e1" letterSpacing={0.8}>ROUND TABLE</text>
 
                 {/* Layer 3: Names, speaking & typing indicators (always drawn on top of the table) */}
                 <g id="player-indicators-and-names">
@@ -146,20 +146,20 @@ export function RoundTableScene({ players, playerId = "", typingPlayerIds = [], 
                             <g key={`info-${pos.player.id}`}>
                                 {/* Speaking indicator bubble */}
                                 {pos.state === "speaking" && (
-                                    <circle cx={pos.x + IMG_W / 2} cy={imgY} r={5} fill="#22c55e" />
+                                    <circle cx={pos.x + IMG_W / 2} cy={imgY} r={7} fill="#22c55e" />
                                 )}
 
                                 {/* Typing indicator bubble */}
                                 {pos.state === "typing" && (
-                                    <circle cx={pos.x + IMG_W / 2} cy={imgY} r={5} fill="#f59e0b" />
+                                    <circle cx={pos.x + IMG_W / 2} cy={imgY} r={7} fill="#f59e0b" />
                                 )}
 
                                 {/* Player name */}
                                 <text
                                     x={pos.x}
-                                    y={imgY - 12}
+                                    y={imgY - 16}
                                     textAnchor="middle"
-                                    fontSize={9}
+                                    fontSize={13}
                                     fontWeight={600}
                                     fill={color}
                                     opacity={0.9}
@@ -173,7 +173,7 @@ export function RoundTableScene({ players, playerId = "", typingPlayerIds = [], 
                                         x={pos.x}
                                         y={imgY - 2}
                                         textAnchor="middle"
-                                        fontSize={8}
+                                        fontSize={11}
                                         fontWeight={500}
                                         fill="#64748b"
                                         opacity={0.9}

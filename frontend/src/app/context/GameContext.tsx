@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useCallback, useMemo, useEffect } from "react";
 import type { ReactNode } from "react";
-import type { Screen, Player, ChatMessage, CardState, QuizQuestion, WinnerSummary } from "../types";
+import type { Screen, Player, ChatMessage, CardState, QuizQuestion, WinnerSummary, FinalSolutionEntry, FinalRevealEntry } from "../types";
 import { COLORS } from "../constants";
 import { socket } from "../services/socket";
 import { loadSession, clearSession, saveSession } from "../services/session";
@@ -39,6 +39,13 @@ interface GameState {
   // ── New: clue request ─────────────────────────────────────────
   clueRequested: boolean;
   setClueRequested: (val: boolean) => void;
+  // ── New: final round ──────────────────────────────────────────
+  finalists: string[];
+  finalDiagnosis: string;
+  finalSolutions: FinalSolutionEntry[];
+  finalSolutionVotes: { votesCast: number; total: number };
+  finalReveal: FinalRevealEntry[];
+  solutionsSubmittedCount: number;
 }
 
 const GameContext = createContext<GameState | null>(null);
@@ -77,6 +84,13 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [undercoverWord, setUndercoverWord] = useState("");
   // clue request
   const [clueRequested, setClueRequested] = useState(false);
+  // final round
+  const [finalists, setFinalists] = useState<string[]>([]);
+  const [finalDiagnosis, setFinalDiagnosis] = useState("");
+  const [finalSolutions, setFinalSolutions] = useState<FinalSolutionEntry[]>([]);
+  const [finalSolutionVotes, setFinalSolutionVotes] = useState({ votesCast: 0, total: 0 });
+  const [finalReveal, setFinalReveal] = useState<FinalRevealEntry[]>([]);
+  const [solutionsSubmittedCount, setSolutionsSubmittedCount] = useState(0);
 
   const go = useCallback((s: Screen) => setScreen(prev => prev === s ? prev : s), []);
 
@@ -206,6 +220,34 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setScreen("discussion");
     };
 
+    // ── Final Round ───────────────────────────────────────────────
+    const onFinalSolutionPhase = (data: { finalists: string[]; diagnosis: string }) => {
+      setFinalists(data.finalists);
+      setFinalDiagnosis(data.diagnosis);
+      setSolutionsSubmittedCount(0);
+      setFinalSolutions([]);
+      setFinalReveal([]);
+      setFinalSolutionVotes({ votesCast: 0, total: 0 });
+      setScreen("final-diagnosis");
+    };
+
+    const onFinalSolutionSubmitted = () => {
+      setSolutionsSubmittedCount(prev => prev + 1);
+    };
+
+    const onFinalVotingStarted = (data: { solutions: FinalSolutionEntry[] }) => {
+      setFinalSolutions(data.solutions);
+      setScreen("final-voting");
+    };
+
+    const onFinalSolutionVoteUpdated = (data: { votesCast: number; total: number }) => {
+      setFinalSolutionVotes(data);
+    };
+
+    const onFinalResults = (data: { reveal: FinalRevealEntry[] }) => {
+      setFinalReveal(data.reveal);
+    };
+
     // ── Game Over ─────────────────────────────────────────────────
     const onGameWon = (data: { winners: WinnerSummary[] }) => {
       setWinners(data.winners);
@@ -276,6 +318,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
     socket.on("session:expired", onSessionExpired);
     socket.on("kicked:inactivity", onKickedInactivity);
     socket.on("lobby:category_changed", onLobbyCategoryChanged);
+    socket.on("final:solution_phase", onFinalSolutionPhase);
+    socket.on("final:solution_submitted", onFinalSolutionSubmitted);
+    socket.on("final:voting_started", onFinalVotingStarted);
+    socket.on("final:solution_vote_updated", onFinalSolutionVoteUpdated);
+    socket.on("final:results", onFinalResults);
 
     return () => {
       socket.off("connect", onConnect);
@@ -301,6 +348,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
       socket.off("session:expired", onSessionExpired);
       socket.off("kicked:inactivity", onKickedInactivity);
       socket.off("lobby:category_changed", onLobbyCategoryChanged);
+      socket.off("final:solution_phase", onFinalSolutionPhase);
+      socket.off("final:solution_submitted", onFinalSolutionSubmitted);
+      socket.off("final:voting_started", onFinalVotingStarted);
+      socket.off("final:solution_vote_updated", onFinalSolutionVoteUpdated);
+      socket.off("final:results", onFinalResults);
     };
   }, []);
 
@@ -326,7 +378,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
     currentQuestion, quizRound, quizResult,
     privilegeOptions, fastestPlayerId,
     winners, civilianWord, undercoverWord,
-    clueRequested, setClueRequested
+    clueRequested, setClueRequested,
+    finalists, finalDiagnosis, finalSolutions, finalSolutionVotes, finalReveal, solutionsSubmittedCount,
   }), [
     screen, go, players, selectedCategory, roomCode, chatMessages,
     playerId, myRole, myWord, gameCategory, cards,
@@ -334,6 +387,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     currentQuestion, quizRound, quizResult, privilegeOptions, fastestPlayerId,
     winners, civilianWord, undercoverWord,
     clueRequested,
+    finalists, finalDiagnosis, finalSolutions, finalSolutionVotes, finalReveal, solutionsSubmittedCount,
   ]);
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
