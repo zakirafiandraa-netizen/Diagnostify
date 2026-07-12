@@ -1,4 +1,4 @@
-# Diagnostify 🩺
+# Diagnostify
 
 Diagnostify is a medical-themed social deduction game inspired by *Undercover*, designed to test your medical knowledge and deduction skills. Players are assigned secret roles and must use medical clues to uncover the imposters among them.
 
