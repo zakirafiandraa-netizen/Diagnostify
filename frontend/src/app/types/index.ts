@@ -4,7 +4,8 @@ export type Screen =
   | "online-join" | "lobby-main" | "lobby-players" | "choose-role"
   | "role-revealed" | "discussion" | "voting" | "finalist"
   | "final-submissions" | "game-over" | "quiz" | "session-expired"
-  | "final-diagnosis" | "final-voting";
+  | "final-diagnosis" | "final-voting"
+  | "offline-role" | "offline-discussion" | "offline-voting" | "offline-quiz" | "offline-ranking";
 
 export interface Player {
   id: string;
@@ -18,6 +19,30 @@ export interface Player {
   score?: number;
   breakdown?: string;
 }
+
+export interface OfflineCard {
+  id: number;
+  role: "Civilian" | "Undercover" | "Mr White";
+  word: string;
+  pickedBy?: string;
+}
+
+export interface OfflineQuizTurn {
+  playerId: string;
+  question: string;
+  shuffledOptions: string[];
+  correctIndex: number;
+}
+
+export interface OfflinePlayer extends Omit<Player, "status" | "score"> {
+  word?: string;
+  status: "Alive" | "Eliminated";   // required, not optional, for offline
+  roundsSurvived: number;
+  quizPoints: number;
+  finalistBonus: number;
+  score: number;                    // required, not optional
+}
+
 
 export interface QuizQuestion {
   question: string;

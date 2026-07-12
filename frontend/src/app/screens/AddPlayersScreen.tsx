@@ -16,11 +16,11 @@ export default function AddPlayersScreen() {
 
   const add = () => {
     if (!name.trim() || players.length >= 8) return;
-    setPlayers([...players, { 
-      id: Date.now().toString(), 
-      name: name.trim(), 
-      avatar: AVATARS[selAvatar], 
-      color: COLORS[players.length % COLORS.length] 
+    setPlayers([...players, {
+      id: Date.now().toString(),
+      name: name.trim(),
+      avatar: AVATARS[selAvatar],
+      color: COLORS[players.length % COLORS.length]
     }]);
     setName("");
   };
@@ -40,7 +40,7 @@ export default function AddPlayersScreen() {
           <div className="bg-card rounded-2xl p-4 lg:p-6 border border-border shadow-sm">
             <label className="text-sm font-semibold text-foreground block mb-2" htmlFor="player-name">Player Name</label>
             <div className="flex gap-2">
-              <input id="player-name" value={name} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => e.key==="Enter" && add()}
+              <input id="player-name" value={name} onChange={(e) => setName(e.target.value)} onKeyDown={(e) => e.key === "Enter" && add()}
                 placeholder="Enter name…"
                 className="flex-1 bg-muted rounded-xl px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/30 text-foreground placeholder:text-muted-foreground" />
               <button onClick={add} className="bg-primary text-white px-4 py-2 rounded-xl hover:opacity-90 active:scale-95 transition-all" aria-label="Add player">
@@ -51,9 +51,9 @@ export default function AddPlayersScreen() {
               <p className="text-xs text-muted-foreground mb-2">Choose avatar</p>
               <div className="flex gap-2 flex-wrap">
                 {AVATARS.map((av, i) => (
-                  <button key={i} onClick={() => setSelAvatar(i)} aria-label={`Select avatar ${av}`}
-                    className={`w-9 h-9 rounded-lg text-lg flex items-center justify-center transition-all ${selAvatar === i ? "bg-primary/15 ring-2 ring-primary" : "bg-muted hover:bg-muted/60"}`}>
-                    {av}
+                  <button key={i} onClick={() => setSelAvatar(i)} aria-label={`Select avatar ${i + 1}`}
+                    className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all ${selAvatar === i ? "bg-primary/15 ring-2 ring-primary" : "bg-muted hover:bg-muted/60"}`}>
+                    <img src={av} alt={`Avatar ${i + 1}`} className="w-6 h-6" />
                   </button>
                 ))}
               </div>
@@ -61,12 +61,12 @@ export default function AddPlayersScreen() {
           </div>
           <div className="bg-muted/60 rounded-xl p-3 flex gap-2 justify-center flex-wrap">
             {[
-              { label:"Civilian", count:civilians, color:"#0D9488" },
-              { label:"Undercover", count:undercovers, color:"#F97316" },
-              { label:"Mr. White", count:mrWhite, color:"#7C3AED" },
+              { label: "Civilian", count: civilians, color: "#0D9488" },
+              { label: "Undercover", count: undercovers, color: "#F97316" },
+              { label: "Mr. White", count: mrWhite, color: "#7C3AED" },
             ].map((r) => (
               <span key={r.label} className="text-xs px-3 py-1 rounded-full font-semibold"
-                style={{ backgroundColor:r.color+"20", color:r.color }}>
+                style={{ backgroundColor: r.color + "20", color: r.color }}>
                 {r.label}: {r.count}
               </span>
             ))}
@@ -82,9 +82,11 @@ export default function AddPlayersScreen() {
               {players.map((p, i) => (
                 <motion.div key={p.id} variants={fadeUp}
                   className="flex items-center gap-3 py-2 px-2 rounded-xl hover:bg-muted/50 transition-colors">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-lg" style={{ backgroundColor:p.color+"22" }}>{p.avatar || "🧑"}</div>
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: p.color + "22" }}>
+                    <img src={p.avatar || AVATARS[0]} alt="" className="w-5 h-5" />
+                  </div>
                   <span className="flex-1 text-sm font-medium text-foreground">{p.name}</span>
-                  <button onClick={() => setPlayers(players.filter((_,idx) => idx!==i))} aria-label={`Remove ${p.name}`}
+                  <button onClick={() => setPlayers(players.filter((_, idx) => idx !== i))} aria-label={`Remove ${p.name}`}
                     className="text-muted-foreground hover:text-destructive transition-colors p-1">
                     <X className="w-4 h-4" />
                   </button>

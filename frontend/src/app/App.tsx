@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { GameProvider, useGame } from "./context/GameContext";
 import { Sidebar } from "./components/layout/Sidebar";
 import { pageFade } from "./animations/presets";
+import { OfflineGameProvider } from "./context/OfflineGameContext";
 // Removed Screen
 
 // Lazy-load screens for better bundle splitting
@@ -24,36 +25,47 @@ const GameOverScreen = React.lazy(() => import("./screens/GameOverScreen"));
 const QuizScreen = React.lazy(() => import("./screens/QuizScreen"));
 const FinalDiagnosisScreen = React.lazy(() => import("./screens/FinalDiagnosisScreen"));
 const FinalVotingScreen = React.lazy(() => import("./screens/FinalVotingScreen"));
+const OfflineChooseRoleScreen = React.lazy(() => import("./screens/OfflineChooseRoleScreen"));
+const OfflineDiscussionScreen = React.lazy(() => import("./screens/OfflineDiscussionScreen"));
+const OfflineVotingScreen = React.lazy(() => import("./screens/OfflineVotingScreen"));
+const OfflineQuizScreen = React.lazy(() => import("./screens/OfflineQuizScreen"));
+const OfflineRankingScreen = React.lazy(() => import("./screens/OfflineRankingScreen"));
+
 
 function AppRouter() {
   const { screen } = useGame();
 
   const renderScreen = () => {
     switch (screen) {
-      case "home":               return <HomeScreen />;
-      case "guidebook":          return <GuidebookScreen />;
-      case "offline-players":    return <AddPlayersScreen />;
-      case "offline-category":   return <CategoryScreen />;
-      case "offline-summary":    return <SummaryScreen />;
-      case "online-join":        return <OnlineJoinScreen />;
-      case "lobby-main":         return <LobbyMainScreen />;
-      case "lobby-players":      return <LobbyPlayersScreen />;
-      case "choose-role":        return <ChooseRoleScreen />;
-      case "role-revealed":      return <RoleRevealedScreen />;
-      case "discussion":         return <DiscussionScreen />;
-      case "voting":             return <VotingScreen />;
-      case "finalist":           return <FinalistScreen />;
-      case "final-submissions":  return <FinalSubmissionsScreen />;
-      case "game-over":          return <GameOverScreen />;
-      case "quiz":               return <QuizScreen />;
-      case "final-diagnosis":    return <FinalDiagnosisScreen />;
-      case "final-voting":       return <FinalVotingScreen />;
-      default:                   return <HomeScreen />;
+      case "home": return <HomeScreen />;
+      case "guidebook": return <GuidebookScreen />;
+      case "offline-players": return <AddPlayersScreen />;
+      case "offline-category": return <CategoryScreen />;
+      case "offline-summary": return <SummaryScreen />;
+      case "online-join": return <OnlineJoinScreen />;
+      case "lobby-main": return <LobbyMainScreen />;
+      case "lobby-players": return <LobbyPlayersScreen />;
+      case "choose-role": return <ChooseRoleScreen />;
+      case "role-revealed": return <RoleRevealedScreen />;
+      case "discussion": return <DiscussionScreen />;
+      case "voting": return <VotingScreen />;
+      case "finalist": return <FinalistScreen />;
+      case "final-submissions": return <FinalSubmissionsScreen />;
+      case "game-over": return <GameOverScreen />;
+      case "quiz": return <QuizScreen />;
+      case "final-diagnosis": return <FinalDiagnosisScreen />;
+      case "final-voting": return <FinalVotingScreen />;
+      case "offline-role": return <OfflineChooseRoleScreen />;
+      case "offline-discussion": return <OfflineDiscussionScreen />;
+      case "offline-voting": return <OfflineVotingScreen />;
+      case "offline-quiz": return <OfflineQuizScreen />;
+      case "offline-ranking": return <OfflineRankingScreen />;
+      default: return <HomeScreen />;
     }
   };
 
   return (
-    <div className="min-h-screen flex" style={{ fontFamily:"'DM Sans','Inter',sans-serif" }}>
+    <div className="min-h-screen flex" style={{ fontFamily: "'DM Sans','Inter',sans-serif" }}>
       {/* Desktop sidebar */}
       <Sidebar />
 
@@ -83,7 +95,10 @@ function AppRouter() {
 export default function App() {
   return (
     <GameProvider>
-      <AppRouter />
+      <OfflineGameProvider>
+        <AppRouter />
+      </OfflineGameProvider>
     </GameProvider>
   );
 }
+
