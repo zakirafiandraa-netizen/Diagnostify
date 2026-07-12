@@ -4,12 +4,12 @@ Diagnostify is a medical-themed social deduction game inspired by *Undercover*, 
 
 The game features both a **Local Pass-and-Play (Offline) Mode** and a real-time **Online Multiplayer Mode**.
 
-## 🎮 How to Play
+## How to Play
 
 ### Roles
-*   **🏥 Civilian (Majority):** You receive the main medical diagnosis (e.g., "Asthma"). Your goal is to describe it without being too obvious, figure out who doesn't know the word, and vote them out.
-*   **🕵️ Undercover:** You receive a closely related differential diagnosis (e.g., "COPD"). You must blend in, pretend you have the Civilian word, and avoid elimination.
-*   **👤 Mr. White:** You receive *no word at all*. You must listen carefully to others, bluff your way through, and try to guess the Civilian word.
+*   **Civilian (Majority):** You receive the main medical diagnosis (e.g., "Asthma"). Your goal is to describe it without being too obvious, figure out who doesn't know the word, and vote them out.
+*   **Undercover:** You receive a closely related differential diagnosis (e.g., "COPD"). You must blend in, pretend you have the Civilian word, and avoid elimination.
+*   **Mr. White:** You receive *no word at all*. You must listen carefully to others, bluff your way through, and try to guess the Civilian word.
 
 ### Game Phases
 1.  **Role Reveal:** Players secretly view their assigned role and word.
@@ -18,7 +18,7 @@ The game features both a **Local Pass-and-Play (Offline) Mode** and a real-time 
 4.  **Quiz (Bonus Round):** Players answer a multiple-choice medical question related to the category. The fastest correct answer earns a special privilege (Bonus Points, Immunity, or forcing a Clue Request).
 5.  **Final Ranking:** The game ends when only 3 players remain. Points are tallied based on survival and quiz performance.
 
-## 🚀 Getting Started
+## Getting Started
 
 The project is split into a React frontend and a Node.js backend. You will need to run both to fully utilize the online features.
 
@@ -48,11 +48,11 @@ npm run dev
 ```
 The frontend will start (typically on port 5173). Open the provided local URL (e.g., `http://localhost:5173`) in your browser to play!
 
-## 🛠️ Technologies Used
+## Technologies Used
 *   **Frontend:** React, TypeScript, Tailwind CSS, Framer Motion (for animations), Lucide React (for icons)
 *   **Backend:** Node.js, Express, Socket.io (for real-time multiplayer)
 
-## 📌 Features
+## Features
 *   **Offline Mode:** Play with friends on a single device using the pass-and-play system. Includes full role assignment, voting validation, and interactive quizzes.
 *   **Online Mode:** Create rooms, join with a code, and play in real-time across multiple devices.
 *   **Medical Database:** A built-in JSON database of medical diagnoses and related differential diagnoses to keep the game challenging and educational.
