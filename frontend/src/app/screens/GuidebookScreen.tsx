@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ArrowLeft, BookOpen, Users, Clock, Target, AlertTriangle } from "lucide-react";
+import { ArrowLeft, BookOpen, Users, Clock, Target, Warning as AlertTriangle } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { fadeUp, staggerList } from "../animations/presets";
 
@@ -9,27 +9,27 @@ const ROLES = [
     percentage: "60% of players",
     description:
       "Receives the primary disease to diagnose. Your goal is to provide accurate diagnosis while identifying other roles.",
-    bg: "bg-[#EFF6FF]",
-    border: "border-[#BFDBFE]",
-    titleColor: "text-[#2563EB]",
+    bg: "bg-role-civilian-bg",
+    border: "border-role-civilian-border",
+    titleColor: "text-role-civilian",
   },
   {
     title: "Differential Diagnose",
     percentage: "30% of players",
     description:
       "Receives a similar but different disease. Must blend in while providing plausible alternative diagnoses.",
-    bg: "bg-[#ECFDF5]",
-    border: "border-[#A7F3D0]",
-    titleColor: "text-[#059669]",
+    bg: "bg-role-undercover-bg",
+    border: "border-role-undercover-border",
+    titleColor: "text-role-undercover",
   },
   {
     title: "Doctor Grey",
     percentage: "10% of players",
     description:
       "Receives no disease information. Must deduce from others' discussions and survive using medical knowledge.",
-    bg: "bg-[#F5F3FF]",
-    border: "border-[#DDD6FE]",
-    titleColor: "text-[#7C3AED]",
+    bg: "bg-role-mrwhite-bg",
+    border: "border-role-mrwhite-border",
+    titleColor: "text-role-mrwhite",
   },
 ] as const;
 
@@ -39,37 +39,37 @@ const PHASES = [
     title: "Lobby Phase",
     description:
       "Players join the room and wait for the host to start the game. Minimum 4 players required.",
-    color: "#3B82F6",
+    color: "var(--phase-1-lobby)",
   },
   {
     step: 2,
     title: "Role Assignment",
     description:
       "Players click cards to reveal their secret roles and diseases. Keep your role hidden from others!",
-    color: "#10B981",
+    color: "var(--phase-2-roles)",
   },
   {
     step: 3,
     title: "Discussion Rounds",
     description:
       "Players share their diagnoses in chat, then vote to eliminate one player each round. Continue until 3 players remain.",
-    color: "#7C3AED",
+    color: "var(--phase-3-discuss)",
   },
   {
     step: 4,
     title: "Final Round",
     description:
       "Last 3 players submit treatment plans and medical innovations. Eliminated players vote for the winner.",
-    color: "#F97316",
+    color: "var(--phase-4-final)",
   },
 ] as const;
 
 const TIPS = [
   {
     title: "For Main Diagnose",
-    titleColor: "text-[#2563EB]",
-    bg: "bg-[#EFF6FF]",
-    border: "border-[#BFDBFE]",
+    titleColor: "text-role-civilian",
+    bg: "bg-role-civilian-bg",
+    border: "border-role-civilian-border",
     points: [
       "Provide accurate but not overly detailed diagnoses",
       "Watch for players giving similar answers",
@@ -79,9 +79,9 @@ const TIPS = [
   },
   {
     title: "For Differential Diagnose",
-    titleColor: "text-[#059669]",
-    bg: "bg-[#ECFDF5]",
-    border: "border-[#A7F3D0]",
+    titleColor: "text-role-undercover",
+    bg: "bg-role-undercover-bg",
+    border: "border-role-undercover-border",
     points: [
       "Give plausible alternative diagnoses",
       "Blend in with Main Diagnose players",
@@ -91,9 +91,9 @@ const TIPS = [
   },
   {
     title: "For Doctor Grey",
-    titleColor: "text-[#7C3AED]",
-    bg: "bg-[#F5F3FF]",
-    border: "border-[#DDD6FE]",
+    titleColor: "text-role-mrwhite",
+    bg: "bg-role-mrwhite-bg",
+    border: "border-role-mrwhite-border",
     points: [
       "Listen carefully to others' diagnoses",
       "Provide general medical knowledge",
@@ -103,9 +103,9 @@ const TIPS = [
   },
   {
     title: "General Tips",
-    titleColor: "text-[#D97706]",
-    bg: "bg-[#FFFBEB]",
-    border: "border-[#FDE68A]",
+    titleColor: "text-tip-general",
+    bg: "bg-tip-general-bg",
+    border: "border-tip-general-border",
     points: [
       "Pay attention to voting patterns",
       "Form temporary alliances",
@@ -149,10 +149,7 @@ export default function GuidebookScreen() {
   const { go } = useGame();
 
   return (
-    <div
-      className="flex flex-col min-h-screen lg:min-h-0"
-      style={{ fontFamily: "'DM Sans', sans-serif" }}
-    >
+    <div className="min-h-screen lg:min-h-0 flex flex-col font-sans bg-background">
       <div className="flex-1 overflow-y-auto px-4 lg:px-10 py-6 lg:py-10">
         <div className="lg:max-w-4xl lg:mx-auto space-y-6 lg:space-y-8">
           {/* Back & Header */}
@@ -211,8 +208,8 @@ export default function GuidebookScreen() {
           >
             <SectionHeader
               icon={<Users className="w-4 h-4" />}
-              iconBg="bg-[#ECFDF5]"
-              iconColor="text-[#10B981]"
+              iconBg="bg-section-roles-icon-bg"
+              iconColor="text-section-roles-icon"
               title="Player Roles"
             />
             <motion.div
@@ -250,8 +247,8 @@ export default function GuidebookScreen() {
           >
             <SectionHeader
               icon={<Clock className="w-4 h-4" />}
-              iconBg="bg-[#FFF7ED]"
-              iconColor="text-[#F97316]"
+              iconBg="bg-section-phases-icon-bg"
+              iconColor="text-section-phases-icon"
               title="Game Phases"
             />
             <div className="space-y-4">
@@ -285,8 +282,8 @@ export default function GuidebookScreen() {
           >
             <SectionHeader
               icon={<Target className="w-4 h-4" />}
-              iconBg="bg-[#FEF2F2]"
-              iconColor="text-[#DC2626]"
+              iconBg="bg-section-tips-icon-bg"
+              iconColor="text-section-tips-icon"
               title="Tips & Strategy"
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
@@ -347,7 +344,7 @@ export default function GuidebookScreen() {
           >
             <button
               onClick={() => go("home")}
-              className="w-full max-w-sm bg-[#7C3AED] text-white text-base lg:text-lg font-bold py-3.5 lg:py-4 px-8 rounded-xl hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-[#7C3AED]/25"
+              className="w-full max-w-sm bg-guidebook-mode text-white text-base lg:text-lg font-bold py-3.5 lg:py-4 px-8 rounded-xl hover:opacity-90 active:scale-[0.98] transition-all shadow-lg shadow-guidebook-mode/25"
             >
               Ready to Play!
             </button>

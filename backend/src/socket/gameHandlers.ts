@@ -123,6 +123,23 @@ export function registerGameHandlers(io: Server, socket: Socket) {
 
             socket.to(code).emit("room:updated", strippedRoom);
 
+            // Replay quiz state for the reconnecting player
+            if (room.phase === "quiz") {
+                const anyRoom = room as any;
+                const cachedResult = anyRoom._quizResults?.[socket.id];
+                if (cachedResult) {
+                    // They already answered before disconnecting — restore their UI
+                    socket.emit("quiz:result", cachedResult.result);
+                    if (cachedResult.privilegeOptions) {
+                        socket.emit("quiz:privilege_options", { options: cachedResult.privilegeOptions });
+                    }
+                }
+                // Also restore the fastest-answer banner
+                if (anyRoom._firstCorrectId) {
+                    socket.emit("quiz:fastest", { playerId: anyRoom._firstCorrectId });
+                }
+            }
+
             if (disconnectTimers[playerName]) {
                 clearTimeout(disconnectTimers[playerName]);
                 delete disconnectTimers[playerName];
@@ -220,9 +237,9 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         socket.emit("game:categories", getCategories());
     });
 
-    // ── Lobby: quiz-theme categories from quiz.json ─────────────────
+    // ── Lobby: disease categories from diagnoses.json ─────────────────
     socket.on("lobby:get_categories", () => {
-        socket.emit("lobby:categories", getQuizCategories());
+        socket.emit("lobby:categories", getCategories());
     });
 
     // ── Lobby: host picks a quiz theme → broadcast to whole room ───
@@ -370,6 +387,7 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                     // Correction 1: track first *correct* answerer, not first to respond
                     (updatedRoom as any)._quizAnswered = [];       // anyone who submitted an answer
                     (updatedRoom as any)._firstCorrectId = null;   // first correct answerer
+                    (updatedRoom as any)._quizResults = {};         // cached per-player results for reconnect replay
                     (updatedRoom as any)._answerTimer = Date.now();
 
                     // Correction 3: server-side timer auto-ends quiz
@@ -402,8 +420,17 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         const correctAnswer: number = room._currentAnswer;
         const alreadyAnswered: string[] = room._quizAnswered ?? [];
 
-        // Each player can only answer once
-        if (alreadyAnswered.includes(socket.id)) return;
+        // Each player can only answer once — but if they refresh, replay the cached result
+        if (alreadyAnswered.includes(socket.id)) {
+            const cached = room._quizResults?.[socket.id];
+            if (cached) {
+                socket.emit("quiz:result", cached.result);
+                if (cached.privilegeOptions) {
+                    socket.emit("quiz:privilege_options", { options: cached.privilegeOptions });
+                }
+            }
+            return;
+        }
         alreadyAnswered.push(socket.id);
         room._quizAnswered = alreadyAnswered;
 
@@ -411,7 +438,10 @@ export function registerGameHandlers(io: Server, socket: Socket) {
 
         if (!isCorrect) {
             // Wrong answer — always 0pts, no privilege
-            socket.emit("quiz:result", { correct: false, points: 0, hasPrivilege: false });
+            const result = { correct: false, points: 0, hasPrivilege: false };
+            room._quizResults = room._quizResults ?? {};
+            room._quizResults[socket.id] = { result };
+            socket.emit("quiz:result", result);
             return;
         }
 
@@ -432,19 +462,27 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                 // Spectators get 15pts but NO privilege choice
                 applyQuizPoints(data.roomCode, socket.id, 15);
                 io.to(data.roomCode).emit("room:updated", getRoom(data.roomCode));
-                socket.emit("quiz:result", { correct: true, points: 15, hasPrivilege: false });
+                const result = { correct: true, points: 15, hasPrivilege: false };
+                room._quizResults = room._quizResults ?? {};
+                room._quizResults[socket.id] = { result };
+                socket.emit("quiz:result", result);
             } else {
                 // Alive players choose their reward — points are NOT applied yet
-                socket.emit("quiz:result", { correct: true, points: 0, hasPrivilege: true });
-                socket.emit("quiz:privilege_options", {
-                    options: ["points", "immunity", "clue_request"],
-                });
+                const result = { correct: true, points: 0, hasPrivilege: true };
+                const privilegeOptions = ["points", "immunity", "clue_request"];
+                room._quizResults = room._quizResults ?? {};
+                room._quizResults[socket.id] = { result, privilegeOptions };
+                socket.emit("quiz:result", result);
+                socket.emit("quiz:privilege_options", { options: privilegeOptions });
             }
         } else {
             // Not first correct — 10pts, no privilege
             applyQuizPoints(data.roomCode, socket.id, 10);
             io.to(data.roomCode).emit("room:updated", getRoom(data.roomCode));
-            socket.emit("quiz:result", { correct: true, points: 10, hasPrivilege: false });
+            const result = { correct: true, points: 10, hasPrivilege: false };
+            room._quizResults = room._quizResults ?? {};
+            room._quizResults[socket.id] = { result };
+            socket.emit("quiz:result", result);
         }
     });
 

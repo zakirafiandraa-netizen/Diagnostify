@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Stethoscope } from "lucide-react";
+import { FirstAid as Stethoscope } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { fadeUp, staggerList } from "../animations/presets";
 import { socket } from "../services/socket";

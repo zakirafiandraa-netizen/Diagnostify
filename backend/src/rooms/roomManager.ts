@@ -308,6 +308,11 @@ export function rejoinRoom(code: string, playerName: string, newSocketId: string
     if (anyRoom._quizAnswered) {
         anyRoom._quizAnswered = anyRoom._quizAnswered.map((id: string) => id === oldSocketId ? newSocketId : id);
     }
+    // Remap cached quiz results to the new socket ID so replay works after reconnect
+    if (anyRoom._quizResults && oldSocketId in anyRoom._quizResults) {
+        anyRoom._quizResults[newSocketId] = anyRoom._quizResults[oldSocketId];
+        delete anyRoom._quizResults[oldSocketId];
+    }
     if (anyRoom._cluesSubmitted) {
         const newSet = new Set<string>();
         for (const id of anyRoom._cluesSubmitted) {

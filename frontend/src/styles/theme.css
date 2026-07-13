@@ -2,7 +2,7 @@
 
 :root {
   --font-size: 16px;
-  --background: #ffffff;
+  --background: #fffbf0;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;
   --card-foreground: oklch(0.145 0 0);
@@ -32,13 +32,89 @@
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 1rem;
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-foreground: oklch(14.479% 0.00002 271.152);
   --sidebar-primary: #030213;
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* ── Game Mode Colors (Home Screen cards) ─────────────────────────── */
+  --online-mode: #0891B2;          /* Color for the "Online Mode" card */
+  --guidebook-mode: #7C3AED;       /* Color for the "Guidebook" card */
+
+  /* ── Role Colors (used in Guidebook, SummaryScreen, GameOver) ─────── */
+  --role-civilian: #2563EB;        /* Main Diagnose role - blue text */
+  --role-civilian-bg: #EFF6FF;     /* Main Diagnose role - light blue background */
+  --role-civilian-border: #BFDBFE; /* Main Diagnose role - blue border */
+
+  --role-undercover: #059669;      /* Differential Diagnose role - green text */
+  --role-undercover-bg: #ECFDF5;   /* Differential Diagnose role - light green background */
+  --role-undercover-border: #A7F3D0; /* Differential Diagnose role - green border */
+
+  --role-mrwhite: #7C3AED;         /* Doctor Grey / Mr. White role - purple text */
+  --role-mrwhite-bg: #F5F3FF;      /* Doctor Grey role - light purple background */
+  --role-mrwhite-border: #DDD6FE;  /* Doctor Grey role - purple border */
+
+  /* ── Game Phase Step Colors (numbered circles in Guidebook/Lobby) ─── */
+  --phase-1-lobby: #3B82F6;        /* Phase 1 - Lobby - blue */
+  --phase-2-roles: #10B981;        /* Phase 2 - Role Assignment - green */
+  --phase-3-discuss: #7C3AED;      /* Phase 3 - Discussion Rounds - purple */
+  --phase-4-final: #F97316;        /* Phase 4 - Final Round - orange */
+
+  /* ── Tip Section Colors (Guidebook Tips & Strategy) ──────────────── */
+  --tip-general: #D97706;          /* General tips - amber text */
+  --tip-general-bg: #FFFBEB;       /* General tips - light amber background */
+  --tip-general-border: #FDE68A;   /* General tips - amber border */
+
+  /* ── Section Header Icon Colors (Guidebook section icons) ─────────── */
+  --section-roles-icon: #10B981;   /* "Player Roles" section icon - green */
+  --section-roles-icon-bg: #ECFDF5;
+  --section-phases-icon: #F97316;  /* "Game Phases" section icon - orange */
+  --section-phases-icon-bg: #FFF7ED;
+  --section-tips-icon: #DC2626;    /* "Tips & Strategy" section icon - red */
+  --section-tips-icon-bg: #FEF2F2;
+
+  /* ── Result & Score Colors (shown in GameOver, SummaryScreen) ─────── */
+  --score-civilian: #0D9488;       /* Civilian player score color - teal */
+  --score-undercover: #F97316;     /* Undercover player score color - orange */
+  --score-mrwhite: #7C3AED;        /* Mr. White player score color - purple */
+
+  /* ── Stat Badge Colors (in OfflineRankingScreen breakdown) ────────── */
+  --badge-rounds: #2563EB;         /* Rounds survived badge - blue */
+  --badge-rounds-bg: #EFF6FF;
+  --badge-quiz: #D97706;           /* Quiz points badge - amber */
+  --badge-quiz-bg: #FFFBEB;
+  --badge-finalist: #7C3AED;       /* Finalist bonus badge - purple */
+  --badge-finalist-bg: #F5F3FF;
+
+  /* ── Typography ──────────────────────────────────────────────── */
+  --font-family-base: 'DM Sans', 'Inter', sans-serif; /* App-wide font stack */
+  --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+
+  /* ── Layout Dimensions ──────────────────────────────────────── */
+  --navbar-height: 48px;          /* Height of the sticky NavBar component */
+  --container-mobile: 24rem;      /* Max-width of content on mobile (≈ max-w-sm) */
+  --sidebar-width: 280px;         /* Desktop sidebar width */
+
+  /* ── Shadows ─────────────────────────────────────────────────── */
+  --shadow-value-card: 0 1px 3px rgba(0, 0, 0, 0.05);      /* ≈ shadow-sm */
+  --shadow-value-hover: 0 4px 16px rgba(0, 0, 0, 0.1);     /* ≈ shadow-lg */
+  --shadow-value-primary:                                    /* Primary CTA glow */
+    0 4px 16px color-mix(in srgb, var(--primary) 20%, transparent);
+
+  /* ── Transition Durations ─────────────────────────────────────── */
+  --duration-fast: 150ms;   /* Hover highlights, micro-interactions */
+  --duration-base: 200ms;   /* Buttons, cards, interactive elements */
+  --duration-slow: 300ms;   /* Page transitions, drawers, modals */
+
+  /* ── Z-Index Layers ─────────────────────────────────────────────── */
+  --layer-navbar: 10;    /* Sticky navbars */
+  --layer-sidebar: 20;   /* Desktop sidebar overlay on small screens */
+  --layer-modal: 50;     /* Dialog overlays and modals */
+  --layer-toast: 100;    /* Toast / snackbar notifications */
 }
 
 .dark {
@@ -117,24 +193,86 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Game Mode Colors */
+  --color-online-mode: var(--online-mode);
+  --color-guidebook-mode: var(--guidebook-mode);
+
+  /* Role Colors */
+  --color-role-civilian: var(--role-civilian);
+  --color-role-civilian-bg: var(--role-civilian-bg);
+  --color-role-civilian-border: var(--role-civilian-border);
+  --color-role-undercover: var(--role-undercover);
+  --color-role-undercover-bg: var(--role-undercover-bg);
+  --color-role-undercover-border: var(--role-undercover-border);
+  --color-role-mrwhite: var(--role-mrwhite);
+  --color-role-mrwhite-bg: var(--role-mrwhite-bg);
+  --color-role-mrwhite-border: var(--role-mrwhite-border);
+
+  /* Phase Colors */
+  --color-phase-1-lobby: var(--phase-1-lobby);
+  --color-phase-2-roles: var(--phase-2-roles);
+  --color-phase-3-discuss: var(--phase-3-discuss);
+  --color-phase-4-final: var(--phase-4-final);
+
+  /* Tips Colors */
+  --color-tip-general: var(--tip-general);
+  --color-tip-general-bg: var(--tip-general-bg);
+  --color-tip-general-border: var(--tip-general-border);
+
+  /* Section Icon Colors */
+  --color-section-roles-icon: var(--section-roles-icon);
+  --color-section-roles-icon-bg: var(--section-roles-icon-bg);
+  --color-section-phases-icon: var(--section-phases-icon);
+  --color-section-phases-icon-bg: var(--section-phases-icon-bg);
+  --color-section-tips-icon: var(--section-tips-icon);
+  --color-section-tips-icon-bg: var(--section-tips-icon-bg);
+
+  /* Score & Badge Colors */
+  --color-score-civilian: var(--score-civilian);
+  --color-score-undercover: var(--score-undercover);
+  --color-score-mrwhite: var(--score-mrwhite);
+  --color-badge-rounds: var(--badge-rounds);
+  --color-badge-rounds-bg: var(--badge-rounds-bg);
+  --color-badge-quiz: var(--badge-quiz);
+  --color-badge-quiz-bg: var(--badge-quiz-bg);
+  --color-badge-finalist: var(--badge-finalist);
+  --color-badge-finalist-bg: var(--badge-finalist-bg);
+
+  /* Typography ─ makes `font-sans` use the app font stack */
+  --font-sans: var(--font-family-base);
+
+  /* Shadows ─ creates `shadow-card` and `shadow-hover` utilities */
+  --shadow-card: var(--shadow-value-card);
+  --shadow-hover: var(--shadow-value-hover);
+
+  /* Z-Index Layers ─ creates `z-navbar`, `z-sidebar`, `z-modal`, `z-toast` utilities */
+  --z-navbar: var(--layer-navbar);
+  --z-sidebar: var(--layer-sidebar);
+  --z-modal: var(--layer-modal);
+  --z-toast: var(--layer-toast);
 }
 
 @layer base {
+  /* Box-sizing reset */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
 
-  body {
-    @apply bg-background text-foreground;
-  }
-
-  /**
-  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
-  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
-  */
-
   html {
     font-size: var(--font-size);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-family-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1 {

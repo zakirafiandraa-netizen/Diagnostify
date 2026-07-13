@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Plus, ChevronRight, AlertCircle } from "lucide-react";
+import { Plus, CaretRight as ChevronRight, WarningCircle as AlertCircle } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
 import { socket } from "../services/socket";
@@ -76,9 +76,9 @@ export default function OnlineJoinScreen() {
                 ))}
               </ul>
             </div>
-            <div className="bg-card rounded-2xl lg:rounded-3xl p-5 lg:p-7 border border-border shadow-sm hover:shadow-lg hover:shadow-[#0891B2]/10 hover:-translate-y-1 transition-all">
-              <div className="w-12 h-12 bg-[#0891B2]/10 rounded-2xl flex items-center justify-center mb-4">
-                <ChevronRight className="w-6 h-6 text-[#0891B2]" />
+            <div className="bg-card rounded-2xl lg:rounded-3xl p-5 lg:p-7 border border-border shadow-sm hover:shadow-lg hover:shadow-online-mode/10 hover:-translate-y-1 transition-all">
+              <div className="w-12 h-12 bg-online-mode/10 rounded-2xl flex items-center justify-center mb-4">
+                <ChevronRight className="w-6 h-6 text-online-mode" />
               </div>
               <h3 className="font-bold text-lg mb-1">Join Room</h3>
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">Enter an existing room with a code</p>
@@ -86,13 +86,13 @@ export default function OnlineJoinScreen() {
                 className="w-full bg-muted rounded-xl px-3 py-2.5 text-sm mb-2 outline-none focus:ring-2 focus:ring-primary/30 text-foreground" />
               <input value={roomCodeInput} onChange={(e) => setRoomCodeInput(e.target.value.toUpperCase())} onKeyDown={(e) => e.key === "Enter" && handleJoin()} placeholder="Room code (e.g. MED42K)"
                 className="w-full bg-muted rounded-xl px-3 py-2.5 text-sm mb-4 outline-none focus:ring-2 focus:ring-primary/30 tracking-widest font-mono text-foreground" maxLength={6} />
-              <button onClick={handleJoin} className="w-full bg-[#0891B2] text-white py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 mb-4">
+              <button onClick={handleJoin} className="w-full bg-online-mode text-white py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 mb-4">
                 Join Room
               </button>
               <ul className="space-y-1.5">
                 {["No signup needed","Play with friends anywhere","Free to use always"].map((t) => (
                   <li key={t} className="text-xs text-muted-foreground flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full bg-[#0891B2] flex-shrink-0" />{t}
+                    <span className="w-1 h-1 rounded-full bg-online-mode flex-shrink-0" />{t}
                   </li>
                 ))}
               </ul>

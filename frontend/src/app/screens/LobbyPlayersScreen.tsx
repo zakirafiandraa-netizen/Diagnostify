@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Users, Crown } from "lucide-react";
+import { Users, Crown } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
 import { Avatar } from "../components/shared/Avatar";
@@ -57,9 +57,9 @@ export default function LobbyPlayersScreen() {
             <h4 className="font-semibold text-sm mb-3">Quick Rules</h4>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-3">
               {[
-                { step:"1", title:"Get Your Role", desc:"Each player gets a secret role and disease word.", color:"#3B82F6" },
-                { step:"2", title:"Discuss", desc:"Give clues about your disease without naming it.", color:"#0D9488" },
-                { step:"3", title:"Vote", desc:"Eliminate who you think is the Undercover doctor.", color:"#7C3AED" },
+                { step:"1", title:"Get Your Role", desc:"Each player gets a secret role and disease word.", color:"var(--phase-1-lobby)" },
+                { step:"2", title:"Discuss", desc:"Give clues about your disease without naming it.", color:"var(--phase-2-roles)" },
+                { step:"3", title:"Vote", desc:"Eliminate who you think is the Undercover doctor.", color:"var(--phase-3-discuss)" },
               ].map((r) => (
                 <div key={r.step} className="flex gap-3 p-3 rounded-xl" style={{ backgroundColor:r.color+"10" }}>
                   <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style={{ backgroundColor:r.color }}>{r.step}</div>

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { motion } from "motion/react";
-import { Trophy } from "lucide-react";
+import { Trophy } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { Avatar } from "../components/shared/Avatar";
 import { fadeUp, staggerList } from "../animations/presets";
@@ -22,7 +22,7 @@ export default function GameOverScreen() {
     <div className="flex flex-col lg:flex-row min-h-screen lg:min-h-0">
       {/* Left panel */}
       <div className="lg:w-2/5 lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden flex-shrink-0
-                      bg-gradient-to-br from-[#0891B2] to-primary px-5 pt-10 pb-8 lg:flex lg:flex-col lg:justify-center">
+                      bg-gradient-to-br from-online-mode to-primary px-5 pt-10 pb-8 lg:flex lg:flex-col lg:justify-center">
         <div className="flex flex-col items-center text-center">
           <motion.div
             initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5 }}
@@ -98,13 +98,13 @@ export default function GameOverScreen() {
                     className="text-xs px-2 py-0.5 rounded-full font-medium"
                     style={{
                       backgroundColor:
-                        p.role === "Civilian" ? "#0D948815"
-                        : p.role === "Undercover" ? "#F9731615"
-                        : "#7C3AED15",
+                        p.role === "Civilian" ? "color-mix(in srgb, var(--score-civilian) 8%, transparent)"
+                        : p.role === "Undercover" ? "color-mix(in srgb, var(--score-undercover) 8%, transparent)"
+                        : "color-mix(in srgb, var(--score-mrwhite) 8%, transparent)",
                       color:
-                        p.role === "Civilian" ? "#0D9488"
-                        : p.role === "Undercover" ? "#F97316"
-                        : "#7C3AED",
+                        p.role === "Civilian" ? "var(--score-civilian)"
+                        : p.role === "Undercover" ? "var(--score-undercover)"
+                        : "var(--score-mrwhite)",
                     }}
                   >
                     {p.role ?? "Unknown"}

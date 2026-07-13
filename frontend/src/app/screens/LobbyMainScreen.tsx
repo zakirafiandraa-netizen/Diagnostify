@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Check, Copy, Clock, BookOpen } from "lucide-react";
+import { Check, Copy, Clock, BookOpen } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { socket } from "../services/socket";
 import { clearSession } from "../services/session";
@@ -7,7 +7,7 @@ import { clearSession } from "../services/session";
 export default function LobbyMainScreen() {
   const { go, roomCode, players, selectedCategory, setSelectedCategory, playerId } = useGame();
   const [copied, setCopied] = useState(false);
-  const [quizCategories, setQuizCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
 
   const isHost = players.find((p) => p.id === playerId)?.isHost ?? false;
 
@@ -15,8 +15,8 @@ export default function LobbyMainScreen() {
   useEffect(() => {
     socket.emit("lobby:get_categories");
     const onCategories = (cats: string[]) => {
-      setQuizCategories(cats);
-      // If no category selected yet, default to first quiz category
+      setCategories(cats);
+      // If no category selected yet, default to first category
       if (!selectedCategory || selectedCategory === "Acak") {
         const first = cats[0];
         if (first && isHost) {
@@ -120,7 +120,7 @@ export default function LobbyMainScreen() {
           <div className="bg-card rounded-2xl p-5 border border-border shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <BookOpen className="w-4 h-4 text-primary" />
-              <h4 className="font-semibold text-sm">Quiz Theme</h4>
+              <h4 className="font-semibold text-sm">Disease Category</h4>
               {!isHost && (
                 <span className="ml-auto text-xs text-muted-foreground italic">Set by host</span>
               )}
@@ -129,12 +129,12 @@ export default function LobbyMainScreen() {
             {isHost ? (
               <>
                 <div className="grid grid-cols-1 gap-2">
-                  {quizCategories.length === 0 ? (
+                  {categories.length === 0 ? (
                     <div className="bg-muted rounded-xl px-3 py-2.5 text-sm text-muted-foreground animate-pulse">
                       Loading categories…
                     </div>
                   ) : (
-                    quizCategories.map((cat) => (
+                    categories.map((cat) => (
                       <button
                         key={cat}
                         onClick={() => handleCategoryChange(cat)}

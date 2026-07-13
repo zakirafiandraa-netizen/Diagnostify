@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { motion } from "motion/react";
-import { Trophy } from "lucide-react";
+import { Trophy } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { useOfflineGame } from "../context/OfflineGameContext";
 import { Avatar } from "../components/shared/Avatar";
@@ -21,7 +21,7 @@ export default function OfflineRankingScreen() {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <div className="bg-gradient-to-br from-[#0891B2] to-primary px-5 pt-10 pb-8 text-center">
+            <div className="bg-gradient-to-br from-online-mode to-primary px-5 pt-10 pb-8 text-center">
                 <motion.div initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
                     className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4 mx-auto shadow-xl">
                     <Trophy className="w-9 h-9 text-white" />
@@ -60,14 +60,14 @@ export default function OfflineRankingScreen() {
                                 <span className={`text-lg font-bold ${i === 0 ? "text-yellow-600" : "text-foreground"}`}>{p.score}</span>
                             </div>
                             <div className="flex gap-2 mt-2 flex-wrap pl-10">
-                                <span className="text-xs px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">
+                                <span className="text-xs px-2 py-0.5 rounded-full bg-badge-rounds-bg text-badge-rounds">
                                     {p.roundsSurvived} rounds × 10 = {p.roundsSurvived * 10}
                                 </span>
-                                <span className="text-xs px-2 py-0.5 rounded-full bg-amber-50 text-amber-600">
+                                <span className="text-xs px-2 py-0.5 rounded-full bg-badge-quiz-bg text-badge-quiz">
                                     Quiz: {p.quizPoints}
                                 </span>
                                 {p.finalistBonus > 0 && (
-                                    <span className="text-xs px-2 py-0.5 rounded-full bg-purple-50 text-purple-600">
+                                    <span className="text-xs px-2 py-0.5 rounded-full bg-badge-finalist-bg text-badge-finalist">
                                         Finalist: +{p.finalistBonus}
                                     </span>
                                 )}

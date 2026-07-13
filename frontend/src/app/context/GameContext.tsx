@@ -114,7 +114,11 @@ export function GameProvider({ children }: { children: ReactNode }) {
       if (room.cards) setCards(room.cards);
       if (room.civilianWord) setCivilianWord(room.civilianWord);
       if (room.undercoverWord) setUndercoverWord(room.undercoverWord);
+      // Keep finalists in sync — a finalist's socket ID changes on refresh,
+      // so we must update this array whenever room state is broadcast
+      if (room.finalists) setFinalists(room.finalists);
     };
+
 
     const onGameStarted = (data: { category: string }) => {
       setGameCategory(data.category);
@@ -189,8 +193,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setPrivilegeOptions([]);
       setFastestPlayerId(null);
       setScreen("quiz");
-      setTimeout(() => setScreen("quiz"), 1500)
     };
+
 
     const onQuizResult = (data: { correct: boolean; points: number; hasPrivilege: boolean }) => {
       setQuizResult(data);

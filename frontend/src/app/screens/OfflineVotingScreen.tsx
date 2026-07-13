@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Minus, Plus, EyeOff, AlertCircle, Home } from "lucide-react";
+import { Minus, Plus, EyeClosed as EyeOff, WarningCircle as AlertCircle, House as Home } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { useOfflineGame } from "../context/OfflineGameContext";
 import { Avatar } from "../components/shared/Avatar";

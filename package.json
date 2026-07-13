@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/zakirafiandraa-netizen/Uncoverles/issues"
   },
-  "homepage": "https://github.com/zakirafiandraa-netizen/Uncoverles#readme"
+  "homepage": "https://github.com/zakirafiandraa-netizen/Uncoverles#readme",
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "motion": "^12.42.2"
+  }
 }

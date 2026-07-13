@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Stethoscope, Trophy, Star } from "lucide-react";
+import { FirstAid as Stethoscope, Trophy, Star } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
 import { Avatar } from "../components/shared/Avatar";

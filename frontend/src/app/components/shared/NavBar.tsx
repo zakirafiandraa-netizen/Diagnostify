@@ -1,4 +1,4 @@
-import { ChevronLeft } from "lucide-react";
+import { CaretLeft as ChevronLeft } from "@phosphor-icons/react";
 
 interface NavBarProps {
   title?: string;
@@ -8,7 +8,7 @@ interface NavBarProps {
 
 export function NavBar({ title, onBack, action }: NavBarProps) {
   return (
-    <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-10">
+    <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-navbar">
       {onBack
         ? <button onClick={onBack} className="flex items-center gap-1 text-primary text-sm font-medium hover:opacity-70 transition-opacity">
             <ChevronLeft className="w-4 h-4" /> Back

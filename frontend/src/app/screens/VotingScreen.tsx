@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { Shield, CheckCircle2, AlertCircle } from "lucide-react";
+import { Shield, CheckCircle as CheckCircle2, WarningCircle as AlertCircle } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
 import { Avatar } from "../components/shared/Avatar";
@@ -46,25 +46,25 @@ export default function VotingScreen() {
         <div className="flex-1 overflow-y-auto px-4 lg:px-8 py-4 space-y-4">
 
           {/* Live vote counter */}
-          <div className="bg-orange-50 border border-orange-200 rounded-2xl p-4 flex items-center justify-between">
+          <div className="bg-card border border-border rounded-2xl p-4 flex items-center justify-between">
             <div>
-              <p className="text-sm font-bold text-orange-800">Voting Status</p>
-              <p className="text-xs text-orange-600 mt-0.5">Who is the Undercover doctor?</p>
+              <p className="text-sm font-bold text-foreground">Voting Status</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Who is the Undercover doctor?</p>
             </div>
             <div className="text-right">
-              <span className="text-2xl font-bold text-orange-700">{votesCast}</span>
-              <span className="text-lg text-orange-400"> / {totalVoters}</span>
-              <p className="text-xs text-orange-500">votes cast</p>
+              <span className="text-2xl font-bold text-primary">{votesCast}</span>
+              <span className="text-lg text-muted-foreground"> / {totalVoters}</span>
+              <p className="text-xs text-muted-foreground">votes cast</p>
             </div>
           </div>
 
           {/* Result feedback banner */}
           {feedback && (
-            <div className="flex items-center gap-2 bg-red-50 border border-red-200 rounded-2xl px-4 py-3">
+            <div className="flex items-center gap-2 bg-destructive/10 border border-destructive/20 rounded-2xl px-4 py-3">
               {voteTied
-                ? <AlertCircle className="w-5 h-5 text-yellow-500 flex-shrink-0" />
-                : <CheckCircle2 className="w-5 h-5 text-red-500 flex-shrink-0" />}
-              <p className="text-sm font-medium text-red-800">{feedback}</p>
+                ? <AlertCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                : <CheckCircle2 className="w-5 h-5 text-destructive flex-shrink-0" />}
+              <p className="text-sm font-medium text-destructive">{feedback}</p>
             </div>
           )}
 
@@ -84,10 +84,10 @@ export default function VotingScreen() {
                     aria-label={`Vote for ${p.name}`}
                     className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-all active:scale-95 ${
                       myVote === p.id
-                        ? "bg-green-100 text-green-700 cursor-default"
+                        ? "bg-primary/20 text-primary cursor-default"
                         : submitted
                           ? "bg-muted text-muted-foreground cursor-not-allowed opacity-50"
-                          : "bg-accent text-white hover:opacity-80"
+                          : "bg-primary text-primary-foreground hover:opacity-80"
                     }`}
                   >
                     {myVote === p.id ? "Voted ✓" : "Vote"}
@@ -105,12 +105,27 @@ export default function VotingScreen() {
 
           <InfoBanner
             color="red"
-            icon={<Shield className="w-5 h-5 text-red-500" />}
+            icon={<Shield className="w-5 h-5 text-destructive" />}
             title="How Voting Works"
             description="Most votes = eliminated. Undercover and Mr. White must survive!"
           />
 
-          <div className="lg:hidden"><ChatSection messages={chatMessages.slice(0, 2)} /></div>
+          <div className="lg:hidden">
+            <ChatSection
+              messages={chatMessages}
+              onSendMessage={(msg) => {
+                if (roomCode) {
+                  const isSpectator = currentPlayer?.status === "Eliminated";
+                  socket.emit(isSpectator ? "spectator:message" : "chat:message", {
+                    roomCode,
+                    playerName,
+                    color: currentPlayer?.color || "#3B82F6",
+                    message: msg,
+                  });
+                }
+              }}
+            />
+          </div>
         </div>
 
         <ChatSidebar

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Star, Shield, HelpCircle, User, CheckCircle2, XCircle, Home, MessageSquare } from "lucide-react";
+import { Star, Shield, Question as HelpCircle, User, CheckCircle as CheckCircle2, XCircle, House as Home, Chat as MessageSquare } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { useOfflineGame } from "../context/OfflineGameContext";
 import { Avatar } from "../components/shared/Avatar";

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Trophy, CheckCircle, Loader2 } from "lucide-react";
+import { Trophy, CheckCircle, CircleNotch as Loader2 } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { socket } from "../services/socket";
 
 const LABEL_COLORS: Record<string, { bg: string; border: string; text: string; accent: string }> = {
-  A: { bg: "#FFF7ED", border: "#FED7AA", text: "#9A3412", accent: "#EA580C" },
-  B: { bg: "#F0FDF4", border: "#BBF7D0", text: "#14532D", accent: "#16A34A" },
-  C: { bg: "#EFF6FF", border: "#BFDBFE", text: "#1E3A8A", accent: "#2563EB" },
+  A: { bg: "var(--color-chart-1)", border: "var(--color-chart-1)", text: "var(--color-background)", accent: "var(--color-background)" },
+  B: { bg: "var(--color-chart-2)", border: "var(--color-chart-2)", text: "var(--color-background)", accent: "var(--color-background)" },
+  C: { bg: "var(--color-chart-3)", border: "var(--color-chart-3)", text: "var(--color-background)", accent: "var(--color-background)" },
 };
 
 export default function FinalVotingScreen() {
@@ -39,10 +39,9 @@ export default function FinalVotingScreen() {
           initial={{ scale: 0.7, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="w-28 h-28 rounded-full flex items-center justify-center"
-          style={{ background: "linear-gradient(135deg, #F97316 0%, #EAB308 100%)" }}
+          className="w-28 h-28 rounded-full flex items-center justify-center bg-primary"
         >
-          <Trophy className="w-14 h-14 text-white" />
+          <Trophy className="w-14 h-14 text-primary-foreground" />
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
@@ -56,17 +55,15 @@ export default function FinalVotingScreen() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.35 }}
-          className="w-full max-w-sm rounded-2xl border p-6"
-          style={{ background: "linear-gradient(135deg, #FFF7ED 0%, #FFFBEB 100%)", borderColor: "#FED7AA" }}
+          className="w-full max-w-sm rounded-2xl border p-6 bg-card border-border"
         >
-          <p className="text-4xl font-bold mb-1" style={{ color: "#C2410C" }}>
+          <p className="text-4xl font-bold mb-1 text-primary">
             {finalSolutionVotes.votesCast} / {finalSolutionVotes.total}
           </p>
-          <p className="text-sm mb-3" style={{ color: "#9A3412" }}>Votes cast</p>
-          <div className="h-2 rounded-full overflow-hidden" style={{ background: "#FED7AA" }}>
+          <p className="text-sm mb-3 text-muted-foreground">Votes cast</p>
+          <div className="h-2 rounded-full overflow-hidden bg-muted">
             <motion.div
-              className="h-full rounded-full"
-              style={{ background: "linear-gradient(90deg, #F97316, #EAB308)" }}
+              className="h-full rounded-full bg-primary"
               initial={{ width: "0%" }}
               animate={{ width: `${progressPct}%` }}
               transition={{ type: "spring", stiffness: 60 }}
@@ -98,8 +95,7 @@ export default function FinalVotingScreen() {
       <motion.div
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl p-5 text-white text-center"
-        style={{ background: "linear-gradient(135deg, #7C3AED 0%, #2563EB 100%)" }}
+        className="rounded-2xl p-5 text-primary-foreground text-center bg-primary"
       >
         <p className="text-xs font-semibold uppercase tracking-wider opacity-80 mb-1">Final Vote</p>
         <h2 className="text-xl font-bold">Choose the Best Solution</h2>
@@ -111,15 +107,13 @@ export default function FinalVotingScreen() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
-        className="rounded-xl border p-3.5 flex items-center justify-between"
-        style={{ background: "#FAFAFA", borderColor: "#E5E7EB" }}
+        className="rounded-xl border p-3.5 flex items-center justify-between bg-card border-border"
       >
         <p className="text-xs text-muted-foreground">Votes cast</p>
         <div className="flex items-center gap-2">
-          <div className="w-20 h-1.5 rounded-full overflow-hidden" style={{ background: "#E5E7EB" }}>
+          <div className="w-20 h-1.5 rounded-full overflow-hidden bg-muted">
             <motion.div
-              className="h-full rounded-full"
-              style={{ background: "#7C3AED" }}
+              className="h-full rounded-full bg-primary"
               animate={{ width: `${progressPct}%` }}
               transition={{ type: "spring", stiffness: 80 }}
             />
@@ -153,7 +147,7 @@ export default function FinalVotingScreen() {
               className="text-left rounded-2xl border-2 p-5 transition-all shadow-sm hover:shadow-lg disabled:cursor-not-allowed"
               style={{
                 background: isSelected ? colors.bg : "var(--color-card, #fff)",
-                borderColor: isSelected ? colors.accent : (hasVoted ? "#E5E7EB" : colors.border),
+                borderColor: isSelected ? colors.accent : (hasVoted ? "var(--color-muted)" : colors.border),
                 opacity: hasVoted && !isSelected ? 0.55 : 1,
               }}
             >
@@ -188,14 +182,13 @@ export default function FinalVotingScreen() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center justify-center gap-2 rounded-xl border py-3 px-4"
-            style={{ background: "#F0FDF4", borderColor: "#BBF7D0" }}
+            className="flex items-center justify-center gap-2 rounded-xl border border-primary py-3 px-4 bg-primary/10"
           >
-            <CheckCircle className="w-4 h-4" style={{ color: "#16A34A" }} />
-            <p className="text-sm font-semibold" style={{ color: "#14532D" }}>
+            <CheckCircle className="w-4 h-4 text-primary" />
+            <p className="text-sm font-semibold text-primary">
               You voted for Solution {votedLabel}!
             </p>
-            <Loader2 className="w-4 h-4 animate-spin ml-1" style={{ color: "#16A34A" }} />
+            <Loader2 className="w-4 h-4 animate-spin ml-1 text-primary" />
           </motion.div>
         )}
       </AnimatePresence>

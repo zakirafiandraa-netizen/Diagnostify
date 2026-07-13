@@ -1,4 +1,4 @@
-import { Users, Stethoscope } from "lucide-react";
+import { Users, FirstAid as Stethoscope } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { useOfflineGame } from "../context/OfflineGameContext";
 import { NavBar } from "../components/shared/NavBar";
@@ -45,9 +45,9 @@ export default function SummaryScreen() {
             <h4 className="font-semibold text-sm mb-3">Role Distribution</h4>
             <div className="grid grid-cols-3 gap-2 lg:gap-3">
               {[
-                { role: "Civilian", count: civilians, emoji: "🏥", color: "#0D9488" },
-                { role: "Undercover", count: undercovers, emoji: "🕵️", color: "#F97316" },
-                { role: "Mr. White", count: mrWhite, emoji: "👤", color: "#7C3AED" },
+                { role: "Civilian", count: civilians, emoji: "🏥", color: "var(--score-civilian)" },
+                { role: "Undercover", count: undercovers, emoji: "🕵️", color: "var(--score-undercover)" },
+                { role: "Mr. White", count: mrWhite, emoji: "👤", color: "var(--score-mrwhite)" },
               ].map((r) => (
                 <div key={r.role} className="rounded-xl p-3 lg:p-4 text-center" style={{ backgroundColor: r.color + "15" }}>
                   <div className="text-xl lg:text-2xl mb-1">{r.emoji}</div>

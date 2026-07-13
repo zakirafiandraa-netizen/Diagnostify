@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Clock, Send } from "lucide-react";
+import { Clock, PaperPlaneRight as Send } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
 import { InfoBanner } from "../components/shared/InfoBanner";
@@ -91,7 +91,7 @@ export default function DiscussionScreen() {
 
           <InfoBanner
             color="blue"
-            icon={<Clock className="w-5 h-5 text-blue-500" />}
+            icon={<Clock className="w-5 h-5 text-primary" />}
             title="Discussion Phase"
             description="Each player gives one clue about their disease. Don't reveal it directly!"
           />
@@ -110,13 +110,28 @@ export default function DiscussionScreen() {
                 }}
                   placeholder="Describe your disease without naming it…"
                   className="w-full bg-muted rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/30 resize-none h-28 text-foreground placeholder:text-muted-foreground leading-relaxed" />
-                <button onClick={handleSendClue} disabled={!clue.trim()} className="w-full mt-4 bg-primary text-white py-3 rounded-xl text-sm font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 active:scale-[0.98] transition-all">
+                <button onClick={handleSendClue} disabled={!clue.trim()} className="w-full mt-4 bg-primary text-primary-foreground py-3 rounded-xl text-sm font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 active:scale-[0.98] transition-all">
                   <Send className="w-4 h-4" /> Submit Clue
                 </button>
               </div>
             </div>
           )}
-          <div className="lg:hidden"><ChatSection messages={chatMessages} /></div>
+          <div className="lg:hidden">
+            <ChatSection
+              messages={chatMessages}
+              onSendMessage={(msg) => {
+                if (roomCode) {
+                  const isSpectator = currentPlayer?.status === "Eliminated";
+                  socket.emit(isSpectator ? "spectator:message" : "chat:message", {
+                    roomCode: roomCode,
+                    playerName: playerName,
+                    color: currentPlayer?.color || "#3B82F6",
+                    message: msg,
+                  });
+                }
+              }}
+            />
+          </div>
         </div>
 
         <ChatSidebar 
@@ -139,7 +154,7 @@ export default function DiscussionScreen() {
         {currentPlayer?.status !== "Eliminated" ? (
           <button
             onClick={() => socket.emit("vote:start", roomCode)}
-            className="w-full bg-destructive text-white py-3 rounded-xl font-bold hover:opacity-90 active:scale-[0.98] transition-all">
+            className="w-full bg-destructive text-destructive-foreground py-3 rounded-xl font-bold hover:opacity-90 active:scale-[0.98] transition-all">
             Go to Voting Phase →
           </button>
         ) : (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MessageCircle, Home } from "lucide-react";
+import { ChatCircle as MessageCircle, House as Home } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { useOfflineGame } from "../context/OfflineGameContext";
 import { InfoBanner } from "../components/shared/InfoBanner";

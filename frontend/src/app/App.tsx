@@ -65,7 +65,7 @@ function AppRouter() {
   };
 
   return (
-    <div className="min-h-screen flex" style={{ fontFamily: "'DM Sans','Inter',sans-serif" }}>
+    <div className="min-h-screen flex font-sans">
       {/* Desktop sidebar */}
       <Sidebar />
 

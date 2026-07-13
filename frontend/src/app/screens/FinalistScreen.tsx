@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Trophy } from "lucide-react";
+import { Trophy } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 
 export default function FinalistScreen() {

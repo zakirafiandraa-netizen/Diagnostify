@@ -1,4 +1,4 @@
-import { Stethoscope, HelpCircle, UserX } from "lucide-react";
+import { FirstAid as Stethoscope, Question as HelpCircle, UserMinus as UserX } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
 import { PrimaryButtonBar } from "../components/shared/InfoBanner";

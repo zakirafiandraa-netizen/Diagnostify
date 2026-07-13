@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { Stethoscope, Eye, EyeOff } from "lucide-react";
+import { motion } from "motion/react";
+import { FirstAid as Stethoscope, Eye, EyeClosed as EyeOff } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { useOfflineGame } from "../context/OfflineGameContext";
 import { fadeUp, staggerList } from "../animations/presets";

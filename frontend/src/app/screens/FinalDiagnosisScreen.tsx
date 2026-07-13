@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Stethoscope, Trophy, Clock, CheckCircle } from "lucide-react";
+import { FirstAid as Stethoscope, Trophy, Clock, CheckCircle } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { socket } from "../services/socket";
 
@@ -37,10 +37,9 @@ export default function FinalDiagnosisScreen() {
           initial={{ scale: 0.7, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="w-28 h-28 rounded-full flex items-center justify-center"
-          style={{ background: "linear-gradient(135deg, #0891B2 0%, #6366F1 100%)" }}
+          className="w-28 h-28 rounded-full flex items-center justify-center bg-primary"
         >
-          <Clock className="w-14 h-14 text-white" />
+          <Clock className="w-14 h-14 text-primary-foreground" />
         </motion.div>
 
         <motion.div
@@ -58,17 +57,15 @@ export default function FinalDiagnosisScreen() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.35, duration: 0.3 }}
-          className="w-full max-w-sm rounded-2xl border p-6"
-          style={{ background: "linear-gradient(135deg, #EFF6FF 0%, #EDE9FE 100%)", borderColor: "#BFDBFE" }}
+          className="w-full max-w-sm rounded-2xl border p-6 bg-card border-border"
         >
-          <p className="text-4xl font-bold mb-1" style={{ color: "#1D4ED8" }}>
+          <p className="text-4xl font-bold mb-1 text-primary">
             {solutionsSubmittedCount} / {totalFinalists}
           </p>
-          <p className="text-sm mb-3" style={{ color: "#3730A3" }}>Solutions submitted</p>
-          <div className="h-2 rounded-full overflow-hidden" style={{ background: "#BFDBFE" }}>
+          <p className="text-sm mb-3 text-muted-foreground">Solutions submitted</p>
+          <div className="h-2 rounded-full overflow-hidden bg-muted">
             <motion.div
-              className="h-full rounded-full"
-              style={{ background: "linear-gradient(90deg, #3B82F6, #6366F1)" }}
+              className="h-full rounded-full bg-primary"
               initial={{ width: "0%" }}
               animate={{ width: `${totalFinalists > 0 ? (solutionsSubmittedCount / totalFinalists) * 100 : 0}%` }}
               transition={{ type: "spring", stiffness: 60 }}
@@ -81,8 +78,8 @@ export default function FinalDiagnosisScreen() {
           {finalists.map(fId => {
             const p = players.find(pl => pl.id === fId);
             return (
-              <div key={fId} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
-                style={{ background: "#F3F4F6", color: "#374151" }}>
+              <div key={fId} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-secondary text-secondary-foreground"
+              >
                 <Trophy className="w-3 h-3 text-yellow-500" />
                 {p?.name ?? "Finalist"}
               </div>
@@ -103,8 +100,7 @@ export default function FinalDiagnosisScreen() {
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="rounded-2xl p-5 text-white text-center"
-        style={{ background: "linear-gradient(135deg, #0891B2 0%, #6366F1 100%)" }}
+        className="rounded-2xl p-5 text-primary-foreground text-center bg-primary"
       >
         <div className="flex items-center justify-center gap-2 mb-1">
           <Trophy className="w-5 h-5" />
@@ -119,16 +115,15 @@ export default function FinalDiagnosisScreen() {
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.15, duration: 0.35 }}
-        className="rounded-2xl border p-5"
-        style={{ background: "#F0FDF4", borderColor: "#BBF7D0" }}
+        className="rounded-2xl border p-5 bg-card border-border"
       >
         <div className="flex items-center gap-2 mb-2">
-          <Stethoscope className="w-4 h-4" style={{ color: "#059669" }} />
-          <p className="text-xs font-semibold uppercase tracking-wide" style={{ color: "#065F46" }}>
+          <Stethoscope className="w-4 h-4 text-primary" />
+          <p className="text-xs font-semibold uppercase tracking-wide text-primary">
             Medical Condition to Diagnose
           </p>
         </div>
-        <p className="text-2xl font-bold" style={{ color: "#065F46" }}>{finalDiagnosis || "—"}</p>
+        <p className="text-2xl font-bold text-primary">{finalDiagnosis || "—"}</p>
       </motion.div>
 
       {/* Submission form or waiting state */}
@@ -149,8 +144,7 @@ export default function FinalDiagnosisScreen() {
               value={solution}
               onChange={e => { setSolution(e.target.value); setError(""); }}
               placeholder="Describe your diagnosis, treatment plan, and any innovative approaches…"
-              className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground resize-none focus:outline-none focus:ring-2 leading-relaxed"
-              style={{ focusRingColor: "#6366F1" } as React.CSSProperties}
+              className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary leading-relaxed"
             />
             {error && (
               <p className="text-xs text-red-500 font-medium">{error}</p>
@@ -158,8 +152,7 @@ export default function FinalDiagnosisScreen() {
             <div className="text-xs text-muted-foreground text-right">{solution.trim().length} characters</div>
 
             {/* Submission progress */}
-            <div className="rounded-xl border p-3.5 flex items-center justify-between"
-              style={{ background: "#FAFAFA", borderColor: "#E5E7EB" }}>
+            <div className="rounded-xl border p-3.5 flex items-center justify-between bg-card border-border">
               <p className="text-xs text-muted-foreground">Submissions received</p>
               <p className="text-sm font-bold text-foreground">
                 {solutionsSubmittedCount} / {totalFinalists}
@@ -170,8 +163,7 @@ export default function FinalDiagnosisScreen() {
               id="submit-solution-btn"
               onClick={handleSubmit}
               disabled={!solution.trim()}
-              className="w-full py-3.5 rounded-xl font-bold text-white text-sm transition-all shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ background: solution.trim() ? "linear-gradient(135deg, #0891B2, #6366F1)" : undefined }}
+              className={`w-full py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground ${solution.trim() ? "bg-primary text-primary-foreground" : ""}`}
             >
               Submit Solution →
             </button>
@@ -184,25 +176,22 @@ export default function FinalDiagnosisScreen() {
             transition={{ duration: 0.4 }}
             className="flex flex-col items-center gap-5 flex-1 pt-4"
           >
-            <div className="w-16 h-16 rounded-full flex items-center justify-center"
-              style={{ background: "#DCFCE7" }}>
-              <CheckCircle className="w-9 h-9" style={{ color: "#16A34A" }} />
+            <div className="w-16 h-16 rounded-full flex items-center justify-center bg-primary/10">
+              <CheckCircle className="w-9 h-9 text-primary" />
             </div>
             <div className="text-center">
               <h3 className="text-lg font-bold text-foreground">Solution Submitted!</h3>
               <p className="text-sm text-muted-foreground mt-1">Waiting for other finalists…</p>
             </div>
 
-            <div className="w-full max-w-sm rounded-2xl border p-5"
-              style={{ background: "linear-gradient(135deg, #EFF6FF 0%, #EDE9FE 100%)", borderColor: "#BFDBFE" }}>
-              <p className="text-4xl font-bold mb-1 text-center" style={{ color: "#1D4ED8" }}>
+            <div className="w-full max-w-sm rounded-2xl border p-5 bg-card border-border">
+              <p className="text-4xl font-bold mb-1 text-center text-primary">
                 {solutionsSubmittedCount} / {totalFinalists}
               </p>
-              <p className="text-sm text-center mb-3" style={{ color: "#3730A3" }}>Solutions submitted</p>
-              <div className="h-2 rounded-full overflow-hidden" style={{ background: "#BFDBFE" }}>
+              <p className="text-sm text-center mb-3 text-muted-foreground">Solutions submitted</p>
+              <div className="h-2 rounded-full overflow-hidden bg-muted">
                 <motion.div
-                  className="h-full rounded-full"
-                  style={{ background: "linear-gradient(90deg, #3B82F6, #6366F1)" }}
+                  className="h-full rounded-full bg-primary"
                   animate={{ width: `${totalFinalists > 0 ? (solutionsSubmittedCount / totalFinalists) * 100 : 0}%` }}
                   transition={{ type: "spring", stiffness: 60 }}
                 />

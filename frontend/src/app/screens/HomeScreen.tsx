@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { motion } from "motion/react";
-import { Wifi, WifiOff, BookOpen, Stethoscope } from "lucide-react";
+import { WifiHigh as Wifi, WifiSlash as WifiOff, BookOpen, FirstAid as Stethoscope } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { fadeUp, staggerList } from "../animations/presets";
 import { Screen } from "../types";
@@ -10,8 +10,8 @@ export default function HomeScreen() {
 
   const cards = useMemo(() => [
     { icon:<WifiOff className="w-6 h-6"/>, title:"Offline Mode", subtitle:"Play locally with friends in the same room", stats:["2–8 players","No internet"], cta:"Play Offline", bg:"bg-primary", shadow:"hover:shadow-primary/25", screen:"offline-players" as Screen },
-    { icon:<Wifi className="w-6 h-6"/>,    title:"Online Mode",  subtitle:"Play with anyone, anywhere in real-time",    stats:["2–10 players","Real-time"],  cta:"Play Online", bg:"bg-[#0891B2]", shadow:"hover:shadow-[#0891B2]/25", badge:"Live", screen:"online-join" as Screen },
-    { icon:<BookOpen className="w-6 h-6"/>,title:"Guidebook",    subtitle:"Learn all the rules, roles, and strategies",  stats:["Full guide","Tips & tricks"], cta:"Read Guide", bg:"bg-[#7C3AED]", shadow:"hover:shadow-[#7C3AED]/25", screen:"guidebook" as Screen },
+    { icon:<Wifi className="w-6 h-6"/>,    title:"Online Mode",  subtitle:"Play with anyone, anywhere in real-time",    stats:["2–10 players","Real-time"],  cta:"Play Online", bg:"bg-online-mode", shadow:"hover:shadow-online-mode/25", badge:"Live", screen:"online-join" as Screen },
+    { icon:<BookOpen className="w-6 h-6"/>,title:"Guidebook",    subtitle:"Learn all the rules, roles, and strategies",  stats:["Full guide","Tips & tricks"], cta:"Read Guide", bg:"bg-guidebook-mode", shadow:"hover:shadow-guidebook-mode/25", screen:"guidebook" as Screen },
   ], []);
 
   return (
@@ -23,7 +23,7 @@ export default function HomeScreen() {
           <Stethoscope className="w-9 h-9 lg:w-11 lg:h-11 text-white" />
         </motion.div>
         <motion.h1 initial={{ opacity:0, y:10 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.1, duration:0.3 }}
-          className="text-2xl lg:text-4xl font-bold text-foreground tracking-tight" style={{ fontFamily:"'DM Sans',sans-serif" }}>
+          className="text-2xl lg:text-4xl font-bold text-foreground tracking-tight">
           Diagnostify
         </motion.h1>
         <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.2, duration:0.3 }}

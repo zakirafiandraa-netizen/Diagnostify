@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Star, Zap, Shield, HelpCircle, Trophy } from "lucide-react";
+import { Star, Lightning as Zap, Shield, Question as HelpCircle, Trophy } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
 import { Avatar } from "../components/shared/Avatar";
