@@ -1,1 +1,0 @@
-import{R as r,j as n}from"./index-CurQX0cT.js";const o={sm:"w-7 h-7 text-xs",md:"w-9 h-9 text-sm",lg:"w-12 h-12 text-base"};function a({name:t,color:e,size:s="md"}){return n.jsx("div",{className:`${o[s]} rounded-full flex items-center justify-center font-bold text-white flex-shrink-0`,style:{backgroundColor:e},children:t[0].toUpperCase()})}const x=r.memo(a);export{x as A};
