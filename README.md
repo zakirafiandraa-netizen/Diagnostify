@@ -1,5 +1,7 @@
 # Diagnostify
 
+diagnostify.vercel.app
+
 Diagnostify is a medical-themed social deduction game inspired by *Undercover*, designed to test your medical knowledge and deduction skills. Players are assigned secret roles and must use medical clues to uncover the imposters among them.
 
 The game features both a **Local Pass-and-Play (Offline) Mode** and a real-time **Online Multiplayer Mode**.
