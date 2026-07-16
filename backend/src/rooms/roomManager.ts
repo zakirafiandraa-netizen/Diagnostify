@@ -73,7 +73,7 @@ export function getRoom(code: string): Room | undefined {
 export function startGame(code: string, playerId: string, category?: string): Room | null {
     const room = rooms.get(code);
     if (!room || room.status !== "Waiting") return null;
-    if (room.players.length < 4) return null;
+    if (room.players.length < 3) return null;
 
     const player = room.players.find((p) => p.id === playerId);
     if (!player || !player.isHost) return null;
