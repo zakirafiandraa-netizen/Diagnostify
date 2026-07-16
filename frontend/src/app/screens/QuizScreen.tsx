@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Star, Lightning as Zap, Shield, Question as HelpCircle, Trophy } from "@phosphor-icons/react";
+import { Star, Lightning as Zap, Shield, Question as HelpCircle, Trophy, Timer } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
 import { Avatar } from "../components/shared/Avatar";
@@ -12,30 +12,77 @@ const PRIVILEGE_META: Record<string, { icon: React.ReactNode; label: string; des
   clue_request: { icon: <HelpCircle className="w-5 h-5" />, label: "Clue Request", description: "Force another player to reveal a clue next round", color: "bg-purple-50 border-purple-300 text-purple-700" },
 };
 
+/** Compute seconds left from a server-anchored quiz timer.
+ *  Returns null if no timer anchor has been received yet. */
+function useServerSyncedTimer(
+  timerStart: { startsAt: number; durationMs: number } | null
+): number | null {
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!timerStart) {
+      setTimeLeft(null);
+      return;
+    }
+
+    const computeLeft = () =>
+      Math.max(0, Math.round((timerStart.startsAt + timerStart.durationMs - Date.now()) / 1000));
+
+    // Set immediately so there's no 1-second delay on mount
+    setTimeLeft(computeLeft());
+
+    const interval = setInterval(() => {
+      const left = computeLeft();
+      setTimeLeft(left);
+      if (left <= 0) clearInterval(interval);
+    }, 500); // tick at 500 ms for smooth display without drift
+
+    return () => clearInterval(interval);
+  }, [timerStart]);
+
+  return timeLeft;
+}
+
 export default function QuizScreen() {
   const {
     players, playerId, roomCode,
     currentQuestion, quizRound, quizResult,
     privilegeOptions, fastestPlayerId,
     eliminatedPlayer, voteTied,
+    quizTimerStart,
   } = useGame();
 
+  // Bug 3 fix: these are local UI states that must reset on every new quiz round.
+  // They live here (not in context) because they are purely presentational.
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [chosenPrivilege, setChosenPrivilege] = useState<string | null>(null);
   const [clueTargetId, setClueTargetId] = useState<string>("");
-  const [timeLeft, setTimeLeft] = useState(30);
+
+  // Bug 3 fix: reset all local answer-state whenever a new question arrives.
+  // Without this, selectedIndex stays set from the previous round and the
+  // `if (selectedIndex !== null) return` guard in handleAnswer blocks ALL clicks.
+  useEffect(() => {
+    setSelectedIndex(null);
+    setChosenPrivilege(null);
+    setClueTargetId("");
+  }, [currentQuestion]);
+
+  // Bug 1 fix: server-synced countdown — all players see the same number.
+  const timeLeft = useServerSyncedTimer(quizTimerStart);
 
   const fastestPlayer = players.find(p => p.id === fastestPlayerId);
   const hasAnswered = quizResult !== null;
   const isMyPrivilege = privilegeOptions.length > 0;
 
-  useEffect(() => {
-    setTimeLeft(30);
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [currentQuestion]);
+  // Colour the timer bar based on urgency
+  const timerPct = timeLeft != null && quizTimerStart
+    ? (timeLeft / Math.round(quizTimerStart.durationMs / 1000)) * 100
+    : 100;
+  const timerColor =
+    timeLeft == null ? "bg-primary"
+    : timeLeft > 15 ? "bg-emerald-500"
+    : timeLeft > 7  ? "bg-amber-500"
+    : "bg-red-500";
 
   const handleAnswer = (idx: number) => {
     if (hasAnswered || selectedIndex !== null) return;
@@ -58,6 +105,32 @@ export default function QuizScreen() {
       <NavBar title={`Quiz — Round ${quizRound}`} />
 
       <div className="flex-1 overflow-y-auto px-4 lg:px-8 py-4 space-y-4">
+
+        {/* Bug 1 fix: always-visible synced timer bar at the top of the quiz */}
+        <div className="bg-card rounded-2xl border border-border shadow-sm p-4">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <Timer className="w-4 h-4 text-muted-foreground" />
+              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Time Remaining</span>
+            </div>
+            <span className={`text-2xl font-bold tabular-nums ${
+              timeLeft == null ? "text-primary"
+              : timeLeft > 15 ? "text-emerald-600"
+              : timeLeft > 7  ? "text-amber-600"
+              : "text-red-600 animate-pulse"
+            }`}>
+              {timeLeft == null ? "—" : `${timeLeft}s`}
+            </span>
+          </div>
+          {/* Progress bar */}
+          <div className="h-2 rounded-full overflow-hidden bg-muted">
+            <motion.div
+              className={`h-full rounded-full transition-colors ${timerColor}`}
+              animate={{ width: `${timerPct}%` }}
+              transition={{ duration: 0.4, ease: "linear" }}
+            />
+          </div>
+        </div>
 
         {/* Round / elimination context */}
         {(eliminatedPlayer || voteTied) && (
@@ -227,7 +300,7 @@ export default function QuizScreen() {
         {/* Waiting indicator — quiz ends automatically */}
         {hasAnswered && (
           <p className="text-center text-xs text-muted-foreground animate-pulse py-1">
-            ⏳ Next round starts in {timeLeft} seconds...
+            ⏳ Waiting for the round to end…
           </p>
         )}
       </div>

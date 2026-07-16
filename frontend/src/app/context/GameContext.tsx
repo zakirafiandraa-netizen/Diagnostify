@@ -32,6 +32,8 @@ interface GameState {
   quizResult: { correct: boolean; points: number; hasPrivilege: boolean } | null;
   privilegeOptions: string[];
   fastestPlayerId: string | null;
+  /** Server-anchored timer — { startsAt: epoch ms, durationMs } — used by QuizScreen to show a synced countdown */
+  quizTimerStart: { startsAt: number; durationMs: number } | null;
   // ── New: game over ────────────────────────────────────────────
   winners: WinnerSummary[];
   civilianWord: string;
@@ -78,6 +80,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [quizResult, setQuizResult] = useState<{ correct: boolean; points: number; hasPrivilege: boolean } | null>(null);
   const [privilegeOptions, setPrivilegeOptions] = useState<string[]>([]);
   const [fastestPlayerId, setFastestPlayerId] = useState<string | null>(null);
+  // Bug 1: server-anchored quiz timer anchor — keeps all clients in sync
+  const [quizTimerStart, setQuizTimerStart] = useState<{ startsAt: number; durationMs: number } | null>(null);
   // game over
   const [winners, setWinners] = useState<WinnerSummary[]>([]);
   const [civilianWord, setCivilianWord] = useState("");
@@ -192,7 +196,15 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setQuizResult(null);
       setPrivilegeOptions([]);
       setFastestPlayerId(null);
+      // Bug 1: reset timer anchor so the new round starts fresh; the quiz:timer_start
+      // event (emitted immediately after quiz:start) will set the real value.
+      setQuizTimerStart(null);
       setScreen("quiz");
+    };
+
+    // Bug 1: listen to the server-anchored timer event — this is what drives the countdown
+    const onQuizTimerStart = (data: { startsAt: number; durationMs: number }) => {
+      setQuizTimerStart(data);
     };
 
 
@@ -239,8 +251,12 @@ export function GameProvider({ children }: { children: ReactNode }) {
       setSolutionsSubmittedCount(prev => prev + 1);
     };
 
-    const onFinalVotingStarted = (data: { solutions: FinalSolutionEntry[] }) => {
+    const onFinalVotingStarted = (data: { solutions: FinalSolutionEntry[]; eliminatedCount?: number }) => {
       setFinalSolutions(data.solutions);
+      // Use the server-provided count so we don't rely on stale closure state
+      if (data.eliminatedCount !== undefined) {
+        setFinalSolutionVotes(prev => ({ votesCast: prev.votesCast, total: data.eliminatedCount! }));
+      }
       setScreen("final-voting");
     };
 
@@ -311,6 +327,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     socket.on("vote:eliminated", onVoteEliminated);
     socket.on("vote:tied", onVoteTied);
     socket.on("quiz:start", onQuizStart);
+    socket.on("quiz:timer_start", onQuizTimerStart);
     socket.on("quiz:result", onQuizResult);
     socket.on("quiz:fastest", onQuizFastest);
     socket.on("quiz:privilege_options", onPrivilegeOptions);
@@ -341,6 +358,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
       socket.off("vote:eliminated", onVoteEliminated);
       socket.off("vote:tied", onVoteTied);
       socket.off("quiz:start", onQuizStart);
+      socket.off("quiz:timer_start", onQuizTimerStart);
       socket.off("quiz:result", onQuizResult);
       socket.off("quiz:fastest", onQuizFastest);
       socket.off("quiz:privilege_options", onPrivilegeOptions);
@@ -380,7 +398,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     votesCast, totalVoters,
     eliminatedPlayer, voteTied,
     currentQuestion, quizRound, quizResult,
-    privilegeOptions, fastestPlayerId,
+    privilegeOptions, fastestPlayerId, quizTimerStart,
     winners, civilianWord, undercoverWord,
     clueRequested, setClueRequested,
     finalists, finalDiagnosis, finalSolutions, finalSolutionVotes, finalReveal, solutionsSubmittedCount,
@@ -388,7 +406,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     screen, go, players, selectedCategory, roomCode, chatMessages,
     playerId, myRole, myWord, gameCategory, cards,
     votesCast, totalVoters, eliminatedPlayer, voteTied,
-    currentQuestion, quizRound, quizResult, privilegeOptions, fastestPlayerId,
+    currentQuestion, quizRound, quizResult, privilegeOptions, fastestPlayerId, quizTimerStart,
     winners, civilianWord, undercoverWord,
     clueRequested,
     finalists, finalDiagnosis, finalSolutions, finalSolutionVotes, finalReveal, solutionsSubmittedCount,

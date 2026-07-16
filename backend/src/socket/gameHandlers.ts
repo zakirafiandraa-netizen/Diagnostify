@@ -123,20 +123,57 @@ export function registerGameHandlers(io: Server, socket: Socket) {
 
             socket.to(code).emit("room:updated", strippedRoom);
 
-            // Replay quiz state for the reconnecting player
+            // ── Replay phase-specific state for the reconnecting player ──
+            if (room.phase === "voting") {
+                // Bug 2 fix: re-send vote:phase_started so the player enters the voting screen correctly
+                socket.emit("vote:phase_started");
+                // Also send current vote tally so the counter is accurate
+                const alivePlayers = room.players.filter(p => p.status === "Alive");
+                socket.emit("vote:updated", {
+                    votesCast: Object.keys(room.votes).length,
+                    total: alivePlayers.length,
+                });
+            }
+
+            if (room.phase === "final_diagnosis") {
+                // Bug 4 fix: replay the final:solution_phase event so non-finalists see the waiting screen
+                socket.emit("final:solution_phase", {
+                    finalists: room.finalists,
+                    diagnosis: room.civilianWord,
+                });
+            }
+
+            if (room.phase === "final_voting") {
+                // Bug 4 fix: replay final:voting_started so eliminated players get the voting options
+                const anonymized = Object.entries(room.solutionLabels ?? {}).map(([finalistId, label]) => ({
+                    label,
+                    solution: room.finalSolutions?.[finalistId],
+                }));
+                const eliminatedCount = room.players.filter(p => p.status === "Eliminated").length;
+                socket.emit("final:voting_started", { solutions: anonymized, eliminatedCount });
+                socket.emit("final:solution_vote_updated", {
+                    votesCast: Object.keys(room.solutionVotes ?? {}).length,
+                    total: eliminatedCount,
+                });
+            }
+
             if (room.phase === "quiz") {
                 const anyRoom = room as any;
                 const cachedResult = anyRoom._quizResults?.[socket.id];
                 if (cachedResult) {
-                    // They already answered before disconnecting — restore their UI
                     socket.emit("quiz:result", cachedResult.result);
                     if (cachedResult.privilegeOptions) {
                         socket.emit("quiz:privilege_options", { options: cachedResult.privilegeOptions });
                     }
                 }
-                // Also restore the fastest-answer banner
                 if (anyRoom._firstCorrectId) {
                     socket.emit("quiz:fastest", { playerId: anyRoom._firstCorrectId });
+                }
+                if (anyRoom._quizTimerStartedAt) {
+                    socket.emit("quiz:timer_start", {
+                        startsAt: anyRoom._quizTimerStartedAt,
+                        durationMs: QUIZ_DURATION_MS,
+                    });
                 }
             }
 
@@ -176,7 +213,6 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                 const playerName = player.name;
                 const disconnectedSocketId = player.id;
 
-                // Give them a grace window to reconnect before actually removing them
                 disconnectTimers[playerName] = setTimeout(() => {
                     const currentRoom = getRoom(roomCode);
                     if (!currentRoom) return;
@@ -190,7 +226,7 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                         }
                     }
                     delete disconnectTimers[playerName];
-                }, 15_000); // 15s grace period — tune as needed
+                }, 15_000); 
             }
         });
     });
@@ -237,31 +273,24 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         socket.emit("game:categories", getCategories());
     });
 
-    // ── Lobby: disease categories from diagnoses.json ─────────────────
     socket.on("lobby:get_categories", () => {
         socket.emit("lobby:categories", getCategories());
     });
 
-    // ── Lobby: host picks a quiz theme → broadcast to whole room ───
     socket.on("lobby:category_change", (data: { roomCode: string; category: string }) => {
         const room = getRoom(data.roomCode);
         if (!room) return;
-        // Only the host can change the category
         const player = room.players.find(p => p.id === socket.id);
         if (!player || !player.isHost) return;
-        // Store it on the room so rejoiners can get it
         (room as any)._pendingCategory = data.category;
-        // Broadcast to everyone in the room (including the host)
         io.to(data.roomCode).emit("lobby:category_changed", { category: data.category });
     });
 
 
-    // ── Chat: alive players only ───────────────────────────────────────
     socket.on("chat:message", (data: { roomCode: string, message: string, playerName: string, color: string }) => {
         const room = getRoom(data.roomCode);
         if (!room) return;
 
-        // Correction 2: strictly validate sender is Alive
         const player = room.players.find(p => p.id === socket.id);
         if (!player || player.status !== "Alive") return;
 
@@ -275,7 +304,6 @@ export function registerGameHandlers(io: Server, socket: Socket) {
 
         io.to(data.roomCode).emit("chat:message", chatMessage);
 
-        // Correction 3: Auto-progress to voting when all alive players have given a clue
         if (room.phase === "discussion") {
             const r = room as any;
             if (!r._cluesSubmitted) r._cluesSubmitted = new Set<string>();
@@ -283,7 +311,6 @@ export function registerGameHandlers(io: Server, socket: Socket) {
 
             const alivePlayersCount = room.players.filter(p => p.status === "Alive").length;
             if (r._cluesSubmitted.size >= alivePlayersCount) {
-                // Auto-trigger voting phase
                 room.phase = "voting";
                 room.votes = {};
                 io.to(data.roomCode).emit("room:updated", room);
@@ -292,7 +319,6 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         }
     });
 
-    // ── Spectator chat: eliminated players only ────────────────────────
     socket.on("spectator:message", (data: { roomCode: string, message: string, playerName: string, color: string }) => {
         const room = getRoom(data.roomCode);
         if (!room) return;
@@ -309,7 +335,6 @@ export function registerGameHandlers(io: Server, socket: Socket) {
             isSpectator: true,
         };
 
-        // Emit only to eliminated players
         room.players.forEach(p => {
             if (p.status === "Eliminated") {
                 io.to(p.id).emit("chat:message", chatMessage);
@@ -317,7 +342,6 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         });
     });
 
-    // Correction 2: typing indicators alive-only
     socket.on("chat:typing", (roomCode: string) => {
         const room = getRoom(roomCode);
         if (!room) return;
@@ -352,6 +376,9 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         if (votesCast >= alivePlayers.length) {
             const { eliminated, tied } = resolveVotes(data.roomCode);
 
+            const updatedRoom = getRoom(data.roomCode);
+            io.to(data.roomCode).emit("room:updated", updatedRoom);
+
             if (tied) {
                 io.to(data.roomCode).emit("vote:tied");
             } else if (eliminated) {
@@ -361,36 +388,32 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                     role: eliminated.role,
                 });
             } else {
-                // Immunity — no elimination
                 io.to(data.roomCode).emit("vote:eliminated", null);
             }
-
-            const updatedRoom = getRoom(data.roomCode);
-            io.to(data.roomCode).emit("room:updated", updatedRoom);
 
             if (updatedRoom?.category) {
                 const question = getRandomQuestion(updatedRoom.category);
                 if (question) {
+                    const quizStartedAt = Date.now();
+                    (updatedRoom as any)._currentAnswer = question.answer;
+                    (updatedRoom as any)._currentQuestionText = question.question;
+                    (updatedRoom as any)._currentQuestionOptions = question.options;
+                    (updatedRoom as any)._quizAnswered = [];       
+                    (updatedRoom as any)._firstCorrectId = null;   
+                    (updatedRoom as any)._quizResults = {};         
+                    (updatedRoom as any)._answerTimer = quizStartedAt;
+                    (updatedRoom as any)._quizTimerStartedAt = quizStartedAt;
+
                     io.to(data.roomCode).emit("quiz:start", {
                         question: question.question,
                         options: question.options,
                         round: updatedRoom.round,
                     });
                     io.to(data.roomCode).emit("quiz:timer_start", {
-                        startsAt: Date.now(),
+                        startsAt: quizStartedAt,
                         durationMs: QUIZ_DURATION_MS,
                     });
 
-                    (updatedRoom as any)._currentAnswer = question.answer;
-                    (updatedRoom as any)._currentQuestionText = question.question;
-                    (updatedRoom as any)._currentQuestionOptions = question.options;
-                    // Correction 1: track first *correct* answerer, not first to respond
-                    (updatedRoom as any)._quizAnswered = [];       // anyone who submitted an answer
-                    (updatedRoom as any)._firstCorrectId = null;   // first correct answerer
-                    (updatedRoom as any)._quizResults = {};         // cached per-player results for reconnect replay
-                    (updatedRoom as any)._answerTimer = Date.now();
-
-                    // Correction 3: server-side timer auto-ends quiz
                     if (quizTimers[data.roomCode]) clearTimeout(quizTimers[data.roomCode]);
                     quizTimers[data.roomCode] = setTimeout(() => {
                         endQuiz(io, data.roomCode);
@@ -400,7 +423,6 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         }
     });
 
-    // Correction 3: vote:start is callable by any alive player (not host-only)
     socket.on("vote:start", (roomCode: string) => {
         const room = getRoom(roomCode);
         if (!room || room.phase !== "discussion") return;
@@ -412,7 +434,6 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         io.to(roomCode).emit("vote:phase_started");
     });
 
-    // Correction 1: privilege goes to the first CORRECT answerer
     socket.on("quiz:answer", (data: { roomCode: string; answerIndex: number }) => {
         const room = getRoom(data.roomCode) as any;
         if (!room || room.phase !== "quiz") return;
@@ -527,7 +548,8 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                 label,
                 solution: room.finalSolutions?.[finalistId],
             }));
-            io.to(data.roomCode).emit("final:voting_started", { solutions: anonymized });
+            const eliminatedCount = room.players.filter(p => p.status === "Eliminated").length;
+            io.to(data.roomCode).emit("final:voting_started", { solutions: anonymized, eliminatedCount });
             io.to(data.roomCode).emit("room:updated", room);
         }
     });
