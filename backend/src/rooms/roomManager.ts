@@ -25,8 +25,8 @@ export function createRoom(hostPlayer: Omit<Player, "isHost" | "score" | "status
         round: 0,
         phase: "discussion",
         votes: {},
-        immunePlayers: [],
-        clueRequests: [],
+        immunePlayers: new Set<string>(),
+        clueRequests: new Set<string>(),
     };
     rooms.set(code, room);
     console.log(`Room created: ${code}`);
@@ -177,8 +177,8 @@ export function resolveVotes(code: string): { eliminated: Player | null; tied: b
 
     if (tied) {
         room.votes = {};
-        room.immunePlayers = [];   // FIX: was {}, must be []
-        room.clueRequests = [];    // FIX: was {}, must be []
+        room.immunePlayers.clear();   // FIX: was {}, must be []
+        room.clueRequests.clear();    // FIX: was {}, must be []
         room.round += 1;
         room.phase = "quiz";
         return { eliminated: null, tied: true };
@@ -186,10 +186,10 @@ export function resolveVotes(code: string): { eliminated: Player | null; tied: b
 
     const eliminated = room.players.find((p) => p.id === topId) ?? null;
 
-    if (eliminated && room.immunePlayers.includes(eliminated.id)) {
+    if (eliminated && room.immunePlayers.has(eliminated.id)) {
         room.votes = {};
-        room.immunePlayers = [];   // FIX: was {}, must be []
-        room.clueRequests = [];    // FIX: was {}, must be []
+        room.immunePlayers.clear();   // FIX: was {}, must be []
+        room.clueRequests.clear();    // FIX: was {}, must be []
         room.round += 1;
         room.phase = "quiz";
         return { eliminated: null, tied: false };
@@ -199,8 +199,8 @@ export function resolveVotes(code: string): { eliminated: Player | null; tied: b
     if (eliminated) eliminated.status = "Eliminated";
 
     room.votes = {};
-    room.immunePlayers = [];
-    room.clueRequests = [];
+    room.immunePlayers.clear();
+    room.clueRequests.clear();
     room.round += 1;
     room.phase = "quiz";
 
@@ -224,9 +224,9 @@ export function applyPrivilege(
     const room = rooms.get(code);
     if (!room) return false;   // FIX: missing null guard
     if (privilege === "immunity") {
-        room.immunePlayers.push(playerId);
+        room.immunePlayers.add(playerId);
     } else if (privilege === "clue_request" && targetId) {
-        room.clueRequests.push(targetId);
+        room.clueRequests.add(targetId);
     } else if (privilege === "points") {
         // Player chose the points reward — award 15 pts
         const player = room.players.find(p => p.id === playerId);
@@ -279,11 +279,17 @@ export function rejoinRoom(code: string, playerName: string, newSocketId: string
     }
     room.votes = newVotes;
 
-    room.immunePlayers = room.immunePlayers.map(id => id === oldSocketId ? newSocketId : id);
-    room.clueRequests = room.clueRequests.map(id => id === oldSocketId ? newSocketId : id);
+    room.immunePlayers = new Set(
+        [...room.immunePlayers].map(id => id === oldSocketId ? newSocketId : id)
+    );
+    room.clueRequests = new Set(
+        [...room.clueRequests].map(id => id === oldSocketId ? newSocketId : id)
+    );
 
     if (room.finalists) {
-        room.finalists = room.finalists.map(id => id === oldSocketId ? newSocketId : id);
+        room.finalists = new Set(
+            [...room.finalists].map(id => id === oldSocketId ? newSocketId : id)
+        );
     }
 
     if (room.finalSolutions && oldSocketId in room.finalSolutions) {
@@ -341,7 +347,7 @@ export function startFinalRound(code: string): Room | null {
     if (alive.length > 3) return room;
 
     room.finalRoundStarted = true;
-    room.finalists = alive.map((p) => p.id);
+    room.finalists = new Set(alive.map(p => p.id));
     room.phase = "final_diagnosis";
     room.finalSolutions = {};
     room.solutionVotes = {};
@@ -355,12 +361,12 @@ export function startFinalRound(code: string): Room | null {
 export function submitFinalSolution(code: string, playerId: string, solution: string): Room | null {
     const room = rooms.get(code);
     if (!room || room.phase !== "final_diagnosis") return null;
-    if (!room.finalists?.includes(playerId)) return null;
+    if (!room.finalists?.has(playerId)) return null;
 
     room.finalSolutions = room.finalSolutions ?? {};
     room.finalSolutions[playerId] = solution;
 
-    if (room.finalists.every((id) => room.finalSolutions![id])) {
+    if ([...room.finalists].every((id) => room.finalSolutions![id])) {
         const shuffled = [...room.finalists];
         for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -402,9 +408,33 @@ export function resolveFinalVotes(code: string): { scores: Record<string, number
     }
 
     room.phase = "finished";
-    const finalist = room.players.filter((p) => room.finalists?.includes(p.id));
+    const finalist = room.players.filter((p) => room.finalists?.has(p.id));
     const topScore = Math.max(...finalist?.map((p) => p.score));
     const winners = finalist?.filter((p) => p.score === topScore);
 
     return { scores, winners };
+}
+
+export function sanitizeRoomForBroadcast(room: Room) {
+    const isFinished = room.phase === "finished";
+
+    return {
+        ...room,
+        immunePlayers: [...room.immunePlayers],
+        clueRequests: [...room.clueRequests],
+        finalists: room.finalists ? [...room.finalists] : [],
+
+        civilianWord: isFinished ? room.civilianWord : undefined,
+        undercoverWord: isFinished ? room.undercoverWord : undefined,
+        players: room.players.map((p) => ({
+            ...p,
+            word: isFinished ? p.word : undefined,
+            role: isFinished ? p.role : undefined,
+        })),
+
+        cards: room.cards?.map(card => ({
+            id: card.id,
+            pickedBy: card.pickedBy,
+        })),
+    };
 }

@@ -4,7 +4,7 @@ import {
     pickCard, castVote, resolveVotes, checkWinCondition,
     applyQuizPoints, applyPrivilege, getAlivePlayers, getRoom,
     rejoinRoom, startFinalRound, submitFinalSolution, castSolutionVote,
-    resolveFinalVotes, getEliminatedPlayers
+    resolveFinalVotes, getEliminatedPlayers, sanitizeRoomForBroadcast
 } from "../rooms/roomManager.js";
 import type { Player } from "../types/game.js";
 import { getCategories } from "../rooms/wordManager.js";
@@ -32,9 +32,9 @@ function endQuiz(io: Server, roomCode: string) {
     if (aliveCount <= 3 && !room.finalRoundStarted) {
         const finalRoom = startFinalRound(roomCode);
         if (finalRoom) {
-            io.to(roomCode).emit("room:updated", finalRoom);
+            io.to(roomCode).emit("room:updated", sanitizeRoomForBroadcast(finalRoom));
             io.to(roomCode).emit("final:solution_phase", {
-                finalists: finalRoom.finalists,
+                finalists: finalRoom.finalists ? [...finalRoom.finalists] : [],
                 diagnosis: finalRoom.civilianWord,
             });
             return;
@@ -44,7 +44,14 @@ function endQuiz(io: Server, roomCode: string) {
     // Check win condition
     const { won, winners } = checkWinCondition(roomCode);
     if (won) {
-        io.to(roomCode).emit("room:updated", getRoom(roomCode));
+        const updatedRoom = getRoom(roomCode);
+        if (updatedRoom) {
+            io.to(roomCode).emit(
+                "room:updated",
+                sanitizeRoomForBroadcast(updatedRoom)
+            );
+        }
+
         io.to(roomCode).emit("game:won", {
             winners: winners.map((w: Player) => ({ id: w.id, name: w.name, score: w.score })),
         });
@@ -59,7 +66,7 @@ function endQuiz(io: Server, roomCode: string) {
     // Transition to discussion
     room.phase = "discussion";
     (room as any)._cluesSubmitted = new Set<string>();
-    io.to(roomCode).emit("room:updated", room);
+    io.to(roomCode).emit("room:updated", sanitizeRoomForBroadcast(room));
     io.to(roomCode).emit("round:started", { round: room.round });
 }
 
@@ -88,8 +95,8 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         const room = joinRoom(code, player);
         if (room) {
             socket.join(code);
-            socket.emit("room:joined", room);
-            socket.to(code).emit("room:updated", room);
+            socket.emit("room:joined", sanitizeRoomForBroadcast(room));
+            socket.to(code).emit("room:updated", sanitizeRoomForBroadcast(room));
         } else {
             socket.emit("room:error", "Room not found or game already started");
         }
@@ -102,7 +109,7 @@ export function registerGameHandlers(io: Server, socket: Socket) {
 
             const player = room.players.find(p => p.id === socket.id);
             const strippedRoom = {
-                ...room,
+                ...sanitizeRoomForBroadcast(room),
                 civilianWord: undefined,
                 undercoverWord: undefined,
                 players: room.players.map((p) => ({ ...p, word: undefined, role: undefined })),
@@ -138,7 +145,7 @@ export function registerGameHandlers(io: Server, socket: Socket) {
             if (room.phase === "final_diagnosis") {
                 // Bug 4 fix: replay the final:solution_phase event so non-finalists see the waiting screen
                 socket.emit("final:solution_phase", {
-                    finalists: room.finalists,
+                    finalists: room.finalists ? [...room.finalists] : [],
                     diagnosis: room.civilianWord,
                 });
             }
@@ -176,10 +183,11 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                     });
                 }
             }
+            const timerKey = `${code}:${playerName}`;
 
-            if (disconnectTimers[playerName]) {
-                clearTimeout(disconnectTimers[playerName]);
-                delete disconnectTimers[playerName];
+            if (disconnectTimers[timerKey]) {
+                clearTimeout(disconnectTimers[timerKey]);
+                delete disconnectTimers[timerKey];
             }
         } else {
             socket.emit("session:expired");
@@ -190,7 +198,7 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         const room = leaveRoom(code, socket.id);
         socket.leave(code);
         if (room) {
-            socket.to(code).emit("room:updated", room);
+            socket.to(code).emit("room:updated", sanitizeRoomForBroadcast(room));
         }
     });
 
@@ -208,7 +216,7 @@ export function registerGameHandlers(io: Server, socket: Socket) {
             const player = room.players.find(p => p.id === socket.id);
             if (player) {
                 player.connected = false;
-                io.to(roomCode).emit("room:updated", room);
+                io.to(roomCode).emit("room:updated", sanitizeRoomForBroadcast(room));
 
                 const playerName = player.name;
                 const disconnectedSocketId = player.id;
@@ -222,11 +230,13 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                     if (stillDisconnected) {
                         const updatedRoom = leaveRoom(roomCode, disconnectedSocketId);
                         if (updatedRoom) {
-                            io.to(roomCode).emit("room:updated", updatedRoom);
+                            if (updatedRoom) {
+                                io.to(roomCode).emit("room:updated", sanitizeRoomForBroadcast(updatedRoom))
+                            };
                         }
                     }
                     delete disconnectTimers[playerName];
-                }, 15_000); 
+                }, 15_000);
             }
         });
     });
@@ -242,26 +252,20 @@ export function registerGameHandlers(io: Server, socket: Socket) {
             io.to(player.id).emit("game:started", { category: room.category });
         });
 
-        io.to(room.code).emit("room:updated", {
-            ...room,
-            civilianWord: undefined,
-            undercoverWord: undefined,
-            players: room.players.map((p) => ({ ...p, word: undefined, role: undefined })),
-            cards: room.cards?.map(c => ({ id: c.id, pickedBy: c.pickedBy }))
-        });
+        io.to(room.code).emit(
+            "room:updated",
+            sanitizeRoomForBroadcast(room)
+        );
     });
 
     socket.on("game:pickCard", (data: { code: string, cardId: number }) => {
         const room = pickCard(data.code, socket.id, data.cardId);
         if (!room) return;
 
-        io.to(room.code).emit("room:updated", {
-            ...room,
-            civilianWord: undefined,
-            undercoverWord: undefined,
-            players: room.players.map((p) => ({ ...p, word: undefined, role: undefined })),
-            cards: room.cards?.map(c => ({ id: c.id, pickedBy: c.pickedBy }))
-        });
+        io.to(room.code).emit(
+            "room:updated",
+            sanitizeRoomForBroadcast(room)
+        );
 
         const player = room.players.find(p => p.id === socket.id);
         if (player) {
@@ -377,7 +381,9 @@ export function registerGameHandlers(io: Server, socket: Socket) {
             const { eliminated, tied } = resolveVotes(data.roomCode);
 
             const updatedRoom = getRoom(data.roomCode);
-            io.to(data.roomCode).emit("room:updated", updatedRoom);
+            if (updatedRoom) {
+                io.to(data.roomCode).emit("room:updated", sanitizeRoomForBroadcast(updatedRoom));
+            }
 
             if (tied) {
                 io.to(data.roomCode).emit("vote:tied");
@@ -398,9 +404,9 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                     (updatedRoom as any)._currentAnswer = question.answer;
                     (updatedRoom as any)._currentQuestionText = question.question;
                     (updatedRoom as any)._currentQuestionOptions = question.options;
-                    (updatedRoom as any)._quizAnswered = [];       
-                    (updatedRoom as any)._firstCorrectId = null;   
-                    (updatedRoom as any)._quizResults = {};         
+                    (updatedRoom as any)._quizAnswered = [];
+                    (updatedRoom as any)._firstCorrectId = null;
+                    (updatedRoom as any)._quizResults = {};
                     (updatedRoom as any)._answerTimer = quizStartedAt;
                     (updatedRoom as any)._quizTimerStartedAt = quizStartedAt;
 
@@ -430,7 +436,7 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         if (!player || player.status !== "Alive") return;
         room.phase = "voting";
         room.votes = {};
-        io.to(roomCode).emit("room:updated", room);
+        io.to(roomCode).emit("room:updated", sanitizeRoomForBroadcast(room));
         io.to(roomCode).emit("vote:phase_started");
     });
 
@@ -499,7 +505,11 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         } else {
             // Not first correct — 10pts, no privilege
             applyQuizPoints(data.roomCode, socket.id, 10);
-            io.to(data.roomCode).emit("room:updated", getRoom(data.roomCode));
+            const updatedRoom = getRoom(data.roomCode);
+            if (updatedRoom) {
+                io.to(data.roomCode).emit("room:updated", sanitizeRoomForBroadcast(updatedRoom));
+            }
+
             const result = { correct: true, points: 10, hasPrivilege: false };
             room._quizResults = room._quizResults ?? {};
             room._quizResults[socket.id] = { result };
@@ -524,8 +534,14 @@ export function registerGameHandlers(io: Server, socket: Socket) {
                 targetId: data.targetId,
             });
         }
+        const updatedRoom = getRoom(data.roomCode);
 
-        io.to(data.roomCode).emit("room:updated", getRoom(data.roomCode));
+        if (updatedRoom) {
+            io.to(data.roomCode).emit(
+                "room:updated",
+                sanitizeRoomForBroadcast(updatedRoom)
+            );
+        }
         socket.emit("quiz:privilege_applied", { privilege: data.privilege });
     });
 
@@ -550,7 +566,7 @@ export function registerGameHandlers(io: Server, socket: Socket) {
             }));
             const eliminatedCount = room.players.filter(p => p.status === "Eliminated").length;
             io.to(data.roomCode).emit("final:voting_started", { solutions: anonymized, eliminatedCount });
-            io.to(data.roomCode).emit("room:updated", room);
+            io.to(data.roomCode).emit("room:updated", sanitizeRoomForBroadcast(room));
         }
     });
 
@@ -601,7 +617,9 @@ export function registerGameHandlers(io: Server, socket: Socket) {
             io.to(data.roomCode).emit("game:won", {
                 winners: winners.map(w => ({ id: w.id, name: w.name, score: w.score })),
             });
-            io.to(data.roomCode).emit("room:updated", updatedRoom);
+            if (updatedRoom) {
+                io.to(data.roomCode).emit("room:updated", sanitizeRoomForBroadcast(updatedRoom));
+            }
         }
     });
 }
