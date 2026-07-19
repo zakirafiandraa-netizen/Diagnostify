@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import type { OfflinePlayer, OfflineCard, OfflineQuizTurn } from "../types";
 import diagnosesData from "../../../../backend/src/data/diagnoses.json";
 import quizData from "../../../../backend/src/data/quiz.json";
+import { useRef } from "react";
 
 type DiagnosisPair = { main: string; differential: string };
 type DiagnosesMap = Record<string, DiagnosisPair[]>;
@@ -98,7 +99,7 @@ export function OfflineGameProvider({ children }: { children: ReactNode }) {
     const [fastestCorrectId, setFastestCorrectId] = useState<string | null>(null);
     const [privilegePendingFor, setPrivilegePendingFor] = useState<string | null>(null);
     const [clueRequestTarget, setClueRequestTarget] = useState<string | null>(null);
-    const immuneThisRoundRef = useState<Set<string>>(new Set())[0];
+    const immuneThisRoundRef = useRef<Set<string>>(new Set());
 
     const allCardsPicked = cards.length > 0 && cards.every(c => c.pickedBy);
 
@@ -118,7 +119,7 @@ export function OfflineGameProvider({ children }: { children: ReactNode }) {
         setFastestCorrectId(null);
         setPrivilegePendingFor(null);
         setClueRequestTarget(null);
-        immuneThisRoundRef.clear();
+        immuneThisRoundRef.current.clear();
     }, [immuneThisRoundRef]);
 
     // ── Role assignment ────────────────────────────────────────────
@@ -155,11 +156,9 @@ export function OfflineGameProvider({ children }: { children: ReactNode }) {
         const card = cards.find(c => c.id === cardId);
         if (!card || card.pickedBy) return null;
 
-        card.pickedBy = playerId;
-        setCards([...cards]);
-
+        setCards(cards.map(c => c.id === cardId ? { ...c, pickedBy: playerId } : c));
         setOfflinePlayers(prev => prev.map(p =>
-            p.id === playerId ? { ...p, role: card.role, word: card.word } : p
+            p.id === playerId ? { ...p, word: card.word, role: card.role } : p
         ));
 
         return card.word || "No word — bluff your way through!";
@@ -184,12 +183,12 @@ export function OfflineGameProvider({ children }: { children: ReactNode }) {
         const top = sorted[0];
         const tied = sorted.length > 1 && sorted[1]![1] === top?.[1] && (top?.[1] ?? 0) > 0;
 
-        if (top && top[1] > 0 && !tied && !immuneThisRoundRef.has(top[0])) {
+        if (top && top[1] > 0 && !tied && !immuneThisRoundRef.current.has(top[0])) {
             setOfflinePlayers(prev => prev.map(p =>
                 p.id === top[0] ? { ...p, status: "Eliminated" as const } : p
             ));
         }
-        immuneThisRoundRef.clear();
+        immuneThisRoundRef.current.clear();
 
         // Build this round's quiz queue: every player takes a turn
         setQuizQueue(offlinePlayers.map(p => p.id));
@@ -272,7 +271,7 @@ export function OfflineGameProvider({ children }: { children: ReactNode }) {
                 p.id === playerId ? { ...p, quizPoints: p.quizPoints + 15, score: p.score + 15 } : p
             ));
         } else if (privilege === "immunity") {
-            immuneThisRoundRef.add(playerId);
+            immuneThisRoundRef.current.add(playerId);
         } else if (privilege === "clue_request" && targetId) {
             setClueRequestTarget(targetId);
         }
