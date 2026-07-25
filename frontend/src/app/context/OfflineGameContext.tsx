@@ -1,14 +1,57 @@
-import { createContext, useContext, useState, useCallback, useMemo } from "react";
+import { createContext, useContext, useState, useCallback, useMemo, useRef } from "react";
 import type { ReactNode } from "react";
 import type { OfflinePlayer, OfflineCard, OfflineQuizTurn } from "../types";
 import diagnosesData from "../../../../backend/src/data/diagnoses.json";
 import quizData from "../../../../backend/src/data/quiz.json";
-import { useRef } from "react";
+
+// ── Types & Interfaces ───────────────────────────────────────────────────────
 
 type DiagnosisPair = { main: string; differential: string };
 type DiagnosesMap = Record<string, DiagnosisPair[]>;
+
 type QuizQuestionRaw = { question: string; options: string[]; answer: number };
 type QuizMap = Record<string, QuizQuestionRaw[]>;
+
+export type OfflinePhase = "role" | "discussion" | "voting" | "quiz" | "ranking";
+export type OfflinePrivilege = "points" | "immunity" | "clue_request";
+
+export interface OfflineGameState {
+    offlinePlayers: OfflinePlayer[];
+    category: string;
+    cards: OfflineCard[];
+    round: number;
+    phase: OfflinePhase;
+    civilianWord: string;
+    undercoverWord: string;
+
+    // Voting (host-entered tallies)
+    voteTally: Record<string, number>;
+    setVoteTally: (playerId: string, count: number) => void;
+    resolveVoting: () => void;
+
+    // Role picking
+    pickCard: (playerId: string, cardId: number) => string | null;
+    allCardsPicked: boolean;
+
+    // Quiz — pass-and-play, one player at a time
+    quizQueue: string[];
+    currentQuizTurn: OfflineQuizTurn | null;
+    quizStarted: boolean;
+    fastestCorrectId: string | null;
+    privilegePendingFor: string | null;
+    clueRequestTarget: string | null;
+    startQuizForCurrentPlayer: () => void;
+    submitQuizAnswer: (selectedIndex: number) => { correct: boolean; points: number; hasPrivilege: boolean };
+    choosePrivilege: (privilege: OfflinePrivilege, targetId?: string) => void;
+
+    // Lifecycle
+    initializeOfflineGame: (players: { id: string; name: string; avatar?: string; color: string }[], category: string) => void;
+    goToDiscussion: () => void;
+    goToVoting: () => void;
+    resetOfflineGame: () => void;
+}
+
+// ── Data & Helper Functions ─────────────────────────────────────────────────
 
 const diagnoses = diagnosesData as unknown as DiagnosesMap;
 const quizzes = quizData as unknown as QuizMap;
@@ -34,45 +77,7 @@ function getRandomQuizQuestion(category: string): QuizQuestionRaw | null {
     return qs[Math.floor(Math.random() * qs.length)]!;
 }
 
-type OfflinePhase = "role" | "discussion" | "voting" | "quiz" | "ranking";
-export type OfflinePrivilege = "points" | "immunity" | "clue_request";
-
-interface OfflineGameState {
-    offlinePlayers: OfflinePlayer[];
-    category: string;
-    cards: OfflineCard[];
-    round: number;
-    phase: OfflinePhase;
-    civilianWord: string;
-    undercoverWord: string;
-
-    // Voting (host-entered tallies)
-    voteTally: Record<string, number>;
-    setVoteTally: (playerId: string, count: number) => void;
-    resolveVoting: () => void;
-
-    // Role picking
-    pickCard: (playerId: string, cardId: number) => string | null;
-    allCardsPicked: boolean;
-
-    // Quiz — pass-and-play, one player at a time
-    quizQueue: string[];
-    currentQuizTurn: OfflineQuizTurn | null;
-    quizStarted: boolean;
-    fastestCorrectId: string | null;
-    privilegePendingFor: string | null;
-    // clue_request target: the player who must give a clue next round
-    clueRequestTarget: string | null;
-    startQuizForCurrentPlayer: () => void;
-    submitQuizAnswer: (selectedIndex: number) => { correct: boolean; points: number; hasPrivilege: boolean };
-    choosePrivilege: (privilege: OfflinePrivilege, targetId?: string) => void;
-
-    // Lifecycle
-    initializeOfflineGame: (players: { id: string; name: string; avatar?: string; color: string }[], category: string) => void;
-    goToDiscussion: () => void;
-    goToVoting: () => void;
-    resetOfflineGame: () => void;
-}
+// ── Context & Custom Hook ─────────────────────────────────────────────────────
 
 const OfflineGameContext = createContext<OfflineGameState | null>(null);
 
@@ -82,7 +87,10 @@ export function useOfflineGame(): OfflineGameState {
     return ctx;
 }
 
+// ── Provider Component ────────────────────────────────────────────────────────
+
 export function OfflineGameProvider({ children }: { children: ReactNode }) {
+    // Game Core State
     const [offlinePlayers, setOfflinePlayers] = useState<OfflinePlayer[]>([]);
     const [category, setCategory] = useState("");
     const [cards, setCards] = useState<OfflineCard[]>([]);
@@ -91,38 +99,25 @@ export function OfflineGameProvider({ children }: { children: ReactNode }) {
     const [civilianWord, setCivilianWord] = useState("");
     const [undercoverWord, setUndercoverWord] = useState("");
 
+    // Voting State
     const [voteTally, setVoteTallyState] = useState<Record<string, number>>({});
 
+    // Quiz State
     const [quizQueue, setQuizQueue] = useState<string[]>([]);
     const [currentQuizTurn, setCurrentQuizTurn] = useState<OfflineQuizTurn | null>(null);
     const [quizStarted, setQuizStarted] = useState(false);
     const [fastestCorrectId, setFastestCorrectId] = useState<string | null>(null);
     const [privilegePendingFor, setPrivilegePendingFor] = useState<string | null>(null);
     const [clueRequestTarget, setClueRequestTarget] = useState<string | null>(null);
+
+    // Refs
     const immuneThisRoundRef = useRef<Set<string>>(new Set());
 
+    // Derived State
     const allCardsPicked = cards.length > 0 && cards.every(c => c.pickedBy);
 
-    // ── Reset / End Game ───────────────────────────────────────────
-    const resetOfflineGame = useCallback(() => {
-        setOfflinePlayers([]);
-        setCategory("");
-        setCards([]);
-        setRound(0);
-        setPhase("role");
-        setCivilianWord("");
-        setUndercoverWord("");
-        setVoteTallyState({});
-        setQuizQueue([]);
-        setCurrentQuizTurn(null);
-        setQuizStarted(false);
-        setFastestCorrectId(null);
-        setPrivilegePendingFor(null);
-        setClueRequestTarget(null);
-        immuneThisRoundRef.current.clear();
-    }, [immuneThisRoundRef]);
+    // ── Lifecycle & Setup Callbacks ──────────────────────────────────────────
 
-    // ── Role assignment ────────────────────────────────────────────
     const initializeOfflineGame = useCallback((
         players: { id: string; name: string; avatar?: string; color: string }[],
         cat: string
@@ -152,6 +147,26 @@ export function OfflineGameProvider({ children }: { children: ReactNode }) {
         setPhase("role");
     }, []);
 
+    const resetOfflineGame = useCallback(() => {
+        setOfflinePlayers([]);
+        setCategory("");
+        setCards([]);
+        setRound(0);
+        setPhase("role");
+        setCivilianWord("");
+        setUndercoverWord("");
+        setVoteTallyState({});
+        setQuizQueue([]);
+        setCurrentQuizTurn(null);
+        setQuizStarted(false);
+        setFastestCorrectId(null);
+        setPrivilegePendingFor(null);
+        setClueRequestTarget(null);
+        immuneThisRoundRef.current.clear();
+    }, []);
+
+    // ── Phase Transitions & Role Actions ───────────────────────────────────
+
     const pickCard = useCallback((playerId: string, cardId: number): string | null => {
         const card = cards.find(c => c.id === cardId);
         if (!card || card.pickedBy) return null;
@@ -165,13 +180,15 @@ export function OfflineGameProvider({ children }: { children: ReactNode }) {
     }, [cards]);
 
     const goToDiscussion = useCallback(() => setPhase("discussion"), []);
+
     const goToVoting = useCallback(() => {
         setVoteTallyState({});
         setClueRequestTarget(null);
         setPhase("voting");
     }, []);
 
-    // ── Voting (host enters counts, most-voted eliminated) ─────────
+    // ── Voting Logic ─────────────────────────────────────────────────────────
+
     const setVoteTally = useCallback((playerId: string, count: number) => {
         setVoteTallyState(prev => ({ ...prev, [playerId]: Math.max(0, count) }));
     }, []);
@@ -196,9 +213,40 @@ export function OfflineGameProvider({ children }: { children: ReactNode }) {
         setCurrentQuizTurn(null);
         setQuizStarted(false);
         setPhase("quiz");
-    }, [offlinePlayers, voteTally, immuneThisRoundRef]);
+    }, [offlinePlayers, voteTally]);
 
-    // ── Quiz (pass-and-play, one at a time) ─────────────────────────
+    // ── Quiz & Privilege Logic ──────────────────────────────────────────────
+
+    const finishQuizRound = useCallback(() => {
+        setOfflinePlayers(prev => {
+            const alive = prev.filter(p => p.status === "Alive");
+            const reachedFinalThree = alive.length <= 3;
+
+            return prev.map(p => {
+                if (p.status !== "Alive") return p;
+                const survivalPts = 10;
+                const finalistPts = reachedFinalThree && p.finalistBonus === 0 ? 15 : 0;
+                return {
+                    ...p,
+                    roundsSurvived: p.roundsSurvived + 1,
+                    finalistBonus: p.finalistBonus + finalistPts,
+                    score: p.score + survivalPts + finalistPts,
+                };
+            });
+        });
+
+        setOfflinePlayers(prev => {
+            const alive = prev.filter(p => p.status === "Alive");
+            if (alive.length <= 3) {
+                setPhase("ranking");
+            } else {
+                setRound(r => r + 1);
+                setPhase("discussion");
+            }
+            return prev;
+        });
+    }, []);
+
     const startQuizForCurrentPlayer = useCallback(() => {
         if (quizQueue.length === 0) return;
         const q = getRandomQuizQuestion(category);
@@ -260,7 +308,7 @@ export function OfflineGameProvider({ children }: { children: ReactNode }) {
         }
 
         return { correct, points, hasPrivilege };
-    }, [currentQuizTurn, offlinePlayers, fastestCorrectId, quizQueue]);
+    }, [currentQuizTurn, offlinePlayers, fastestCorrectId, quizQueue, finishQuizRound]);
 
     const choosePrivilege = useCallback((privilege: OfflinePrivilege, targetId?: string) => {
         if (!privilegePendingFor) return;
@@ -278,53 +326,62 @@ export function OfflineGameProvider({ children }: { children: ReactNode }) {
 
         setPrivilegePendingFor(null);
         if (quizQueue.length === 0) finishQuizRound();
-    }, [privilegePendingFor, quizQueue, immuneThisRoundRef]);
+    }, [privilegePendingFor, quizQueue, finishQuizRound]);
 
-    // ── End of round: award survival points, check for final 3 ─────
-    const finishQuizRound = useCallback(() => {
-        setOfflinePlayers(prev => {
-            const alive = prev.filter(p => p.status === "Alive");
-            const reachedFinalThree = alive.length <= 3;
-
-            return prev.map(p => {
-                if (p.status !== "Alive") return p;
-                const survivalPts = 10;
-                const finalistPts = reachedFinalThree && p.finalistBonus === 0 ? 15 : 0;
-                return {
-                    ...p,
-                    roundsSurvived: p.roundsSurvived + 1,
-                    finalistBonus: p.finalistBonus + finalistPts,
-                    score: p.score + survivalPts + finalistPts,
-                };
-            });
-        });
-
-        setOfflinePlayers(prev => {
-            const alive = prev.filter(p => p.status === "Alive");
-            if (alive.length <= 3) {
-                setPhase("ranking");
-            } else {
-                setRound(r => r + 1);
-                setPhase("discussion");
-            }
-            return prev;
-        });
-    }, []);
+    // ── Context Value Memoization ───────────────────────────────────────────
 
     const value = useMemo<OfflineGameState>(() => ({
-        offlinePlayers, category, cards, round, phase, civilianWord, undercoverWord,
-        voteTally, setVoteTally, resolveVoting,
-        pickCard, allCardsPicked,
-        quizQueue, currentQuizTurn, quizStarted, fastestCorrectId, privilegePendingFor,
+        offlinePlayers,
+        category,
+        cards,
+        round,
+        phase,
+        civilianWord,
+        undercoverWord,
+        voteTally,
+        setVoteTally,
+        resolveVoting,
+        pickCard,
+        allCardsPicked,
+        quizQueue,
+        currentQuizTurn,
+        quizStarted,
+        fastestCorrectId,
+        privilegePendingFor,
         clueRequestTarget,
-        startQuizForCurrentPlayer, submitQuizAnswer, choosePrivilege,
-        initializeOfflineGame, goToDiscussion, goToVoting, resetOfflineGame,
+        startQuizForCurrentPlayer,
+        submitQuizAnswer,
+        choosePrivilege,
+        initializeOfflineGame,
+        goToDiscussion,
+        goToVoting,
+        resetOfflineGame,
     }), [
-        offlinePlayers, category, cards, round, phase, civilianWord, undercoverWord,
-        voteTally, pickCard, allCardsPicked, quizQueue, currentQuizTurn, quizStarted,
-        fastestCorrectId, privilegePendingFor, clueRequestTarget, initializeOfflineGame,
-        resolveVoting, setVoteTally, startQuizForCurrentPlayer, submitQuizAnswer,
-        choosePrivilege, goToDiscussion, goToVoting, resetOfflineGame,
+        offlinePlayers,
+        category,
+        cards,
+        round,
+        phase,
+        civilianWord,
+        undercoverWord,
+        voteTally,
+        setVoteTally,
+        resolveVoting,
+        pickCard,
+        allCardsPicked,
+        quizQueue,
+        currentQuizTurn,
+        quizStarted,
+        fastestCorrectId,
+        privilegePendingFor,
+        clueRequestTarget,
+        startQuizForCurrentPlayer,
+        submitQuizAnswer,
+        choosePrivilege,
+        initializeOfflineGame,
+        goToDiscussion,
+        goToVoting,
+        resetOfflineGame,
     ]);
 
     return <OfflineGameContext.Provider value={value}>{children}</OfflineGameContext.Provider>;

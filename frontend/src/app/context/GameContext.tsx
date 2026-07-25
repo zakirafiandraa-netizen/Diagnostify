@@ -107,14 +107,22 @@ export function GameProvider({ children }: { children: ReactNode }) {
       }
     };
 
-    // ── Room ──────────────────────────────────────────────────────
+
+    const colorMap = new Map<string, string>();
+
     const onRoomUpdated = (room: any) => {
       setRoomCode(room.code);
-      setPlayers(room.players.map((p: any, i: number) => ({
-        ...p,
-        color: COLORS[i % COLORS.length],
-        avatar: "🧑",
-      })));
+      setPlayers(room.players.map((p: any) => {
+        if (!colorMap.has(p.id)) {
+          colorMap.set(p.id, COLORS[colorMap.size % COLORS.length]!);
+        }
+        return {
+          ...p,
+          color: colorMap.get(p.id)!,
+          avatar: "🧑"
+        }
+      }))
+
       if (room.cards) setCards(room.cards);
       if (room.civilianWord) setCivilianWord(room.civilianWord);
       if (room.undercoverWord) setUndercoverWord(room.undercoverWord);
@@ -278,11 +286,12 @@ export function GameProvider({ children }: { children: ReactNode }) {
     // ── Session & Kicks ───────────────────────────────────────────
     const onRoomRejoined = (data: any) => {
       setRoomCode(data.code);
-      setPlayers(data.players.map((p: any, i: number) => ({
-        ...p,
-        color: COLORS[i % COLORS.length],
-        avatar: "🧑",
-      })));
+      setPlayers(data.players.map((p: any) => {
+        if (!colorMap.has(p.id)) {
+          colorMap.set(p.id, COLORS[colorMap.size % COLORS.length]!);
+        }
+        return { ...p, color: colorMap.get(p.id)!, avatar: "🧑" };
+      }));
       if (data.cards) setCards(data.cards);
       if (data.myRole) setMyRole(data.myRole);
       if (data.myWord) setMyWord(data.myWord);
