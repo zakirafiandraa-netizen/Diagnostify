@@ -29,7 +29,7 @@ export default function LobbyPlayersScreen() {
       <div className="flex-1 overflow-y-auto px-4 lg:px-8 py-4 space-y-4">
         <div className="lg:max-w-3xl lg:mx-auto space-y-4">
           <div className="bg-card rounded-2xl p-4 lg:p-6 border border-border shadow-sm">
-            <h4 className="font-semibold text-sm mb-3">Players ({players.length} / 8)</h4>
+            <h4 className="font-semibold text-sm mb-3">Players ({players.length} / 10)</h4>
             <motion.div variants={staggerList} initial="initial" animate="animate"
               className="grid grid-cols-2 lg:grid-cols-4 gap-2">
               {players.map((p, i) => (
@@ -38,9 +38,9 @@ export default function LobbyPlayersScreen() {
                   <Avatar name={p.name} color={p.color} size="sm" />
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-semibold text-foreground truncate">{p.name}</p>
-                    <p className="text-xs text-muted-foreground">#{i+1}</p>
+                    <p className="text-xs text-muted-foreground">#{i + 1}</p>
                   </div>
-                  {i===0 && <Crown className="w-3 h-3 text-yellow-500 flex-shrink-0" />}
+                  {i === 0 && <Crown className="w-3 h-3 text-yellow-500 flex-shrink-0" />}
                 </motion.div>
               ))}
               {Array.from({ length: 8 - players.length }, (_, i) => (
@@ -57,12 +57,12 @@ export default function LobbyPlayersScreen() {
             <h4 className="font-semibold text-sm mb-3">Quick Rules</h4>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-3">
               {[
-                { step:"1", title:"Get Your Role", desc:"Each player gets a secret role and disease word.", color:"var(--phase-1-lobby)" },
-                { step:"2", title:"Discuss", desc:"Give clues about your disease without naming it.", color:"var(--phase-2-roles)" },
-                { step:"3", title:"Vote", desc:"Eliminate who you think is the Undercover doctor.", color:"var(--phase-3-discuss)" },
+                { step: "1", title: "Get Your Role", desc: "Each player gets a secret role and disease word.", color: "var(--phase-1-lobby)" },
+                { step: "2", title: "Discuss", desc: "Give clues about your disease without naming it.", color: "var(--phase-2-roles)" },
+                { step: "3", title: "Vote", desc: "Eliminate who you think is the Undercover doctor.", color: "var(--phase-3-discuss)" },
               ].map((r) => (
-                <div key={r.step} className="flex gap-3 p-3 rounded-xl" style={{ backgroundColor:r.color+"10" }}>
-                  <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style={{ backgroundColor:r.color }}>{r.step}</div>
+                <div key={r.step} className="flex gap-3 p-3 rounded-xl" style={{ backgroundColor: r.color + "10" }}>
+                  <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style={{ backgroundColor: r.color }}>{r.step}</div>
                   <div>
                     <p className="text-xs font-semibold text-foreground">{r.title}</p>
                     <p className="text-xs text-muted-foreground mt-0.5">{r.desc}</p>

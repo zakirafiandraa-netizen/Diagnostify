@@ -47,7 +47,7 @@ export default function OnlineJoinScreen() {
 
   return (
     <div className="flex flex-col min-h-screen lg:min-h-0">
-      <NavBar title="Join the Battle" onBack={goBack} />
+      <NavBar title="Let's start the investigation!" onBack={goBack} />
       <div className="flex-1 overflow-y-auto px-4 lg:px-10 py-6 lg:py-10 space-y-6">
         <div className="lg:max-w-3xl lg:mx-auto space-y-6">
           {error && (
@@ -69,7 +69,7 @@ export default function OnlineJoinScreen() {
                 Create Room
               </button>
               <ul className="space-y-1.5">
-                {["Be the host and set the rules","Invite friends with a room code","Control when the game starts"].map((t) => (
+                {["Be the host and set the rules", "Invite friends with a room code", "Control when the game starts"].map((t) => (
                   <li key={t} className="text-xs text-muted-foreground flex items-center gap-2">
                     <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0" />{t}
                   </li>
@@ -90,7 +90,7 @@ export default function OnlineJoinScreen() {
                 Join Room
               </button>
               <ul className="space-y-1.5">
-                {["No signup needed","Play with friends anywhere","Free to use always"].map((t) => (
+                {["No signup needed", "Play with friends anywhere", "Free to use always"].map((t) => (
                   <li key={t} className="text-xs text-muted-foreground flex items-center gap-2">
                     <span className="w-1 h-1 rounded-full bg-online-mode flex-shrink-0" />{t}
                   </li>
@@ -103,9 +103,9 @@ export default function OnlineJoinScreen() {
             <h4 className="font-semibold text-sm mb-4">How It Works</h4>
             <div className="flex gap-4 lg:gap-8">
               {[
-                { n:"1", title:"Create or Join", desc:"Host or enter a 6-letter room code" },
-                { n:"2", title:"Get Your Role", desc:"Civilian, Undercover, or Mr. White" },
-                { n:"3", title:"Discuss & Vote", desc:"Find the undercover doctor to win" },
+                { n: "1", title: "Create or Join", desc: "Host or enter a 6-letter room code" },
+                { n: "2", title: "Recieve Diagnostic Board", desc: "Verified, Conflicted, or Corrupted Record" },
+                { n: "3", title: "Discuss & Vote", desc: "Reach the correct diagnosis to win!" },
               ].map((s) => (
                 <div key={s.n} className="flex-1 flex flex-col items-center text-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-primary text-white text-sm font-bold flex items-center justify-center shadow-md shadow-primary/25">{s.n}</div>
