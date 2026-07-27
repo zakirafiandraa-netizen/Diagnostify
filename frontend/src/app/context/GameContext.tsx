@@ -9,6 +9,9 @@ import { loadSession, clearSession, saveSession } from "../services/session";
 interface GameState {
   screen: Screen;
   go: (s: Screen) => void;
+  goBack: () => void;
+  goHome: () => void;
+  canGoBack: boolean;
   players: Player[];
   setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
   selectedCategory: string;
@@ -49,6 +52,26 @@ interface GameState {
   finalReveal: FinalRevealEntry[];
   solutionsSubmittedCount: number;
 }
+
+const BACK_FALLBACKS: Partial<Record<Screen, Screen>> = {
+  "guidebook": "home",
+  "offline-players": "home",
+  "offline-category": "offline-players",
+  "offline-summary": "offline-category",
+  "online-join": "home",
+  "lobby-main": "online-join",
+  "lobby-players": "lobby-main",
+};
+
+const SAFE_BACK_SCREENS = new Set<Screen>([
+  "guidebook",
+  "offline-players",
+  "offline-category",
+  "offline-summary",
+  "online-join",
+  "lobby-main",
+  "lobby-players",
+]);
 
 const GameContext = createContext<GameState | null>(null);
 
@@ -96,7 +119,50 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [finalReveal, setFinalReveal] = useState<FinalRevealEntry[]>([]);
   const [solutionsSubmittedCount, setSolutionsSubmittedCount] = useState(0);
 
+  const [history, setHistory] = useState<Screen[]>(["home"]);
+
+  useEffect(() => {
+    if (screen === "home") {
+      setHistory(["home"]);
+      return;
+    }
+    setHistory(prev => {
+      if (prev[prev.length - 1] === screen) return prev;
+      if (prev[prev.length - 2] === screen) {
+        return prev.slice(0, -1);
+      }
+      return [...prev, screen];
+    });
+  }, [screen]);
+
   const go = useCallback((s: Screen) => setScreen(prev => prev === s ? prev : s), []);
+
+  const goBack = useCallback(() => {
+    setHistory(prev => {
+      if (prev.length <= 1) {
+        const current = prev[0] || screen;
+        const fallback = BACK_FALLBACKS[current] || "home";
+        setScreen(fallback);
+        return [fallback, current];
+      }
+      const nextHistory = prev.slice(0, -1);
+      const prevScreen = nextHistory[nextHistory.length - 1] || "home";
+      setScreen(prevScreen);
+      return nextHistory;
+    });
+  }, [screen]);
+
+  const goHome = useCallback(() => {
+    if (roomCode) {
+      socket.emit("room:leave", roomCode);
+    }
+    clearSession();
+    go("home");
+  }, [roomCode, go]);
+
+  const canGoBack = useMemo(() => {
+    return history.length > 1 && SAFE_BACK_SCREENS.has(screen);
+  }, [history, screen]);
 
   useEffect(() => {
     const onConnect = () => {
@@ -397,7 +463,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   }, [screen, roomCode, playerId, players]);
 
   const value = useMemo<GameState>(() => ({
-    screen, go,
+    screen, go, goBack, goHome, canGoBack,
     players, setPlayers,
     selectedCategory, setSelectedCategory,
     roomCode, setRoomCode, chatMessages,
@@ -412,7 +478,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     clueRequested, setClueRequested,
     finalists, finalDiagnosis, finalSolutions, finalSolutionVotes, finalReveal, solutionsSubmittedCount,
   }), [
-    screen, go, players, selectedCategory, roomCode, chatMessages,
+    screen, go, goBack, goHome, canGoBack, players, selectedCategory, roomCode, chatMessages,
     playerId, myRole, myWord, gameCategory, cards,
     votesCast, totalVoters, eliminatedPlayer, voteTied,
     currentQuestion, quizRound, quizResult, privilegeOptions, fastestPlayerId, quizTimerStart,

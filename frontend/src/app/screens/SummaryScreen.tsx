@@ -7,7 +7,7 @@ import { Avatar } from "../components/shared/Avatar";
 import { PrimaryButtonBar } from "../components/shared/InfoBanner";
 
 export default function SummaryScreen() {
-  const { go, players, selectedCategory } = useGame();
+  const { go, goBack, players, selectedCategory } = useGame();
   const { initializeOfflineGame } = useOfflineGame();
 
   const n = players.length;
@@ -25,7 +25,7 @@ export default function SummaryScreen() {
 
   return (
     <div className="flex flex-col min-h-screen lg:min-h-0">
-      <NavBar title="Game Summary" onBack={() => go("offline-category")} />
+      <NavBar title="Game Summary" onBack={goBack} />
       <StepBar current={2} />
       <div className="flex-1 overflow-y-auto px-4 lg:px-8 py-4">
         <div className="lg:max-w-2xl lg:mx-auto space-y-4">

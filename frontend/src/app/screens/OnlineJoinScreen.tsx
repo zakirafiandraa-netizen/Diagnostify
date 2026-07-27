@@ -5,7 +5,7 @@ import { NavBar } from "../components/shared/NavBar";
 import { socket } from "../services/socket";
 
 export default function OnlineJoinScreen() {
-  const { go } = useGame();
+  const { go, goBack } = useGame();
   const [createName, setCreateName] = useState("");
   const [joinName, setJoinName] = useState("");
   const [roomCodeInput, setRoomCodeInput] = useState("");
@@ -47,7 +47,7 @@ export default function OnlineJoinScreen() {
 
   return (
     <div className="flex flex-col min-h-screen lg:min-h-0">
-      <NavBar title="Join the Battle" onBack={() => go("home")} />
+      <NavBar title="Join the Battle" onBack={goBack} />
       <div className="flex-1 overflow-y-auto px-4 lg:px-10 py-6 lg:py-10 space-y-6">
         <div className="lg:max-w-3xl lg:mx-auto space-y-6">
           {error && (

@@ -146,7 +146,7 @@ function SectionHeader({
 }
 
 export default function GuidebookScreen() {
-  const { go } = useGame();
+  const { go, goBack } = useGame();
 
   return (
     <div className="min-h-screen lg:min-h-0 flex flex-col font-sans bg-background">
@@ -159,7 +159,7 @@ export default function GuidebookScreen() {
             transition={{ duration: 0.3 }}
           >
             <button
-              onClick={() => go("home")}
+              onClick={goBack}
               className="flex items-center gap-1.5 text-black text-sm font-medium hover:opacity-70 transition-opacity mb-6"
             >
               <ArrowLeft className="w-4 h-4" />

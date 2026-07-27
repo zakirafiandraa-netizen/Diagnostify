@@ -1,7 +1,7 @@
 import { Stethoscope, Check, ChevronLeft } from "lucide-react";
 import { useGame } from "../../context/GameContext";
 import { SCREEN_META } from "../../constants";
-import { socket } from "../../services/socket";
+
 import {
   PlayIcon, JoystickIcon,
   UsersThreeIcon, VirusIcon,
@@ -14,7 +14,7 @@ const SETUP_STEP: Record<string, number> = {
 const GAME_SCREENS = new Set(["lobby-main", "lobby-players", "choose-role", "role-revealed", "discussion", "voting"]);
 
 export function Sidebar() {
-  const { screen, go, roomCode, players, selectedCategory, gameCategory, playerId } = useGame();
+  const { screen, goBack, goHome, canGoBack, roomCode, players, selectedCategory, gameCategory, playerId } = useGame();
   const meta = SCREEN_META[screen];
   const isSetup = screen in SETUP_STEP;
   const step = SETUP_STEP[screen] ?? -1;
@@ -22,11 +22,6 @@ export function Sidebar() {
   // Assuming Civilian for the active player view
   const currentPlayer = players.find(p => p.id === playerId);
   const activeRole = currentPlayer?.role || "Pending...";
-
-  const handleHome = () => {
-    if (roomCode) socket.emit("room:leave", roomCode);
-    go("home");
-  };
 
   return (
     <aside
@@ -120,13 +115,22 @@ export function Sidebar() {
       </div>
 
       {/* Footer */}
-      <div className="p-6 border-t border-sidebar-border flex-shrink-0">
-        {screen !== "home"
-          ? <button onClick={handleHome} className="group flex items-center gap-2 text-sidebar-foreground/50 hover:text-sidebar-foreground text-sm transition-colors">
-            <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-            Back to Home
-          </button>
-          : <p className="text-sidebar-foreground/30 text-xs">v1.0 — Medical Mystery</p>}
+      <div className="p-6 border-t border-sidebar-border flex-shrink-0 space-y-2.5">
+        {screen !== "home" && (
+          <div className="flex flex-col gap-2">
+            {canGoBack && (
+              <button onClick={goBack} className="group flex items-center gap-2 text-sidebar-foreground/50 hover:text-sidebar-foreground text-sm transition-colors">
+                <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+                Back
+              </button>
+            )}
+            <button onClick={goHome} className="group flex items-center gap-2 text-sidebar-foreground/50 hover:text-sidebar-foreground text-sm transition-colors">
+              <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+              Back to Home
+            </button>
+          </div>
+        )}
+        {screen === "home" && <p className="text-sidebar-foreground/30 text-xs">v1.0 — Medical Mystery</p>}
       </div>
     </aside>
   );

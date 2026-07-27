@@ -7,7 +7,7 @@ import { fadeUp, staggerList } from "../animations/presets";
 import { socket } from "../services/socket";
 
 export default function LobbyPlayersScreen() {
-  const { go, players, roomCode, selectedCategory, playerId } = useGame();
+  const { go, goBack, players, roomCode, selectedCategory, playerId } = useGame();
 
   const handleStart = () => {
     socket.emit("game:start", { code: roomCode, category: selectedCategory === "Acak" ? undefined : selectedCategory });
@@ -16,7 +16,7 @@ export default function LobbyPlayersScreen() {
 
   return (
     <div className="flex flex-col min-h-screen lg:min-h-0">
-      <NavBar title="Waiting Room" onBack={() => go("lobby-main")}
+      <NavBar title="Waiting Room" onBack={goBack}
         action={
           <button
             onClick={handleStart}

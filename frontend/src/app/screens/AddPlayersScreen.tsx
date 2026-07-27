@@ -10,7 +10,7 @@ import { AVATARS, COLORS } from "../constants";
 import { fadeUp, staggerList } from "../animations/presets";
 
 export default function AddPlayersScreen() {
-  const { go, players, setPlayers } = useGame();
+  const { go, goBack, players, setPlayers } = useGame();
   const [name, setName] = useState("");
   const [selAvatar, setSelAvatar] = useState(0);
 
@@ -32,7 +32,7 @@ export default function AddPlayersScreen() {
 
   return (
     <div className="flex flex-col min-h-screen lg:min-h-0">
-      <NavBar title="Add Players" onBack={() => go("home")} />
+      <NavBar title="Add Players" onBack={goBack} />
       <StepBar current={0} />
 
       <div className="flex-1 flex flex-col lg:flex-row lg:gap-0 overflow-hidden">
@@ -97,7 +97,7 @@ export default function AddPlayersScreen() {
         </div>
       </div>
 
-      <DualButtonBar onBack={() => go("home")} onNext={() => go("offline-category")} nextDisabled={players.length < 3} />
+      <DualButtonBar onBack={goBack} onNext={() => go("offline-category")} nextDisabled={players.length < 3} />
     </div>
   );
 }

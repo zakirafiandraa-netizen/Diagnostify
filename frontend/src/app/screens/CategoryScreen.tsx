@@ -7,11 +7,11 @@ import { CATEGORIES } from "../constants";
 import { fadeUp, staggerList } from "../animations/presets";
 
 export default function CategoryScreen() {
-  const { go, selectedCategory, setSelectedCategory } = useGame();
+  const { go, goBack, selectedCategory, setSelectedCategory } = useGame();
 
   return (
     <div className="flex flex-col min-h-screen lg:min-h-0">
-      <NavBar title="Disease Category" onBack={() => go("offline-players")} />
+      <NavBar title="Disease Category" onBack={goBack} />
       <StepBar current={1} />
       <div className="flex-1 overflow-y-auto px-4 lg:px-8 py-4">
         <p className="text-sm text-muted-foreground mb-4">Select a disease category for this round.</p>
@@ -30,7 +30,7 @@ export default function CategoryScreen() {
           ))}
         </motion.div>
       </div>
-      <DualButtonBar onBack={() => go("offline-players")} onNext={() => go("offline-summary")} />
+      <DualButtonBar onBack={goBack} onNext={() => go("offline-summary")} />
     </div>
   );
 }
