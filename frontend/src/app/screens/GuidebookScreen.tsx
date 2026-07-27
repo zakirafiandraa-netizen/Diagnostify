@@ -187,11 +187,10 @@ export default function GuidebookScreen() {
             className="bg-card rounded-2xl p-5 lg:p-6 border border-border shadow-sm"
           >
             <div className="bg-card rounded-2xl p-5 lg:p-6 shadow-sm border border-border">
-              <h3 className="font-bold text-lg text-foreground mb-2">How to Play</h3>
+              <h3 className="font-bold text-lg text-foreground mb-2">A Patient's life is in your hands</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Diagnostify is a competitive multiplayer medical diagnosis game where players 
-                must identify the underlying disease based on the category and their secret word. 
-                Everyone except the Undercover and Mr. White receives the same medical diagnosis word.
+                Multiple patient records have been corrupted, causing inconsistent diagnostic information to be distributed among members of the medical team.{" "}
+                You are one of the clinicians responsible for this patient. <span className="font-bold text-red-600 dark:text-red-400">Every decision matters</span>. Work together and identify the correct diagnosis before it is too late.
               </p>
             </div>
             <span className="inline-block mt-4 text-xs font-medium text-muted-foreground bg-muted px-3 py-1.5 rounded-full">
@@ -210,7 +209,8 @@ export default function GuidebookScreen() {
               icon={<Users className="w-4 h-4" />}
               iconBg="bg-section-roles-icon-bg"
               iconColor="text-section-roles-icon"
-              title="Player Roles"
+              title="Due to System Failure, 
+              each clinician will receive one of the following record statuses:"
             />
             <motion.div
               variants={staggerList}

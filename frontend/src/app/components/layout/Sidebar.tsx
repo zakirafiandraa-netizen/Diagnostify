@@ -35,7 +35,7 @@ export function Sidebar() {
           </div>
           <div>
             <p className="font-bold text-sidebar-foreground text-lg leading-none font-sans">Diagnostify</p>
-            <p className="text-sidebar-foreground/50 text-xs mt-0.5">Medical mystery game</p>
+            <p className="text-sidebar-foreground/50 text-xs mt-0.5">Clinical mystery game</p>
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@ export function Sidebar() {
               { label: "Game Modes", value: "2", icon: JoystickIcon },
               { label: "Max Players", value: "10", icon: UsersThreeIcon },
               { label: "Disease Words", value: "50+", icon: VirusIcon },
-              { label: "Categories", value: "11", icon: PlayIcon },
+              { label: "Clinical System", value: "11", icon: PlayIcon },
             ].map((s) => (
               <div key={s.label} className="bg-sidebar-accent hover:bg-sidebar-accent/80 transition-colors rounded-xl p-3 flex items-center gap-3 cursor-default">
                 <s.icon className="w-6 h-6 text-sidebar-foreground" />

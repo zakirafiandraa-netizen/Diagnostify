@@ -9,26 +9,26 @@ export default function HomeScreen() {
   const { go } = useGame();
 
   const cards = useMemo(() => [
-    { icon:<WifiOff className="w-6 h-6"/>, title:"Offline Mode", subtitle:"Play locally with friends in the same room", stats:["2–8 players","No internet"], cta:"Play Offline", bg:"bg-primary", shadow:"hover:shadow-primary/25", screen:"offline-players" as Screen },
-    { icon:<Wifi className="w-6 h-6"/>,    title:"Online Mode",  subtitle:"Play with anyone, anywhere in real-time",    stats:["2–10 players","Real-time"],  cta:"Play Online", bg:"bg-online-mode", shadow:"hover:shadow-online-mode/25", badge:"Live", screen:"online-join" as Screen },
-    { icon:<BookOpen className="w-6 h-6"/>,title:"Guidebook",    subtitle:"Learn all the rules, roles, and strategies",  stats:["Full guide","Tips & tricks"], cta:"Read Guide", bg:"bg-guidebook-mode", shadow:"hover:shadow-guidebook-mode/25", screen:"guidebook" as Screen },
+    { icon: <WifiOff className="w-6 h-6" />, title: "Offline Mode", subtitle: "Play locally with friends in the same room", stats: ["2–10 players", "No internet"], cta: "Play Offline", bg: "bg-primary", shadow: "hover:shadow-primary/25", screen: "offline-players" as Screen },
+    { icon: <Wifi className="w-6 h-6" />, title: "Online Mode", subtitle: "Play with anyone, anywhere in real-time", stats: ["2–10 players", "Real-time"], cta: "Play Online", bg: "bg-online-mode", shadow: "hover:shadow-online-mode/25", badge: "Live", screen: "online-join" as Screen },
+    { icon: <BookOpen className="w-6 h-6" />, title: "Guidebook", subtitle: "Learn all the rules, roles, and strategies", stats: ["Full guide", "Tips & tricks"], cta: "Read Guide", bg: "bg-guidebook-mode", shadow: "hover:shadow-guidebook-mode/25", screen: "guidebook" as Screen },
   ], []);
 
   return (
     <div className="flex flex-col min-h-screen lg:min-h-0 lg:pb-14">
       {/* Hero */}
       <div className="flex flex-col items-center pt-10 pb-8 px-4 lg:pt-16 lg:pb-12 bg-gradient-to-b from-primary/10 to-transparent">
-        <motion.div initial={{ scale:0.8, opacity:0 }} animate={{ scale:1, opacity:1 }} transition={{ duration:0.4, ease:"easeOut" }}
+        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.4, ease: "easeOut" }}
           className="w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-primary flex items-center justify-center mb-4 shadow-2xl shadow-primary/30">
           <Stethoscope className="w-9 h-9 lg:w-11 lg:h-11 text-white" />
         </motion.div>
-        <motion.h1 initial={{ opacity:0, y:10 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.1, duration:0.3 }}
+        <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.3 }}
           className="text-2xl lg:text-4xl font-bold text-foreground tracking-tight">
           Diagnostify
         </motion.h1>
-        <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.2, duration:0.3 }}
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.3 }}
           className="text-sm lg:text-base text-muted-foreground mt-1.5 text-center max-w-md">
-          Medical mystery — who is the undercover doctor?
+          A Clinical Mystery Game for Diagnostic Reasoning.
         </motion.p>
       </div>
 
