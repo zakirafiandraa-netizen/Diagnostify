@@ -5,28 +5,28 @@ import { fadeUp, staggerList } from "../animations/presets";
 
 const ROLES = [
   {
-    title: "Main Diagnose",
+    title: "Verified Record",
     percentage: "60% of players",
     description:
-      "Receives the primary disease to diagnose. Your goal is to provide accurate diagnosis while identifying other roles.",
+      "Several clinicians receive the same working diagnosis.",
     bg: "bg-role-civilian-bg",
     border: "border-role-civilian-border",
     titleColor: "text-role-civilian",
   },
   {
-    title: "Differential Diagnose",
+    title: "Conflicted Record",
     percentage: "30% of players",
     description:
-      "Receives a similar but different disease. Must blend in while providing plausible alternative diagnoses.",
+      "A few clinicians recieve a slightly different diagnosis.",
     bg: "bg-role-undercover-bg",
     border: "border-role-undercover-border",
     titleColor: "text-role-undercover",
   },
   {
-    title: "Doctor Grey",
+    title: "Corrupted Record",
     percentage: "10% of players",
     description:
-      "Receives no disease information. Must deduce from others' discussions and survive using medical knowledge.",
+      "One clinician receives no diagnostic information.",
     bg: "bg-role-mrwhite-bg",
     border: "border-role-mrwhite-border",
     titleColor: "text-role-mrwhite",
@@ -36,61 +36,61 @@ const ROLES = [
 const PHASES = [
   {
     step: 1,
-    title: "Lobby Phase",
+    title: "Discussion Round",
     description:
-      "Players join the room and wait for the host to start the game. Minimum 4 players required.",
+      "In each discussion round, every clinician must present clinical clues based on their assigned record.",
     color: "var(--phase-1-lobby)",
   },
   {
     step: 2,
-    title: "Role Assignment",
+    title: "Voiting Round",
     description:
-      "Players click cards to reveal their secret roles and diseases. Keep your role hidden from others!",
+      "After each round, the team will vote to remove the clinician whose interpretation is least consistent. Then the clinician with the most voted are eliminated.",
     color: "var(--phase-2-roles)",
   },
   {
     step: 3,
-    title: "Discussion Rounds",
+    title: "Quiz Round",
     description:
-      "Players share their diagnoses in chat, then vote to eliminate one player each round. Continue until 3 players remain.",
+      "Every Clinician gets a quick quiz about a similar record. The wrong answers are penalised by reducing the clinician's Score.",
     color: "var(--phase-3-discuss)",
   },
   {
     step: 4,
-    title: "Final Round",
+    title: "Finalists Round",
     description:
-      "Last 3 players submit treatment plans and medical innovations. Eliminated players vote for the winner.",
+      "The remaining clinicians must continue until the Final Management Round to establish definitive diagnosis and management plan.",
     color: "var(--phase-4-final)",
   },
 ] as const;
 
 const TIPS = [
   {
-    title: "For Main Diagnose",
+    title: "For Verified Record",
     titleColor: "text-role-civilian",
     bg: "bg-role-civilian-bg",
     border: "border-role-civilian-border",
     points: [
       "Provide accurate but not overly detailed diagnoses",
       "Watch for players giving similar answers",
-      "Form alliances with other Main Diagnose players",
+      "Form alliances with other Verified Record players",
       "Be suspicious of vague or incorrect answers",
     ],
   },
   {
-    title: "For Differential Diagnose",
+    title: "For Conflicted Record",
     titleColor: "text-role-undercover",
     bg: "bg-role-undercover-bg",
     border: "border-role-undercover-border",
     points: [
       "Give plausible alternative diagnoses",
-      "Blend in with Main Diagnose players",
+      "Blend in with Conflicted Record players",
       "Don't be too obvious about your different disease",
       "Use medical knowledge to seem credible",
     ],
   },
   {
-    title: "For Doctor Grey",
+    title: "For Corrupted Record",
     titleColor: "text-role-mrwhite",
     bg: "bg-role-mrwhite-bg",
     border: "border-role-mrwhite-border",
@@ -116,10 +116,9 @@ const TIPS = [
 ] as const;
 
 const IMPORTANT_NOTES = [
-  "Keep your role and disease information secret from other players",
-  "The game requires medical knowledge - study up on diseases and treatments!",
-  "Eliminated players can still participate in the final voting round",
-  "Real-time communication is key - stay active in discussions",
+  "TIME IS RUNNING OUT.",
+  "The patient is waiting!",
+  "Good luck, doctor.",
 ] as const;
 
 function SectionHeader({
