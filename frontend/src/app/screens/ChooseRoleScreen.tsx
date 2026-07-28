@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { motion } from "motion/react";
-import { FirstAid as Stethoscope } from "@phosphor-icons/react";
+import { FirstAid as Stethoscope, Hospital } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { fadeUp, staggerList } from "../animations/presets";
 import { socket } from "../services/socket";
 
 export default function ChooseRoleScreen() {
   const { players, cards, roomCode, playerId } = useGame();
+  const [caseNumber] = useState(() => Math.floor(Math.random() * 5000) + 1);
 
   const pickedCount = cards.filter(c => c.pickedBy).length;
   const progressPercent = players.length > 0 ? (pickedCount / players.length) * 100 : 0;
@@ -14,15 +16,29 @@ export default function ChooseRoleScreen() {
   return (
     <div className="flex flex-col min-h-screen lg:min-h-0">
       <div className="flex flex-col items-center pt-8 pb-6 px-4 lg:pt-14 lg:pb-10 bg-gradient-to-b from-primary/10 to-transparent">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-5 p-4 rounded-2xl border-2 border-primary/20 bg-card/90 shadow-md backdrop-blur-sm flex flex-col items-center justify-center text-center gap-1.5 min-w-[240px] lg:min-w-[280px]"
+        >
+          <div className="flex items-center gap-2 text-primary font-bold tracking-wider text-xs lg:text-sm">
+            <Hospital className="w-5 h-5 lg:w-6 lg:h-6 shrink-0" />
+            <span>HOSPITAL INFORMATION SYSTEM</span>
+          </div>
+          <div className="font-mono text-sm lg:text-base font-extrabold text-foreground bg-muted/80 px-3.5 py-1 rounded-lg border border-border/60 tracking-wide">
+            CASE #{caseNumber}
+          </div>
+        </motion.div>
+
         <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-2xl bg-primary flex items-center justify-center mb-3 shadow-xl shadow-primary/30">
           <Stethoscope className="w-7 h-7 lg:w-9 lg:h-9 text-white" />
         </div>
-        <h2 className="font-bold text-xl lg:text-3xl text-foreground">Choose Your Card</h2>
-        <p className="text-sm text-muted-foreground mt-1.5">Tap a card to reveal your secret role</p>
+        <h2 className="font-bold text-xl lg:text-3xl text-foreground">Choose Your Records</h2>
+        <p className="text-sm text-muted-foreground mt-1.5">Tap a card to reveal your unassigned record</p>
         <div className="mt-3 flex items-center gap-3 bg-muted px-4 py-2 rounded-full">
           <span className="text-xs text-muted-foreground font-medium">{pickedCount} of {players.length} players chosen</span>
           <div className="h-1.5 w-20 bg-border rounded-full overflow-hidden">
-            <motion.div className="h-full bg-primary rounded-full" initial={{ width:0 }} animate={{ width:`${progressPercent}%` }} transition={{ duration:0.6, delay:0.3 }} />
+            <motion.div className="h-full bg-primary rounded-full" initial={{ width: 0 }} animate={{ width: `${progressPercent}%` }} transition={{ duration: 0.6, delay: 0.3 }} />
           </div>
         </div>
       </div>
@@ -36,7 +52,7 @@ export default function ChooseRoleScreen() {
             const isMyCard = card.pickedBy === playerId;
 
             return (
-              <motion.button key={card.id} variants={fadeUp} 
+              <motion.button key={card.id} variants={fadeUp}
                 onClick={() => {
                   if (!isTaken && !hasPicked && roomCode) {
                     socket.emit("game:pickCard", { code: roomCode, cardId: card.id });
@@ -44,23 +60,23 @@ export default function ChooseRoleScreen() {
                 }}
                 disabled={isTaken || hasPicked}
                 className={`rounded-2xl lg:rounded-3xl border-2 p-6 lg:p-8 flex flex-col items-center gap-3 lg:gap-4 transition-all duration-200
-                  ${isTaken 
-                    ? isMyCard 
-                      ? "bg-primary/10 border-primary/50 opacity-100" 
+                  ${isTaken
+                    ? isMyCard
+                      ? "bg-primary/10 border-primary/50 opacity-100"
                       : "bg-muted border-border/50 opacity-60"
-                    : hasPicked 
+                    : hasPicked
                       ? "bg-card border-border opacity-50 cursor-not-allowed"
                       : "bg-card border-border hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1.5 active:scale-95"
                   }`}
               >
                 <span className="text-xs text-muted-foreground font-mono self-end">#{i + 1}</span>
                 {isTaken ? (
-                   <div className="flex flex-col items-center gap-1">
-                     <span className="text-2xl">{pickedByPlayer?.avatar || "🧑"}</span>
-                     <span className="text-xs font-medium text-muted-foreground">{pickedByPlayer?.name}</span>
-                   </div>
+                  <div className="flex flex-col items-center gap-1">
+                    <span className="text-2xl">{pickedByPlayer?.avatar || "🧑"}</span>
+                    <span className="text-xs font-medium text-muted-foreground">{pickedByPlayer?.name}</span>
+                  </div>
                 ) : (
-                   <Stethoscope className="w-10 h-10 lg:w-14 lg:h-14 text-primary/30" />
+                  <Stethoscope className="w-10 h-10 lg:w-14 lg:h-14 text-primary/30" />
                 )}
                 <span className={`text-xs lg:text-sm font-semibold ${isTaken ? 'text-muted-foreground' : 'text-primary'}`}>
                   {isTaken ? (isMyCard ? "Your Card" : "Taken") : "Click to pick"}

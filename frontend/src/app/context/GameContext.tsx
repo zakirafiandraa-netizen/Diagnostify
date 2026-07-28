@@ -51,6 +51,7 @@ interface GameState {
   finalSolutionVotes: { votesCast: number; total: number };
   finalReveal: FinalRevealEntry[];
   solutionsSubmittedCount: number;
+  caseNumber: number;
 }
 
 const BACK_FALLBACKS: Partial<Record<Screen, Screen>> = {
@@ -118,6 +119,17 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const [finalSolutionVotes, setFinalSolutionVotes] = useState({ votesCast: 0, total: 0 });
   const [finalReveal, setFinalReveal] = useState<FinalRevealEntry[]>([]);
   const [solutionsSubmittedCount, setSolutionsSubmittedCount] = useState(0);
+
+  const [sessionCaseNumber] = useState(() => Math.floor(Math.random() * 5000) + 1);
+  const caseNumber = useMemo(() => {
+    if (!roomCode) return sessionCaseNumber;
+    let hash = 0;
+    for (let i = 0; i < roomCode.length; i++) {
+      hash = (hash << 5) - hash + roomCode.charCodeAt(i);
+      hash |= 0;
+    }
+    return (Math.abs(hash) % 5000) + 1;
+  }, [roomCode, sessionCaseNumber]);
 
   const [history, setHistory] = useState<Screen[]>(["home"]);
 
@@ -477,6 +489,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     winners, civilianWord, undercoverWord,
     clueRequested, setClueRequested,
     finalists, finalDiagnosis, finalSolutions, finalSolutionVotes, finalReveal, solutionsSubmittedCount,
+    caseNumber,
   }), [
     screen, go, goBack, goHome, canGoBack, players, selectedCategory, roomCode, chatMessages,
     playerId, myRole, myWord, gameCategory, cards,
@@ -485,6 +498,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     winners, civilianWord, undercoverWord,
     clueRequested,
     finalists, finalDiagnosis, finalSolutions, finalSolutionVotes, finalReveal, solutionsSubmittedCount,
+    caseNumber,
   ]);
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;

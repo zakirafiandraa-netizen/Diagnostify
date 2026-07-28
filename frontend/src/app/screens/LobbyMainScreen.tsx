@@ -49,7 +49,7 @@ export default function LobbyMainScreen() {
     document.body.appendChild(ta);
     ta.focus();
     ta.select();
-    try { document.execCommand("copy"); } catch (_) {}
+    try { document.execCommand("copy"); } catch (_) { }
     document.body.removeChild(ta);
   };
 
@@ -105,7 +105,7 @@ export default function LobbyMainScreen() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label: "Players Joined", value: `${players.length} / 8` },
+                { label: "Players Joined", value: `${players.length} / 10` },
                 { label: "Current Phase", value: "Lobby" }
               ].map((s) => (
                 <div key={s.label} className="bg-muted rounded-xl p-3">
@@ -120,7 +120,7 @@ export default function LobbyMainScreen() {
           <div className="bg-card rounded-2xl p-5 border border-border shadow-sm">
             <div className="flex items-center gap-2 mb-3">
               <BookOpen className="w-4 h-4 text-primary" />
-              <h4 className="font-semibold text-sm">Disease Category</h4>
+              <h4 className="font-semibold text-sm">Clinical System</h4>
               {!isHost && (
                 <span className="ml-auto text-xs text-muted-foreground italic">Set by host</span>
               )}
@@ -138,11 +138,10 @@ export default function LobbyMainScreen() {
                       <button
                         key={cat}
                         onClick={() => handleCategoryChange(cat)}
-                        className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-all border ${
-                          selectedCategory === cat
-                            ? "bg-primary text-white border-primary shadow-md shadow-primary/20"
-                            : "bg-muted text-foreground border-transparent hover:border-primary/30 hover:bg-muted/70"
-                        }`}
+                        className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-all border ${selectedCategory === cat
+                          ? "bg-primary text-white border-primary shadow-md shadow-primary/20"
+                          : "bg-muted text-foreground border-transparent hover:border-primary/30 hover:bg-muted/70"
+                          }`}
                       >
                         <span className="flex items-center gap-2">
                           {selectedCategory === cat && <Check className="w-3.5 h-3.5 flex-shrink-0" />}
