@@ -168,7 +168,7 @@ export default function FinalVotingScreen() {
                   )}
                 </AnimatePresence>
               </div>
-              <p className="text-sm text-foreground leading-relaxed">
+              <p className="text-sm text-foreground leading-relaxed whitespace-pre-line">
                 {entry.solution ?? "No solution text."}
               </p>
             </motion.button>

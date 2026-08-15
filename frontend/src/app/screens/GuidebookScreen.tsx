@@ -118,7 +118,7 @@ const TIPS = [
 const IMPORTANT_NOTES = [
   "TIME IS RUNNING OUT.",
   "The patient is waiting!",
-  "Good luck, doctor.",
+  "Good luck, Doctor.",
 ] as const;
 
 function SectionHeader({

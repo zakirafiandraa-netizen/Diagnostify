@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { Shield, CheckCircle as CheckCircle2, WarningCircle as AlertCircle } from "@phosphor-icons/react";
+import { Shield, CheckCircle as CheckCircle2, WarningCircle as AlertCircle, CheckSquare } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
 import { Avatar } from "../components/shared/Avatar";
@@ -46,12 +46,20 @@ export default function VotingScreen() {
         <div className="flex-1 overflow-y-auto px-4 lg:px-8 py-4 space-y-4">
 
           {/* Live vote counter */}
-          <div className="bg-card border border-border rounded-2xl p-4 flex items-center justify-between">
-            <div>
-              <p className="text-sm font-bold text-foreground">Voting Status</p>
-              <p className="text-xs text-muted-foreground mt-0.5">Who is the Undercover doctor?</p>
+          <div className="bg-card border border-border rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 bg-green-500/10 rounded-xl text-green-500 shrink-0">
+                <CheckSquare className="w-6 h-6" />
+              </div>
+              <div className="space-y-1">
+                <p className="text-sm font-bold text-foreground">Voting Phase</p>
+                <p className="text-xs font-semibold text-primary">Who is likely giving an incorrect diagnosis?</p>
+                <p className="text-xs text-muted-foreground max-w-md leading-relaxed">
+                  <span className="font-semibold text-foreground">Tip:</span> Vote thoughtfully by spotting inconsistent or confusing clues.
+                </p>
+              </div>
             </div>
-            <div className="text-right">
+            <div className="text-left sm:text-right shrink-0 border-t sm:border-t-0 pt-3 sm:pt-0 border-border">
               <span className="text-2xl font-bold text-primary">{votesCast}</span>
               <span className="text-lg text-muted-foreground"> / {totalVoters}</span>
               <p className="text-xs text-muted-foreground">votes cast</p>

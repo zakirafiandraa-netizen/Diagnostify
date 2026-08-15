@@ -75,7 +75,7 @@ export default function FinalSubmissionsScreen() {
                         <Stethoscope className="w-3.5 h-3.5 text-primary" />
                         <p className="text-xs font-semibold text-foreground">Treatment Solution</p>
                       </div>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
+                      <p className="text-xs text-muted-foreground leading-relaxed whitespace-pre-line">
                         {entry.solution ?? "—"}
                       </p>
                     </div>

@@ -14,17 +14,33 @@ export default function FinalDiagnosisScreen() {
   const isFinalist = finalists.includes(playerId);
   const totalFinalists = finalists.length;
 
-  const [solution, setSolution] = useState("");
+  const [diagnosis, setDiagnosis] = useState("");
+  const [justification, setJustification] = useState("");
+  const [management, setManagement] = useState("");
+  const [innovation, setInnovation] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
+  const isFormComplete = diagnosis.trim() && justification.trim() && management.trim() && innovation.trim();
+
   const handleSubmit = () => {
-    const trimmed = solution.trim();
-    if (!trimmed) {
-      setError("Please write your solution before submitting.");
+    if (!isFormComplete) {
+      setError("Please complete all sections before submitting.");
       return;
     }
-    socket.emit("final:submit_solution", { roomCode, solution: trimmed });
+    const combinedSolution = `📋 Final Diagnosis:
+${diagnosis.trim()}
+
+🔍 Justification (Clinical Reasoning):
+${justification.trim()}
+
+🩺 Management Plan (Exam & Treatment):
+${management.trim()}
+
+💡 Innovation / Recommendations:
+${innovation.trim()}`;
+
+    socket.emit("final:submit_solution", { roomCode, solution: combinedSolution });
     setSubmitted(true);
     setError("");
   };
@@ -135,21 +151,77 @@ export default function FinalDiagnosisScreen() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ delay: 0.25, duration: 0.3 }}
-            className="flex flex-col gap-3 flex-1"
+            className="flex flex-col gap-4 flex-1"
           >
-            <label className="text-sm font-semibold text-foreground">Your Treatment Solution</label>
-            <textarea
-              id="final-solution-input"
-              rows={6}
-              value={solution}
-              onChange={e => { setSolution(e.target.value); setError(""); }}
-              placeholder="Describe your diagnosis, treatment plan, and any innovative approaches…"
-              className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary leading-relaxed"
-            />
+            <div className="space-y-4">
+              {/* 1. Final Diagnosis */}
+              <div className="space-y-1">
+                <label className="text-sm font-semibold text-foreground" htmlFor="diagnosis-input">
+                  Final diagnosis
+                </label>
+                <p className="text-xs text-muted-foreground">state your final diagnosis</p>
+                <textarea
+                  id="diagnosis-input"
+                  rows={2}
+                  value={diagnosis}
+                  onChange={e => { setDiagnosis(e.target.value); setError(""); }}
+                  placeholder="Type your answer here.."
+                  className="w-full rounded-xl border border-border bg-card px-4 py-2.5 text-sm text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary leading-relaxed"
+                />
+              </div>
+
+              {/* 2. Justification */}
+              <div className="space-y-1">
+                <label className="text-sm font-semibold text-foreground" htmlFor="justification-input">
+                  Justification
+                </label>
+                <p className="text-xs text-muted-foreground">explain the clinical reasoning behind your diagnosis</p>
+                <textarea
+                  id="justification-input"
+                  rows={3}
+                  value={justification}
+                  onChange={e => { setJustification(e.target.value); setError(""); }}
+                  placeholder="Type your answer here.."
+                  className="w-full rounded-xl border border-border bg-card px-4 py-2.5 text-sm text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary leading-relaxed"
+                />
+              </div>
+
+              {/* 3. Management Plan */}
+              <div className="space-y-1">
+                <label className="text-sm font-semibold text-foreground" htmlFor="management-input">
+                  Management Plan
+                </label>
+                <p className="text-xs text-muted-foreground">Include supporting examination and treatment</p>
+                <textarea
+                  id="management-input"
+                  rows={3}
+                  value={management}
+                  onChange={e => { setManagement(e.target.value); setError(""); }}
+                  placeholder="Type your answer here.."
+                  className="w-full rounded-xl border border-border bg-card px-4 py-2.5 text-sm text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary leading-relaxed"
+                />
+              </div>
+
+              {/* 4. Innovation */}
+              <div className="space-y-1">
+                <label className="text-sm font-semibold text-foreground" htmlFor="innovation-input">
+                  Innovation
+                </label>
+                <p className="text-xs text-muted-foreground">propose an innovative approach or additional recommendation</p>
+                <textarea
+                  id="innovation-input"
+                  rows={3}
+                  value={innovation}
+                  onChange={e => { setInnovation(e.target.value); setError(""); }}
+                  placeholder="Type your answer here.."
+                  className="w-full rounded-xl border border-border bg-card px-4 py-2.5 text-sm text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary leading-relaxed"
+                />
+              </div>
+            </div>
+
             {error && (
               <p className="text-xs text-red-500 font-medium">{error}</p>
             )}
-            <div className="text-xs text-muted-foreground text-right">{solution.trim().length} characters</div>
 
             {/* Submission progress */}
             <div className="rounded-xl border p-3.5 flex items-center justify-between bg-card border-border">
@@ -162,8 +234,8 @@ export default function FinalDiagnosisScreen() {
             <button
               id="submit-solution-btn"
               onClick={handleSubmit}
-              disabled={!solution.trim()}
-              className={`w-full py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground ${solution.trim() ? "bg-primary text-primary-foreground" : ""}`}
+              disabled={!isFormComplete}
+              className={`w-full py-3.5 rounded-xl font-bold text-sm transition-all shadow-lg disabled:opacity-40 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground ${isFormComplete ? "bg-primary text-primary-foreground" : ""}`}
             >
               Submit Solution →
             </button>
