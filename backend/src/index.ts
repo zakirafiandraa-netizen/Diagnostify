@@ -15,7 +15,7 @@ const io = new Server(httpServer, {
         methods: ["GET", "POST"],
     },
 });
-
+//debug
 io.on("connection", (socket) => {
     console.log(`Player Joined!, ${socket.id}`);
     registerGameHandlers(io, socket);
