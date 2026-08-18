@@ -1,10 +1,17 @@
 import { useState, useEffect, useRef } from "react";
-import { 
-  Clock, 
-  PaperPlaneRight as Send, 
-  FirstAid as Stethoscope, 
-  Question as HelpCircle, 
-  UserMinus as UserX 
+import {
+  Clock,
+  PaperPlaneRight as Send,
+  FirstAid as Stethoscope,
+  Question as HelpCircle,
+  UserMinus as UserX,
+  Heartbeat,
+  MagnifyingGlass,
+  Flask,
+  Warning,
+  Pill,
+  Users,
+  BookOpen
 } from "@phosphor-icons/react";
 import { useGame } from "../context/GameContext";
 import { NavBar } from "../components/shared/NavBar";
@@ -42,19 +49,19 @@ const ROLE_CONFIG = {
 };
 
 export default function DiscussionScreen() {
-  const { 
-    players, 
-    chatMessages, 
-    playerId, 
-    roomCode, 
-    clueRequested, 
+  const {
+    players,
+    chatMessages,
+    playerId,
+    roomCode,
+    clueRequested,
     setClueRequested,
     myRole,
     myWord,
     gameCategory,
     caseNumber
   } = useGame();
-  
+
   const [clue, setClue] = useState("");
   const [typingPlayerIds, setTypingPlayerIds] = useState<string[]>([]);
   const [speakingPlayerIds, setSpeakingPlayerIds] = useState<string[]>([]);
@@ -66,7 +73,7 @@ export default function DiscussionScreen() {
   useEffect(() => {
     const onChatTyping = (id: string) => {
       setTypingPlayerIds((prev) => [...new Set([...prev, id])]);
-      
+
       // Auto-clear typing indicator after 5 seconds of inactivity (network fallback)
       if (typingTimeouts.current[id]) {
         window.clearTimeout(typingTimeouts.current[id]);
@@ -113,7 +120,7 @@ export default function DiscussionScreen() {
       socket.off("chat:typing", onChatTyping);
       socket.off("chat:stop_typing", onChatStopTyping);
       socket.off("chat:message", onChatMessage);
-      
+
       // Clean up all running timeouts on unmount
       Object.values(typingTimeouts.current).forEach(window.clearTimeout);
       Object.values(speakingTimeouts.current).forEach(window.clearTimeout);
@@ -218,6 +225,30 @@ export default function DiscussionScreen() {
                 </div>
               </div>
 
+              {/* Clue Types Card */}
+              <div className="bg-card rounded-2xl border border-border p-5 shadow-sm space-y-3">
+                <div className="flex items-center gap-2 border-b border-border pb-3">
+                  <Flask className="w-4 h-4 text-primary" />
+                  <h4 className="font-bold text-sm text-foreground">Clues May Include</h4>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {([
+                    { icon: <Heartbeat className="w-3.5 h-3.5" />, label: "Symptoms" },
+                    { icon: <MagnifyingGlass className="w-3.5 h-3.5" />, label: "Physical exam findings" },
+                    { icon: <Flask className="w-3.5 h-3.5" />, label: "Lab / imaging findings" },
+                    { icon: <Warning className="w-3.5 h-3.5" />, label: "Complications" },
+                    { icon: <Pill className="w-3.5 h-3.5" />, label: "Treatment" },
+                    { icon: <Users className="w-3.5 h-3.5" />, label: "Epidemiology" },
+                    { icon: <BookOpen className="w-3.5 h-3.5" />, label: "Basic medical sciences" },
+                  ] as const).map(({ icon, label }) => (
+                    <div key={label} className="flex items-center gap-2 bg-muted/50 rounded-lg px-3 py-2">
+                      <span className="text-primary shrink-0">{icon}</span>
+                      <span className="text-xs text-muted-foreground leading-tight">{label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* Secret Diagnosis Card */}
               <div className="bg-card rounded-2xl border border-border p-5 shadow-sm relative overflow-hidden">
                 <div className="flex items-center justify-between mb-4 border-b border-border pb-3">
@@ -226,7 +257,7 @@ export default function DiscussionScreen() {
                     CASE #{caseNumber}
                   </span>
                 </div>
-                
+
                 <div className="flex items-center gap-4">
                   <div className={`p-3 rounded-xl ${roleDetails.bg} border border-transparent`}>
                     {roleDetails.icon}
@@ -240,7 +271,7 @@ export default function DiscussionScreen() {
                     </p>
                   </div>
                 </div>
-                
+
                 <div className={`mt-4 p-3 rounded-xl ${roleDetails.bg}/60 border border-border/20 text-xs text-foreground/80 leading-relaxed`}>
                   <span className="font-semibold block mb-0.5">Role: {roleDetails.label}</span>
                   {roleDetails.hint}

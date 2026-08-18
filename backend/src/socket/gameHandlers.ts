@@ -10,8 +10,8 @@ import type { Player } from "../types/game.js";
 import { getCategories } from "../rooms/wordManager.js";
 import { getRandomQuestion, getQuizCategories } from "../rooms/quizManager.js";
 
-const disconnectTimers: Record<string, NodeJS.Timeout> = {};
 const inactivityTimers: Record<string, NodeJS.Timeout> = {};
+const disconnectTimers: Record<string, NodeJS.Timeout> = {};
 // quiz auto-end timers keyed by roomCode
 const quizTimers: Record<string, NodeJS.Timeout> = {};
 
@@ -215,28 +215,11 @@ export function registerGameHandlers(io: Server, socket: Socket) {
 
             const player = room.players.find(p => p.id === socket.id);
             if (player) {
-                player.connected = false;
-                io.to(roomCode).emit("room:updated", sanitizeRoomForBroadcast(room));
-
-                const playerName = player.name;
-                const disconnectedSocketId = player.id;
-
-                disconnectTimers[playerName] = setTimeout(() => {
-                    const currentRoom = getRoom(roomCode);
-                    if (!currentRoom) return;
-                    const stillDisconnected = currentRoom.players.find(
-                        p => p.id === disconnectedSocketId && !p.connected
-                    );
-                    if (stillDisconnected) {
-                        const updatedRoom = leaveRoom(roomCode, disconnectedSocketId);
-                        if (updatedRoom) {
-                            if (updatedRoom) {
-                                io.to(roomCode).emit("room:updated", sanitizeRoomForBroadcast(updatedRoom))
-                            };
-                        }
-                    }
-                    delete disconnectTimers[playerName];
-                }, 15_000);
+                console.log(`Player ${player.name} (${socket.id}) left room ${roomCode}.`);
+                const updatedRoom = leaveRoom(roomCode, socket.id);
+                if (updatedRoom) {
+                    io.to(roomCode).emit("room:updated", sanitizeRoomForBroadcast(updatedRoom));
+                }
             }
         });
     });
