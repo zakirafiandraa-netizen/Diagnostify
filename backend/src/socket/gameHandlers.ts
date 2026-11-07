@@ -15,7 +15,7 @@ const disconnectTimers: Record<string, NodeJS.Timeout> = {};
 // quiz auto-end timers keyed by roomCode
 const quizTimers: Record<string, NodeJS.Timeout> = {};
 
-const QUIZ_DURATION_MS = 30_000; // 30 seconds per quiz round
+const QUIZ_DURATION_MS = 60_000; // 30 seconds per quiz round
 
 /** Shared quiz-end logic — checks win condition then either emits game:won or starts next round */
 function endQuiz(io: Server, roomCode: string) {
