@@ -20,6 +20,7 @@
   "homepage": "https://github.com/zakirafiandraa-netizen/Uncoverles#readme",
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
-    "motion": "^12.42.2"
+    "motion": "^12.42.2",
+    "socket.io-client": "^4.8.4"
   }
 }

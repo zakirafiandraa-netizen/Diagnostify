@@ -9,6 +9,8 @@ import {
 import type { Player } from "../types/game.js";
 import { getCategories } from "../rooms/wordManager.js";
 import { getRandomQuestion, getQuizCategories } from "../rooms/quizManager.js";
+import { botManager } from "../bots/botManager.js";
+import type { BotDifficulty } from "../bots/botContent.js";
 
 const inactivityTimers: Record<string, NodeJS.Timeout> = {};
 const disconnectTimers: Record<string, NodeJS.Timeout> = {};
@@ -199,10 +201,21 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         socket.leave(code);
         if (room) {
             socket.to(code).emit("room:updated", sanitizeRoomForBroadcast(room));
+        } else {
+            botManager.removeRoomBots(code);
         }
     });
 
+    socket.on("disconnecting", () => {
+        socket.rooms.forEach((code) => {
+            if (code === socket.id) return;
+            const p = getRoom(code)?.players.find((pl) => pl.id === socket.id);
+            if (p && !p.isBot) { p.connected = false; botManager.scheduleIdleCheck(code); }
+        });
+    });
+
     socket.on("disconnect", () => {
+        console.log("disconnect socket.rooms.size:", socket.rooms.size);
         if (inactivityTimers[socket.id]) {
             clearTimeout(inactivityTimers[socket.id]);
             delete inactivityTimers[socket.id];
@@ -273,6 +286,25 @@ export function registerGameHandlers(io: Server, socket: Socket) {
         io.to(data.roomCode).emit("lobby:category_changed", { category: data.category });
     });
 
+    socket.on("lobby:bot_add", (data: { roomCode: string; level?: BotDifficulty }) => {
+        const room = getRoom(data.roomCode);
+        if (!room) return;
+        const player = room.players.find((p) => p.id === socket.id);
+        if (!player || !player.isHost) return;
+        const success = botManager.addBot(io, data.roomCode, data.level ?? "medium");
+        if (!success) {
+            socket.emit("room:error", "Cannot add bot: room full, already started, or no names left");
+        }
+    });
+
+    socket.on("lobby:bot_remove", (data: { roomCode: string; botId: string }) => {
+        const room = getRoom(data.roomCode);
+        if (!room) return;
+        const player = room.players.find((p) => p.id === socket.id);
+        if (!player || !player.isHost) return;
+        botManager.removeBot(io, data.roomCode, data.botId);
+    });
+
 
     socket.on("chat:message", (data: { roomCode: string, message: string, playerName: string, color: string }) => {
         const room = getRoom(data.roomCode);
@@ -300,7 +332,7 @@ export function registerGameHandlers(io: Server, socket: Socket) {
             if (r._cluesSubmitted.size >= alivePlayersCount) {
                 room.phase = "voting";
                 room.votes = {};
-                io.to(data.roomCode).emit("room:updated", room);
+                io.to(data.roomCode).emit("room:updated", sanitizeRoomForBroadcast(room));
                 io.to(data.roomCode).emit("vote:phase_started");
             }
         }
@@ -471,7 +503,7 @@ export function registerGameHandlers(io: Server, socket: Socket) {
             if (isEliminated) {
                 // Spectators get 15pts but NO privilege choice
                 applyQuizPoints(data.roomCode, socket.id, 15);
-                io.to(data.roomCode).emit("room:updated", getRoom(data.roomCode));
+                io.to(data.roomCode).emit("room:updated", sanitizeRoomForBroadcast(getRoom(data.roomCode)!));
                 const result = { correct: true, points: 15, hasPrivilege: false };
                 room._quizResults = room._quizResults ?? {};
                 room._quizResults[socket.id] = { result };

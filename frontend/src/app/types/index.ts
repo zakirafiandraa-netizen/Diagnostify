@@ -16,6 +16,7 @@ export interface Player {
   role?: "Civilian" | "Undercover" | "Mr White";
   status?: "Alive" | "Eliminated";
   connected?: boolean;
+  isBot?: boolean;
   score?: number;
   breakdown?: string;
 }

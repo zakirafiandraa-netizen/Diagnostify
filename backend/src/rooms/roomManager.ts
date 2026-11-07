@@ -3,6 +3,9 @@ import { getRandomPair, getCategories } from "./wordManager.js";
 
 const rooms: Map<string, Room> = new Map();
 
+export const MAX_PLAYERS = 8;
+export function deleteRoom(code: string) { rooms.delete(code); }
+
 function generateRoomCode(): string {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
 }
@@ -36,6 +39,7 @@ export function createRoom(hostPlayer: Omit<Player, "isHost" | "score" | "status
 export function joinRoom(code: string, newPlayer: Omit<Player, "isHost" | "score" | "status" | "immuneThisRound">): Room | null {
     const room = rooms.get(code);
     if (!room || room.status !== "Waiting") return null;
+    if (room.players.length >= MAX_PLAYERS) return null;
 
     const player: Player = {
         id: newPlayer.id,
@@ -45,6 +49,7 @@ export function joinRoom(code: string, newPlayer: Omit<Player, "isHost" | "score
         status: "Alive",
         immuneThisRound: false,
         connected: true,
+        ...(newPlayer.isBot ? { isBot: true } : {}),
     };
 
     room.players.push(player);
@@ -55,13 +60,14 @@ export function leaveRoom(code: string, playerId: string): Room | null {
     const room = rooms.get(code);
     if (!room) return null;
     room.players = room.players.filter((p) => p.id !== playerId);
-    if (room.players.length == 0) {
+    if (room.players.length === 0 || room.players.every((p) => p.isBot)) {
         rooms.delete(code);
         console.log(`Room deleted: ${code}`);
         return null;
     }
     if (!room.players.find((p) => p.isHost)) {
-        room.players[0]!.isHost = true;
+        const next = room.players.find((p) => !p.isBot) ?? room.players[0]!;
+        next.isHost = true;
     }
     return room;
 }

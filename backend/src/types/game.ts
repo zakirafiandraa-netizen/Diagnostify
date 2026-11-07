@@ -8,6 +8,7 @@ export type Player = {
     status: PlayerStatus,
     immuneThisRound: boolean,
     connected?: boolean,
+    isBot?: boolean,
 };
 
 export type PlayerStatus = "Alive" | "Eliminated";
